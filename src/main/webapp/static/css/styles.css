@@ -1,0 +1,334 @@
+body{
+	padding: 0;
+	margin: 0;
+	font-family: 'Montserrat', sans-serif;
+	color: 000;
+	font-size: 16px;
+	background-color: #EEEEEE;
+}
+
+h1, h2, h3, h4, h5, h6{
+	padding: 0;
+	margin: 0;
+	text-transform: uppercase;
+}
+
+ul, li{
+	padding: 0;
+	margin: 0;
+	display: block;
+}
+
+/**************header******************/
+.header {
+	overflow: hidden;
+	background-color: #302F2F;
+}	
+
+.logo{
+	float: left;
+	margin-left: 18px;
+}
+
+.logo a{
+	font-weight: bold;
+	font-size: 45px;
+	color: #FFDD00;
+	text-decoration: none;
+}
+
+.dropdown{
+	margin-right: 70px;
+}
+
+.dropdown, .sign-in{
+  float: right;
+  display: inline-block;
+}
+
+.dropbtn, .sign-in-btn {
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 18px 16px;
+  text-decoration: none;
+}
+
+.dropdown:hover .dropbtn, .sign-in:hover .sign-in-btn{
+  background-color: #FFDD00;
+  color: black;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #EEEEEE;
+  min-width: 120px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown-content a {
+  color: #302F2F;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+	background-color: #A2A2A2;
+}
+
+.sign-in a{
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+/**************menu********************/
+
+.column-menu{
+	padding-top: 35px;
+	width: 25%;
+	float: left;
+}
+
+.button-menu {
+	background-color: #A2A2A2;
+	border: none;
+	color: white;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 15px;
+	margin: 4px auto;
+	width: 100%;
+	cursor: pointer;
+}
+
+/* Change the link color on hover and click */
+.active, .button-menu:hover {
+	background-color: #302F2F;
+}
+
+/**************main-box********************/
+
+.column-main{
+	width: 75%;
+	float: left;
+	padding-top: 35px;
+}
+
+/**************footer********************/
+
+.footer{
+	width: 100%;
+	float: left;
+	margin-top: 39px;
+	background-color: #302F2F;
+}
+
+.about{
+	display: block;
+	float: right;
+	padding: 10px 30px;
+}
+
+.about a{ 
+	font-weight: normal;
+	font-size: 10px;
+	color: #FFDD00;
+	text-decoration: none;
+	text-align:center;
+
+}
+
+/*****************table********************/
+
+.table{
+	margin:4px auto auto auto;
+	width: 70%;
+}
+
+.table table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.table th, td {
+  text-align: left;
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+.table tr:nth-child(even){background-color: #f2f2f2}
+
+.table th {
+  background-color: #A2A2A2;
+  color: black;
+}
+
+/****************add field********************/
+
+.add-button, .remove-button {
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 25px;
+  background-color: #302F2F;
+  color: white;
+  margin: 8px auto;
+  border: none;
+  cursor: pointer;
+}
+
+.add-button {
+  padding: 0px 14px;
+}
+
+.remove-button {
+  padding: 0px 18px;
+}
+
+.section div{
+	display: inline-flex;
+	width: 100%;
+}
+
+/****************app request********************/
+
+
+.info-gr{
+	float: left;
+	text-align: center;
+	width: 50%
+}
+
+.button-gr input[type=submit] {
+	float: left;
+	text-align: center;
+	width: 33%
+}
+
+.button-user input[type=submit] {
+	text-align: center;
+	width: 100%
+}
+
+.accept-form{
+	width: 70%;
+	height: 150px;
+	margin: 4px auto auto auto;
+	background-color: #A2A2A2;
+    padding: 20px;
+}
+
+
+/****************send request********************/
+
+.send-request, .create-conference, .accept {
+  width: 70%;
+  margin: 4px auto auto auto;
+  background-color: #A2A2A2;
+  padding: 20px;
+}
+
+.checkboxes{
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+
+.checkboxes input[type=text]{
+	margin-top: 10px;
+}
+
+.add-request input[type=checkbox]{
+	position: absolute;
+}
+
+/**************form-sign-in********************/
+
+.form-signin {
+  width: 70%;
+  align-items: center;
+  margin: 4px auto auto auto;
+  background-color: #A2A2A2;
+  padding: 20px;
+}
+
+
+input[type=text], 
+input[type=password], 
+input[type=date],
+input[type=time],  select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+input[type=submit] {
+  width: 100%;
+  background-color: #302F2F;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+}
+
+input[type=submit]:hover, .add-button:hover, .remove-button:hover {
+  background-color: #FFDD00;
+  color: black;
+}
+
+.error{
+	color: #FFDD00;
+	text-align:center;
+	margin-bottom: 15px;
+}
+
+/************* For mobile device: ************/
+@media only screen and (max-width: 768px) {
+	
+	[class*="column-"]{
+		width: 100%;
+	}
+
+	.logo a{
+		font-size: 30px;
+	}
+
+	.dropdown {
+		margin-right: 40px;
+	}
+
+	.dropbtn, .sign-in-btn {
+     padding: 9px;
+    }
+
+	.button-menu{
+		padding-top: 10px;
+		padding-bottom: 10px;
+		width: 100%;
+	}
+
+	.column-menu{
+		padding-top: 4px;
+	}
+
+	.table{
+	    width: 100%;
+    }
