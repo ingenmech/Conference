@@ -12,7 +12,7 @@ public class SecurityFilter implements Filter {
     private final static String ADMIN = "admin";
     private final static String USER = "user";
     private final static String ROLE = "userRole";
-    private final static String MAIN_PAGE = "/WEB-INF/pages/main.jsp";
+    private final static String MAIN_PAGE = "/WEB-INF/pages/main-page.jsp";
 
 
     @Override

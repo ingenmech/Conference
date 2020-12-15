@@ -2,10 +2,7 @@ package com.epam.evm.conference.dao.helper;
 
 import com.epam.evm.conference.connection.ConnectionPool;
 import com.epam.evm.conference.connection.ProxyConnection;
-import com.epam.evm.conference.dao.ConferenceDao;
-import com.epam.evm.conference.dao.ConferenceDaoImpl;
-import com.epam.evm.conference.dao.UserDao;
-import com.epam.evm.conference.dao.UserDaoImpl;
+import com.epam.evm.conference.dao.*;
 import com.epam.evm.conference.exception.DaoException;
 
 import java.sql.SQLException;
@@ -24,6 +21,14 @@ public class DaoHelper implements AutoCloseable {
 
     public ConferenceDao createConferenceDao() {
         return new ConferenceDaoImpl(connection);
+    }
+
+    public SectionDao createSectionDao(){
+        return new SectionDaoImpl(connection);
+    }
+
+    public TopicDao createTopicDao(){
+        return new TopicDaoImpl(connection);
     }
 
     @Override

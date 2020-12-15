@@ -11,11 +11,12 @@ import java.util.Optional;
 
 public class LoginCommand implements Command {
 
+    private final static String ID = "userId";
     private final static String LOGIN = "login";
     private final static String PASSWORD = "password";
     private final static String ROLE = "userRole";
     private final static String MAIN_PAGE = "/controller?command=main";
-    private final static String LOGIN_PAGE = "/WEB-INF/pages/sign-in.jsp";
+    private final static String LOGIN_PAGE = "/WEB-INF/pages/login-page.jsp";
     private final static String ERROR = "errorMessage";
     private final static String ERROR_MESSAGE = "invalidLogin";
 
@@ -34,8 +35,11 @@ public class LoginCommand implements Command {
 
         if (guest.isPresent()) {
             User user = guest.get();
+            Long id = user.getId();
             String role = user.getRole();
+
             HttpSession session = request.getSession();
+            session.setAttribute(ID, id);
             session.setAttribute(LOGIN, login);
             session.setAttribute(ROLE, role);
             return CommandResult.redirect(MAIN_PAGE);

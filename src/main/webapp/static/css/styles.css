@@ -211,16 +211,16 @@ ul, li{
 .info-gr{
 	float: left;
 	text-align: center;
-	width: 50%
+	width: 33%
 }
 
 .button-gr input[type=submit] {
 	float: left;
 	text-align: center;
-	width: 33%
+	width: 50%
 }
 
-.button-user input[type=submit] {
+.button-remove input[type=submit] {
 	text-align: center;
 	width: 100%
 }
@@ -231,6 +231,7 @@ ul, li{
 	margin: 4px auto auto auto;
 	background-color: #A2A2A2;
     padding: 20px;
+
 }
 
 

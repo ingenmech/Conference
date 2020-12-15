@@ -47,7 +47,7 @@ public class Servlet extends HttpServlet {
                 String path = request.getContextPath();
                 response.sendRedirect(path + page);
             }
-        } catch (ServletException | IOException | DaoException | ServiceException e) {
+        } catch (ServletException | IOException | ServiceException e) {
             LOGGER.error(e.getMessage(), e);
             String errorMessage = e.getMessage();
             request.setAttribute(ERROR_MESSAGE, errorMessage);

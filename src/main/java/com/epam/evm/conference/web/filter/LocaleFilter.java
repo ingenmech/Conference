@@ -9,8 +9,6 @@ public class LocaleFilter implements Filter {
 
     private final static String LOCALE = "locale";
     private final static String SESSION_LOCALE = "sessionLocale";
-    //private final static String DEFAULT_LOCALE = "en";
-    //private final static String MAIN_PAGE = "WEB-INF/pages/main.jsp";
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {

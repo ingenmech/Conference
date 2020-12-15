@@ -7,9 +7,9 @@ import java.util.Optional;
 
 public interface Dao<T> {
 
-    Optional<T> findBiId(Long id);
+    Optional<T> findBiId(Long id) throws DaoException;
     List<T> getAll() throws DaoException;
-    void save(T item) throws DaoException;
-    void removeById(Long id);
+    Long save(T item) throws DaoException;
+    void removeById(Long id) throws DaoException;
 
 }

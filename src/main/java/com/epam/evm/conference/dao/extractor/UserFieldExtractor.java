@@ -10,4 +10,4 @@ public class UserFieldExtractor implements FieldExtractor<User>{
     public Map<Integer, Object> extract(User entity) {
         return null;
     }
-}
+    }

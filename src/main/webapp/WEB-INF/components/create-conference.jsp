@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html lang="en">
 <head>
@@ -14,12 +14,18 @@
 	<fmt:message bundle="${loc}" key="create.conference.create" var="conferenceCreate" />
 	<fmt:message bundle="${loc}" key="create.conference.holder" var="conferenceHolder" />
 	<fmt:message bundle="${loc}" key="create.section.holder" var="sectionHolder" />
+	<fmt:message bundle="${loc}" key="create.conference.message" var="message" />
 	<script type="text/javascript" language="JavaScript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script type="text/javascript" language="JavaScript" src="${pageContext.request.contextPath}/static/js/add-btn.js"></script>
 </head>
 <body>
 	<section class="column-main">
 		<div class="accept">
+		 <div class="message">
+		     <c:if test="${message eq 'conferenceCreated' }">
+         		 <h3>${message}</h3>
+             </c:if>
+		 </div>
 			<form method="POST" action="${pageContext.request.contextPath}/controller">
 				<input type="hidden" name="command" value="adminSaveConference" />
 				<div>

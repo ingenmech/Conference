@@ -7,5 +7,5 @@ import java.sql.SQLException;
 
 public interface RowMapper<T> {
 
-    T map(ResultSet resultSet) throws SQLException, DaoException;
+    T map(ResultSet resultSet) throws DaoException;
 }

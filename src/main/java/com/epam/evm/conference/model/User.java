@@ -1,5 +1,5 @@
 package com.epam.evm.conference.model;
-//TODO
+
 public class User {
 
     private final Long id;
@@ -31,5 +31,13 @@ public class User {
         return password;
     }
 
-
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", role='" + role + '\'' +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }

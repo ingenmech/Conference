@@ -1,7 +1,6 @@
 package com.epam.evm.conference.connection;
 
 import com.epam.evm.conference.exception.ConnectionPoolException;
-import com.epam.evm.conference.exception.DaoException;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,30 +12,34 @@ import java.util.Properties;
 public class ConnectionFactory {
 
     private final static String DB_PROPERTIES = "properties/database.properties";
+    private final static String DB_DRIVER = "db.driver";
+    private final static String DB_URL = "db.url";
+    private final static String DB_USER = "db.user";
+    private final static String DB_PASSWORD = "db.password";
+
     private final Properties properties;
 
     public ConnectionFactory() {
-        properties = readPropertiesFile(DB_PROPERTIES);
+        properties = readProperties(DB_PROPERTIES);
     }
 
-    public ProxyConnection create() throws DaoException {
+    public Connection create() {
 
-        String driver = properties.getProperty("db.driver");
-        String url = properties.getProperty("db.url");
-        String userName = properties.getProperty("db.user");
-        String password = properties.getProperty("db.password");
+        String driver = properties.getProperty(DB_DRIVER);
+        String url = properties.getProperty(DB_URL);
+        String userName = properties.getProperty(DB_USER);
+        String password = properties.getProperty(DB_PASSWORD);
 
         try {
             Class.forName(driver);
             Connection connection = DriverManager.getConnection(url, userName, password);
-            ConnectionPool pool = ConnectionPool.getInstance();
-            return new ProxyConnection(connection, pool);
+            return connection;
         } catch (SQLException | ClassNotFoundException e) {
-            throw new DaoException("Can't create ProxyConnection", e);
+            throw new ConnectionPoolException("Can't create connection", e);
         }
     }
 
-    private Properties readPropertiesFile(String fileName){
+    private Properties readProperties(String fileName){
 
         ClassLoader classLoader = getClass().getClassLoader();
         try (InputStream inputStream = classLoader.getResourceAsStream(fileName)){
@@ -47,4 +50,5 @@ public class ConnectionFactory {
             throw new ConnectionPoolException("DB properties not found", e);
         }
     }
+
 }

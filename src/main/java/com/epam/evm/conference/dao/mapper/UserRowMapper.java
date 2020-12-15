@@ -17,8 +17,7 @@ public class UserRowMapper implements RowMapper<User> {
     public User map(ResultSet resultSet) throws DaoException {
 
         try {
-            String idValue = resultSet.getString(ID);
-            Long id = Long.parseLong(idValue);
+            Long id = resultSet.getLong(ID);
             String role = resultSet.getString(ROLE);
             String login = resultSet.getString(LOGIN);
             String password = resultSet.getString(PASSWORD);

@@ -1,7 +1,7 @@
 package com.epam.evm.conference.service;
 
 import com.epam.evm.conference.dao.helper.DaoHelper;
-import com.epam.evm.conference.dao.helper.DaoHelperCreator;
+import com.epam.evm.conference.dao.helper.DaoHelperFactory;
 import com.epam.evm.conference.dao.UserDao;
 import com.epam.evm.conference.exception.DaoException;
 import com.epam.evm.conference.exception.ServiceException;
@@ -12,9 +12,9 @@ import java.util.Optional;
 
 public class LoginService {
 
-    private DaoHelperCreator daoHelperFactory;
+    private DaoHelperFactory daoHelperFactory;
 
-    public LoginService(DaoHelperCreator daoHelperFactory) {
+    public LoginService(DaoHelperFactory daoHelperFactory) {
         this.daoHelperFactory = daoHelperFactory;
     }
 

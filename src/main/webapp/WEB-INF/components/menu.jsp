@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
@@ -13,6 +13,7 @@
 	<fmt:message bundle="${loc}" key="menu.user.requests" var="userRequests" />
 	<fmt:message bundle="${loc}" key="menu.user.send" var="createRequest" />
 	<fmt:message bundle="${loc}" key="menu.user.question" var="question" />
+	<script type="text/javascript" language="JavaScript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script type="text/javascript" language="JavaScript" src="${pageContext.request.contextPath}/static/js/hover-btn.js"></script>
 </head>
 <body>

@@ -5,30 +5,28 @@ import com.epam.evm.conference.model.Conference;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class ConferenceMapper implements RowMapper<Conference>{
 
-    private final static String ID = "ID";
-    private final static String NAME = "NAME";
-    private final static String DATE = "DATE";
-    private final static String SECTION = "SECTION";
+    private final static String ID = "id";
+    private final static String NAME = "name";
+    private final static String DATE = "date";
+    private final static String SECTION = "section";
 
     @Override
     public Conference map(ResultSet resultSet) throws DaoException {
 
         try {
-            String idValue = resultSet.getString(ID);
-            Long id = Long.parseLong(idValue);
+            Long id = resultSet.getLong(ID);
             String name = resultSet.getString(NAME);
 
-            String date = resultSet.getString(DATE);
-            DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
-            LocalDateTime dateTime = LocalDateTime.parse(date, formatter);
+            Timestamp date = resultSet.getTimestamp(DATE);
+            LocalDateTime dateTime = date.toLocalDateTime();
 
-            //String section = resultSet.getString(SECTION);
-            return new Conference(id, name, dateTime, null);
+            return new Conference(id, name, dateTime);
         } catch (SQLException e) {
             throw new DaoException("Error ConferenceRowMapper", e);
         }

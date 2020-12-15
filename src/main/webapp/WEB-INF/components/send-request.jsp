@@ -1,4 +1,4 @@
-	<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+	<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 	<html lang="en">
@@ -13,27 +13,26 @@
 		<fmt:message bundle="${loc}" key="request.choose.topic" var="chooseTopic" />
 		<fmt:message bundle="${loc}" key="request.holder.topic" var="holderTopic" />
 		<fmt:message bundle="${loc}" key="request.send.request" var="sendRequest" />
+        <script type="text/javascript" language="JavaScript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script type="text/javascript" language="JavaScript" src="${pageContext.request.contextPath}/static/js/choose-section.js"></script>
 	</head>
 	<section class="column-main">
 		<div class="accept">
 			<form method="POST" action="${pageContext.request.contextPath}/controller">
 				<input type="hidden" name="command" value="userSendRequest" />
 				<label for="conference"><h4>${chooseConference}</h4></label>
-				<select id="conference" >
-				<c:forEach var="elemConf" items="${listConference}">
+				<select id="conference" name="conference">
+				<c:forEach var="elemConf" items="${conferenceList}">
 					<option value="${elemConf.id}">
+					<c:out value="${elemConf.date}  ->  " />
 					<c:out value="${elemConf.name}" />
-					<c:out value="${elemConf.date}" />
-					</option>
+				</option>
 				</c:forEach>
 				</select>
+				<input id="sections" type="hidden" value='${sectionList}'/>
 				<label for="section"><h4>${chooseSection}</h4></label>
-                <select id="section" >
-                <c:forEach var="elemSection" items="${listSection}">
-                	<option value="${elemSection.id}">
-                	<c:out value="${elemSection.name}" />
-                	</option>
-                </c:forEach>
+                <select id="section" name="section">
+                <option>Please choose conference</option>
                 </select>
 				<label for="topic"><h4>${chooseTopic}</h4></label>
 				<input id="topic" type="text" name="topic" placeholder="${holderTopic}">
