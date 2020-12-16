@@ -11,6 +11,8 @@ import com.epam.evm.conference.model.Conference;
 import com.epam.evm.conference.model.Section;
 import com.epam.evm.conference.model.Topic;
 
+import java.util.Optional;
+
 public class SaveService {
 
     private final DaoHelperFactory factory;
@@ -25,12 +27,13 @@ public class SaveService {
 
             helper.startTransaction();
             ConferenceDao conferenceDao = helper.createConferenceDao();
-            Long conferenceId = conferenceDao.save(conference);
+            Optional<Long> conferenceId = conferenceDao.save(conference);
 
             SectionDao sectionDao = helper.createSectionDao();
             for (int i = 0; i < conference.sizeSections(); i++) {
                 Section section = conference.getSection(i);
-                section.setConferenceId(conferenceId);
+                Long id = conferenceId.get();
+                section.setConferenceId(id);
                 sectionDao.save(section);
             }
             helper.endTransaction();

@@ -6,16 +6,13 @@ import com.epam.evm.conference.exception.DaoException;
 import com.epam.evm.conference.model.DatabaseEntity;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 public abstract class AbstractDao<T extends DatabaseEntity> implements Dao<T> {
 
     private final static String SELECT_BY_ID_QUERY = "SELECT * FROM %s WHERE id = ?";
     private final static String SELECT_ALL_QUERY = "SELECT * FROM %s";
-    private final static String DELETE_BY_ID_QUERY = "DELETE * FROM %s WHERE id = %d";
+    private final static String DELETE_BY_ID_QUERY = "DELETE FROM %s WHERE id = ?";
 
     private final RowMapper<T> mapper;
     private final FieldExtractor<T> extractor;
@@ -38,8 +35,10 @@ public abstract class AbstractDao<T extends DatabaseEntity> implements Dao<T> {
     @Override
     public void removeById(Long id) throws DaoException {
 
-        String query = String.format(DELETE_BY_ID_QUERY, table, id);
-        executeQuery(query);
+        String query = String.format(DELETE_BY_ID_QUERY, table);
+        Map<Integer, Object> fields = new HashMap<>();
+        fields.put(1, id);
+        executeUpdate(query, fields);
     }
 
     @Override
@@ -57,7 +56,7 @@ public abstract class AbstractDao<T extends DatabaseEntity> implements Dao<T> {
     }
 
     @Override
-    public Long save(T entity) throws DaoException {
+    public Optional<Long> save(T entity) throws DaoException {
 
         Map<Integer, Object> fields;
         String query;
@@ -73,7 +72,7 @@ public abstract class AbstractDao<T extends DatabaseEntity> implements Dao<T> {
         return executeUpdate(query, fields);
     }
 
-    protected Long executeUpdate(String query, Map<Integer, Object> fields) throws DaoException {
+    protected Optional<Long> executeUpdate(String query, Map<Integer, Object> fields) throws DaoException {
 
         try (PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
 
@@ -84,9 +83,10 @@ public abstract class AbstractDao<T extends DatabaseEntity> implements Dao<T> {
 
             ResultSet result = statement.getGeneratedKeys();
             if (result.next()) {
-                return result.getLong(1);
+                Long id = result.getLong(1);
+                return Optional.of(id);
             } else {
-                return null;
+                return Optional.empty();
             }
 
         } catch (SQLException e) {

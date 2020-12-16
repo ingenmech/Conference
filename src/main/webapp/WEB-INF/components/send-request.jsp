@@ -32,6 +32,7 @@
 				<input id="sections" type="hidden" value='${sectionList}'/>
 				<label for="section"><h4>${chooseSection}</h4></label>
                 <select id="section" name="section">
+                <c:forEach var="elemSect" items="${conConf}">
                 <option>Please choose conference</option>
                 </select>
 				<label for="topic"><h4>${chooseTopic}</h4></label>

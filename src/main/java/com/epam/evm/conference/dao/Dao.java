@@ -9,7 +9,7 @@ public interface Dao<T> {
 
     Optional<T> findBiId(Long id) throws DaoException;
     List<T> getAll() throws DaoException;
-    Long save(T item) throws DaoException;
+    Optional<Long> save(T item) throws DaoException;
     void removeById(Long id) throws DaoException;
 
 }
