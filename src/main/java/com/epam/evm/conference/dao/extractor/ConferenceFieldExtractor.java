@@ -13,7 +13,7 @@ public class ConferenceFieldExtractor implements FieldExtractor<Conference> {
     private final static int DATE_CONFERENCE = 2;
 
     @Override
-    public Map<Integer, Object> extract(Conference entity) {
+    public Map<Integer, Object> extractForSave(Conference entity) {
 
         String name = entity.getName();
         DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
@@ -25,5 +25,10 @@ public class ConferenceFieldExtractor implements FieldExtractor<Conference> {
         map.put(DATE_CONFERENCE, rowDateTime);
 
         return map;
+    }
+
+    @Override
+    public Map<Integer, Object> extractForUpdate(Conference entity) {
+        return null;
     }
 }

@@ -3,6 +3,7 @@ package com.epam.evm.conference.dao;
 import com.epam.evm.conference.dao.extractor.FieldExtractor;
 import com.epam.evm.conference.dao.mapper.RowMapper;
 import com.epam.evm.conference.exception.DaoException;
+import com.epam.evm.conference.model.DatabaseEntity;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,33 +11,35 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public abstract class AbstractDao<T> implements Dao<T> {
+public abstract class AbstractDao<T extends DatabaseEntity> implements Dao<T> {
 
     private final static String SELECT_BY_ID_QUERY = "SELECT * FROM %s WHERE id = ?";
     private final static String SELECT_ALL_QUERY = "SELECT * FROM %s";
-    private final static String DELETE_BY_ID_QUERY = "DELETE * FROM %s WHERE id = ?";
+    private final static String DELETE_BY_ID_QUERY = "DELETE * FROM %s WHERE id = %d";
 
     private final RowMapper<T> mapper;
     private final FieldExtractor<T> extractor;
     private final String table;
     private final String saveQuery;
+    private final String updateQuery;
 
     private Connection connection;
 
     protected AbstractDao(Connection connection, RowMapper<T> mapper, FieldExtractor<T> extractor,
-                          String table, String saveQuery) {
+                          String table, String saveQuery, String updateQuery) {
         this.connection = connection;
         this.mapper = mapper;
         this.extractor = extractor;
         this.table = table;
         this.saveQuery = saveQuery;
+        this.updateQuery = updateQuery;
     }
 
     @Override
     public void removeById(Long id) throws DaoException {
 
-        String query = String.format(DELETE_BY_ID_QUERY, table);
-        executeForSingleResult(query, id);
+        String query = String.format(DELETE_BY_ID_QUERY, table, id);
+        executeQuery(query);
     }
 
     @Override
@@ -56,14 +59,24 @@ public abstract class AbstractDao<T> implements Dao<T> {
     @Override
     public Long save(T entity) throws DaoException {
 
-        Map<Integer, Object> fields = extractor.extract(entity);
+        Map<Integer, Object> fields;
+        String query;
 
-        return executeUpdate(saveQuery, fields);
+        if (entity.getId() == null) {
+            query = saveQuery;
+            fields = extractor.extractForSave(entity);
+        } else {
+            query = updateQuery;
+            fields = extractor.extractForUpdate(entity);
+        }
+
+        return executeUpdate(query, fields);
     }
 
     protected Long executeUpdate(String query, Map<Integer, Object> fields) throws DaoException {
 
         try (PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+
             for (Integer key : fields.keySet()) {
                 statement.setObject(key, fields.get(key));
             }
@@ -73,7 +86,7 @@ public abstract class AbstractDao<T> implements Dao<T> {
             if (result.next()) {
                 return result.getLong(1);
             } else {
-                throw new DaoException("No any auto generated keys");
+                return null;
             }
 
         } catch (SQLException e) {
@@ -120,5 +133,4 @@ public abstract class AbstractDao<T> implements Dao<T> {
             return Optional.empty();
         }
     }
-
 }

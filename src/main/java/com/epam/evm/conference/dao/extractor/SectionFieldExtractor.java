@@ -11,7 +11,7 @@ public class SectionFieldExtractor implements FieldExtractor<Section> {
     private final static int NAME = 2;
 
     @Override
-    public Map<Integer, Object> extract(Section entity) {
+    public Map<Integer, Object> extractForSave(Section entity) {
 
         String name = entity.getName();
         Long conferenceId = entity.getConferenceId();
@@ -21,5 +21,10 @@ public class SectionFieldExtractor implements FieldExtractor<Section> {
         sectionFields.put(NAME, name);
 
         return sectionFields;
+    }
+
+    @Override
+    public Map<Integer, Object> extractForUpdate(Section entity) {
+        return null;
     }
 }

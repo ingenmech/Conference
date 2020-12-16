@@ -12,11 +12,13 @@ public class TopicDaoImpl extends AbstractDao<Topic> implements TopicDao{
 
     private final static String INSERT_TOPIC = "INSERT INTO topic(ID, USER_ID, SECTION_ID, NAME, STATUS) " +
             "VALUES (?, ?, ?, ?, ?)";
+    private final static String UPDATE_TOPIC_STATUS = "UPDATE topic SET status = ? WHERE id = ?";
     private final static String TABLE = "topic";
+
     private final static FieldExtractor EXTRACTOR = new TopicFieldExtractor();
     private final static RowMapper MAPPER = new TopicRowMapper();
 
     public TopicDaoImpl(Connection connection) {
-        super(connection, MAPPER, EXTRACTOR, TABLE, INSERT_TOPIC);
+        super(connection, MAPPER, EXTRACTOR, TABLE, INSERT_TOPIC, UPDATE_TOPIC_STATUS);
     }
 }

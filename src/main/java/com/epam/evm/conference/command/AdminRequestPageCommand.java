@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
-public class AdminTopicPageCommand implements Command {
+public class AdminRequestPageCommand implements Command {
 
     //private final static String COMMAND_SENT_REQUESTS = "/controller?command=adminGoToAcceptRequest";
     private final static String GO_TO_SENT_REQUESTS = "/WEB-INF/pages/accept-request-page.jsp";
@@ -16,7 +16,7 @@ public class AdminTopicPageCommand implements Command {
 
     private final GetService service;
 
-    public AdminTopicPageCommand(GetService service) {
+    public AdminRequestPageCommand(GetService service) {
         this.service = service;
     }
 

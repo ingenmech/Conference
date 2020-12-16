@@ -13,13 +13,15 @@ import java.util.Optional;
 public class UserDaoImpl extends AbstractDao<User> implements UserDao {
 
     private final static String FIND_BY_LOGIN_AND_PASSWORD = "SELECT * FROM user WHERE login = ? AND password = ?";
+    private final static String INSERT_USER = "";
+    private final static String UPDATE_USER = "";
     private final static String TABLE = "user";
+
     private final static RowMapper<User> MAPPER = new UserRowMapper();
     private final static FieldExtractor<User> EXTRACTOR = new UserFieldExtractor();
-    private final static String INSERT_USER = "";
 
     public UserDaoImpl(Connection connection) {
-        super(connection, MAPPER, EXTRACTOR, TABLE, INSERT_USER);
+        super(connection, MAPPER, EXTRACTOR, TABLE, INSERT_USER, UPDATE_USER);
     }
 
     @Override

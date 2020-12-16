@@ -1,9 +1,7 @@
 package com.epam.evm.conference.command;
 
 import com.epam.evm.conference.dao.helper.DaoHelperFactory;
-import com.epam.evm.conference.service.GetService;
-import com.epam.evm.conference.service.SaveService;
-import com.epam.evm.conference.service.LoginService;
+import com.epam.evm.conference.service.*;
 
 public class CommandFactory {
 
@@ -29,10 +27,11 @@ public class CommandFactory {
     private final static String SHOW_CONFERENCE = "getConference";
 
     private final static String ADMIN_SAVE_CONFERENCE = "adminSaveConference";
-    private final static String ADMIN_SET_STATUS_REQUEST = "adminSetStatusRequest";
-    private final static String ADMIN_REMOVE_REQUEST = "adminRemoveRequest";
     private final static String ADMIN_REJECT_REQUEST = "adminRejectRequest";
     private final static String ADMIN_ACCEPT_REQUEST = "adminAcceptRequest";
+    private final static String ADMIN_REMOVE_REQUEST = "adminRemoveRequest";
+    private final static String ACCEPTED = "accepted";
+    private final static String REJECTED = "rejected";
 
     private final static String USER_SEND_REQUEST = "userSendRequest";
     private final static String USER_REMOVE_REQUEST = "userRemoveRequest";
@@ -49,19 +48,27 @@ public class CommandFactory {
             case GO_TO_CREATE_REQUEST:
                 return new CreateRequestCommand(new GetService(new DaoHelperFactory()));
             case GO_TO_ACCEPT_REQUEST:
-                return new AdminTopicPageCommand(new GetService(new DaoHelperFactory()));
+                return new AdminRequestPageCommand(new GetService(new DaoHelperFactory()));
             case GO_TO_SENT_REQUESTS:
                 return new ForwardPageCommand(SENT_REQUESTS_JSP);
+            case SHOW_CONFERENCE:
+                return new ListConferenceCommand();
+            case USER_SEND_REQUEST:
+                return new SaveTopicCommand(new SaveService(new DaoHelperFactory()));
+            case USER_REMOVE_REQUEST:
+                return new RemoveRequestCommand(SENT_REQUESTS_JSP, new RemoveService(new DaoHelperFactory()));
+            case ADMIN_SAVE_CONFERENCE:
+                return new SaveConferenceCommand(new SaveService(new DaoHelperFactory()));
+            case ADMIN_ACCEPT_REQUEST:
+                return new StatusRequestCommand(ACCEPTED, new UpdateService(new DaoHelperFactory()));
+            case ADMIN_REJECT_REQUEST:
+                return new StatusRequestCommand(REJECTED, new UpdateService(new DaoHelperFactory()));
+            case ADMIN_REMOVE_REQUEST:
+                return new RemoveRequestCommand(ACCEPT_REQUEST_JSP, new RemoveService(new DaoHelperFactory()));
             case LOGIN:
                 return new LoginCommand(new LoginService(new DaoHelperFactory()));
             case LOGOUT:
                 return new LogoutCommand();
-            case SHOW_CONFERENCE:
-                return new ListCommand();
-            case ADMIN_SAVE_CONFERENCE:
-                return new SaveConferenceCommand(new SaveService(new DaoHelperFactory()));
-            case USER_SEND_REQUEST:
-                return new SaveTopicCommand(new SaveService(new DaoHelperFactory()));
             case LOCALE_ENG:
                 return new LocaleCommand(LOCALE_ENG);
             case LOCALE_RU:

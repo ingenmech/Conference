@@ -8,32 +8,55 @@
 	<fmt:setLocale value="${sessionScope.locale}" />
 	<fmt:setBundle basename="properties.locale" var="loc" />
 	<fmt:message bundle="${loc}" key="accept.request.status" var="requestStatus" />
+    <fmt:message bundle="${loc}" key="accept.request.table.conference" var="conference" />
+    <fmt:message bundle="${loc}" key="accept.request.table.section" var="section" />
+    <fmt:message bundle="${loc}" key="accept.request.table.topic" var="topic" />
+    <fmt:message bundle="${loc}" key="accept.request.table.user" var="user" />
+	<fmt:message bundle="${loc}" key="accept.request.status" var="requestStatus" />
 	<fmt:message bundle="${loc}" key="accept.request.remove" var="removeButton" />
 </head>
 <body>
 		<section class="column-main">
-		    <c:forEach var="topic" items="${topicList}">
-        		<div class="accept-form">
-        			<form method="POST" action="${pageContext.request.contextPath}/controller">
-                        <input type="hidden" name="command" action="userRemoveRequest" />
-        				<div class="info-gr">
-                           <p>${requestStatus}</p>
-                           <h4>${topic.status}</h4>
-                        </div>
-                        <div class="info-gr">
-                           <p>${topic.conference.name}</p>
-                           <p><h4>${topic.section.name}</h4></p>
-                        </div>
-                        <div class="info-gr" name="topicId" var=${topic.id}>
-                           <p>${topic.user.login}</p>
-                           <p><h4>${topic.name}</h4></p>
-                        </div>
-        				<div class="button-remove">
-        					<input type="submit" value="${removeButton}">
-        				</div>
-        			</form>
-        		</div>
-        	</c:forEach>
+		    <section class="column-main">
+            	            <div class="table">
+                				<table>
+                					<tr>
+                						<th>${requestStatus}</th>
+                						<th>${conference}</th>
+                						<th>${section}</th>
+                						<th>${topic}</th>
+                						<th>${user}</th>
+                						<th></th>
+                					</tr>
+                					<c:forEach var="topic" items="${topicList}">
+                					<form method="POST">
+                						<tr>
+                							<td>${topic.status}</td>
+                							<td>${topic.conference.name}</td>
+                							<td>${topic.section.name}</td>
+                							<td>${topic.name}</td>
+                							<td>${topic.user.login}</td>
+                							<td>
+                							    <input type="hidden" name="topicId" value=${topic.id}>
+                							    <c:set var="status" value="${topic.status}" />
+                								<div  class="dropdown-action ">
+                									<a href="javascript:void(0)" class="dropbtn-action">>>></a>
+                									<div class="dropdown-content-action">
+                									<c:if test="${ status eq 'considered'}" var="isConsidered">
+                										<input type="submit" formaction="${pageContext.request.contextPath}/controller?command=adminAcceptRequest" value="${acceptButton}">
+                                                        <input type="submit" formaction="${pageContext.request.contextPath}/controller?command=adminRejectRequest" value="${rejectButton}">
+                                                    </c:if>
+                                                    <c:if test="${ isConsidered eq 'false' }">
+                                                        <input type="submit" formaction="${pageContext.request.contextPath}/controller?command=adminRemoveRequest" value="${removeButton}">
+                                                    </c:if>
+                									</div>
+                								</div>
+                							</td>
+                						</tr>
+                					</form>
+                					</c:forEach>
+                				</table>
+                			</div>
         </section>
 </body>
 </html>

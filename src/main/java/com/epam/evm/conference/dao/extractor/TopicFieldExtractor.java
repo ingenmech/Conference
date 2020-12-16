@@ -13,12 +13,15 @@ public class TopicFieldExtractor implements FieldExtractor<Topic> {
     private final static int NAME = 4;
     private final static int STATUS = 5;
 
+    private final static int STATUS_UPDATE = 1;
+    private final static int ID_UPDATE = 2;
+
     @Override
-    public Map<Integer, Object> extract(Topic entity) {
+    public Map<Integer, Object> extractForSave(Topic entity) {
 
         Long id = entity.getId();
         Long userId = entity.getUserId();
-        Long sectionId= entity.getSectionId();
+        Long sectionId = entity.getSectionId();
         String name = entity.getName();
         String status = entity.getStatus();
 
@@ -28,6 +31,18 @@ public class TopicFieldExtractor implements FieldExtractor<Topic> {
         map.put(SECTION_ID, sectionId);
         map.put(NAME, name);
         map.put(STATUS, status);
+
+        return map;
+    }
+
+    @Override
+    public Map<Integer, Object> extractForUpdate(Topic entity) {
+
+        String status = entity.getStatus();
+        Long id = entity.getId();
+        Map<Integer, Object> map = new HashMap<>();
+        map.put(STATUS_UPDATE, status);
+        map.put(ID_UPDATE, id);
 
         return map;
     }
