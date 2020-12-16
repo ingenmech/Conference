@@ -18,45 +18,36 @@
 <body>
 		<section class="column-main">
 		    <section class="column-main">
-            	            <div class="table">
-                				<table>
-                					<tr>
-                						<th>${requestStatus}</th>
-                						<th>${conference}</th>
-                						<th>${section}</th>
-                						<th>${topic}</th>
-                						<th>${user}</th>
-                						<th></th>
-                					</tr>
-                					<c:forEach var="topic" items="${topicList}">
-                					<form method="POST">
-                						<tr>
-                							<td>${topic.status}</td>
-                							<td>${topic.conference.name}</td>
-                							<td>${topic.section.name}</td>
-                							<td>${topic.name}</td>
-                							<td>${topic.user.login}</td>
-                							<td>
-                							    <input type="hidden" name="topicId" value=${topic.id}>
-                							    <c:set var="status" value="${topic.status}" />
-                								<div  class="dropdown-action ">
-                									<a href="javascript:void(0)" class="dropbtn-action">>>></a>
-                									<div class="dropdown-content-action">
-                									<c:if test="${ status eq 'considered'}" var="isConsidered">
-                										<input type="submit" formaction="${pageContext.request.contextPath}/controller?command=adminAcceptRequest" value="${acceptButton}">
-                                                        <input type="submit" formaction="${pageContext.request.contextPath}/controller?command=adminRejectRequest" value="${rejectButton}">
-                                                    </c:if>
-                                                    <c:if test="${ isConsidered eq 'false' }">
-                                                        <input type="submit" formaction="${pageContext.request.contextPath}/controller?command=adminRemoveRequest" value="${removeButton}">
-                                                    </c:if>
-                									</div>
-                								</div>
-                							</td>
-                						</tr>
-                					</form>
-                					</c:forEach>
-                				</table>
-                			</div>
+            	 <div class="table">
+                	  <table>
+                		   <tr>
+                                <th>${requestStatus}</th>
+                                <th>${conference}</th>
+                                <th>${section}</th>
+                                <th>${topic}</th>
+                                <th></th>
+                           </tr>
+                		   <c:forEach var="topic" items="${userTopicList}">
+                			  <form method="POST">
+                				<tr>
+                				   <td>${topic.status}</td>
+                				   <td>${topic.conference.name}</td>
+                				   <td>${topic.section.name}</td>
+                				   <td>${topic.name}</td>
+                				   <td>
+                				       <input type="hidden" name="topicId" value=${topic.id}>
+                						<div  class="dropdown-action ">
+                							<a href="javascript:void(0)" class="dropbtn-action">>>></a>
+                							<div class="dropdown-content-action">
+                                            <input type="submit" formaction="${pageContext.request.contextPath}/controller?command=adminRemoveRequest" value="${removeButton}">
+                							</div>
+                						</div>
+                				   </td>
+                				</tr>
+                		      </form>
+                		   </c:forEach>
+                	  </table>
+                 </div>
         </section>
 </body>
 </html>

@@ -1,6 +1,5 @@
 package com.epam.evm.conference.command;
 
-import com.epam.evm.conference.exception.DaoException;
 import com.epam.evm.conference.exception.ServiceException;
 
 import javax.servlet.http.HttpServletRequest;

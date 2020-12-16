@@ -28,7 +28,7 @@
         </c:if>
      </div>
      <div  class="dropdown">
-        <a class="dropbtn">${language}</a>
+        <a href="javascript:void(0)" class="dropbtn">${language}</a>
         <div class="dropdown-content">
             <a href="${pageContext.request.contextPath}/controller?command=en">${eng}</a>
             <a href="${pageContext.request.contextPath}/controller?command=ru">${rus}</a>

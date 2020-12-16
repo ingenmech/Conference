@@ -22,18 +22,16 @@
 				<input type="hidden" name="command" value="userSendRequest" />
 				<label for="conference"><h4>${chooseConference}</h4></label>
 				<select id="conference" name="conference">
-				<c:forEach var="elemConf" items="${conferenceList}">
-					<option value="${elemConf.id}">
-					<c:out value="${elemConf.date}  ->  " />
-					<c:out value="${elemConf.name}" />
-				</option>
+				<c:forEach var="conferences" items="${conferenceList}">
+					<option value="${conferences.id}">
+					<c:out value="${conferences.date}  ->  " />
+					<c:out value="${conferences.name}" />
+				    </option>
 				</c:forEach>
 				</select>
-				<input id="sections" type="hidden" value='${sectionList}'/>
 				<label for="section"><h4>${chooseSection}</h4></label>
+				<input id="sections" type="hidden" value='${sectionList}'/>
                 <select id="section" name="section">
-                <c:forEach var="elemSect" items="${conConf}">
-                <option>Please choose conference</option>
                 </select>
 				<label for="topic"><h4>${chooseTopic}</h4></label>
 				<input id="topic" type="text" name="topic" placeholder="${holderTopic}">

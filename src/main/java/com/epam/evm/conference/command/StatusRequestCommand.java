@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class StatusRequestCommand implements Command {
 
-    private final static String ACCEPT_REQUEST_JSP = "/WEB-INF/pages/accept-request-page.jsp";
+    private final static String ACCEPT_REQUEST_JSP = "/controller?command=adminGoToAcceptRequest";
     private final static String TOPIC_ID = "topicId";
 
     private final String status;

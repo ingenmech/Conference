@@ -8,8 +8,9 @@ public class CommandFactory {
     private final static String SIGN_IN_JSP = "/WEB-INF/pages/login-page.jsp";
     private final static String MAIN_JSP = "/WEB-INF/pages/main-page.jsp";
     private final static String CRATE_CONFERENCE_JSP = "/WEB-INF/pages/create-conference-page.jsp";
-    private final static String ACCEPT_REQUEST_JSP = "/WEB-INF/pages/accept-request-page.jsp";
-    private final static String SENT_REQUESTS_JSP = "/WEB-INF/pages/sent-requests-page.jsp";
+    //private final static String ACCEPT_REQUEST_JSP = "/WEB-INF/pages/accept-request-page.jsp";
+    //private final static String SENT_REQUESTS_JSP = "/WEB-INF/pages/sent-requests-page.jsp";
+
 
     private final static String LOCALE_ENG = "en";
     private final static String LOCALE_RU = "ru";
@@ -30,11 +31,13 @@ public class CommandFactory {
     private final static String ADMIN_REJECT_REQUEST = "adminRejectRequest";
     private final static String ADMIN_ACCEPT_REQUEST = "adminAcceptRequest";
     private final static String ADMIN_REMOVE_REQUEST = "adminRemoveRequest";
+    private final static String ACCEPT_REQUEST_JSP = "/controller?command=adminGoToAcceptRequest";
     private final static String ACCEPTED = "accepted";
     private final static String REJECTED = "rejected";
 
     private final static String USER_SEND_REQUEST = "userSendRequest";
     private final static String USER_REMOVE_REQUEST = "userRemoveRequest";
+    private final static String SENT_REQUESTS_JSP = "/controller?command=userSentRequests";
 
     public static Command create(String command) {
 
@@ -50,7 +53,7 @@ public class CommandFactory {
             case GO_TO_ACCEPT_REQUEST:
                 return new AdminRequestPageCommand(new GetService(new DaoHelperFactory()));
             case GO_TO_SENT_REQUESTS:
-                return new ForwardPageCommand(SENT_REQUESTS_JSP);
+                return new UserRequestPageCommand(new GetService(new DaoHelperFactory()));
             case SHOW_CONFERENCE:
                 return new ListConferenceCommand();
             case USER_SEND_REQUEST:

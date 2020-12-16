@@ -108,6 +108,7 @@ public abstract class AbstractDao<T extends DatabaseEntity> implements Dao<T> {
                 entities.add(entity);
             }
             return entities;
+
         } catch (SQLException e) {
             throw new DaoException("ExecuteQuery error", e);
         }

@@ -11,7 +11,7 @@
  <div>
    <jsp:include page="../components/menu.jsp" />
  </div>
- <div class="column-main">
+ <div>
     <jsp:include page="../components/send-request.jsp" />
 </div>
  <div>

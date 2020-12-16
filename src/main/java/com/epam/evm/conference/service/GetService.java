@@ -13,6 +13,7 @@ import com.epam.evm.conference.model.Section;
 import com.epam.evm.conference.model.Topic;
 import com.epam.evm.conference.model.User;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -59,36 +60,96 @@ public class GetService {
             TopicDao topicDao = helper.createTopicDao();
             List<Topic> topics = topicDao.getAll();
 
-            SectionDao sectionDao = helper.createSectionDao();
-            UserDao userDao = helper.createUserDao();
-            ConferenceDao conferenceDao = helper.createConferenceDao();
-
-            //TODO something
-//                if(sectionWrapper.isEmpty() && userWrapper.isEmpty()) {
-//                }
-
-            for (Topic topic : topics) {
-
-                Long sectionId = topic.getSectionId();
-                Optional<Section> sectionWrapper = sectionDao.findBiId(sectionId);
-                Section section = sectionWrapper.get();
-
-                Long userId = topic.getUserId();
-                Optional<User> userWrapper = userDao.findBiId(userId);
-                User user = userWrapper.get();
-
-                Long conferenceId = section.getConferenceId();
-                Optional<Conference> conferenceWrapper = conferenceDao.findBiId(conferenceId);
-                Conference conference = conferenceWrapper.get();
-
-                topic.setConference(conference);
-                topic.setSection(section);
-                topic.setUser(user);
-            }
-            return topics;
+            return fillTopic(topics);
 
         } catch (DaoException e) {
             throw new ServiceException("Get topic error", e);
         }
     }
+
+    public List<Topic> getAllTopicsByUserId(Long userId) throws ServiceException {
+
+        try (DaoHelper helper = factory.create()) {
+            TopicDao topicDao = helper.createTopicDao();
+            List<Topic> topics = topicDao.findAllTopicsByUserId(userId);
+
+            return fillTopic2(topics);
+        } catch (DaoException e) {
+            throw new ServiceException("Get all users topics error", e);
+        }
+    }
+
+    private List<Topic> fillTopic2(List<Topic> topics) throws DaoException {
+
+        try (DaoHelper helper = factory.create()) {
+            SectionDao sectionDao = helper.createSectionDao();
+            UserDao userDao = helper.createUserDao();
+            ConferenceDao conferenceDao = helper.createConferenceDao();
+
+            List<Topic> filledTopic = new ArrayList<>();
+            for (Topic topic : topics) {
+
+                Long sectionId = topic.getSectionId();
+                Optional<Section> sectionWrapper = sectionDao.findBiId(sectionId);
+
+                Long userId = topic.getUserId();
+                Optional<User> userWrapper = userDao.findBiId(userId);
+
+                if (sectionWrapper.isPresent() && userWrapper.isPresent()) {
+                    Section section = sectionWrapper.get();
+                    User user = userWrapper.get();
+                    Long conferenceId = section.getConferenceId();
+
+                    Optional<Conference> conferenceWrapper = conferenceDao.findBiId(conferenceId);
+                    if (conferenceWrapper.isPresent()) {
+                        Conference conference = conferenceWrapper.get();
+
+                        topic.setConference(conference);
+                        topic.setSection(section);
+                        topic.setUser(user);
+                    }
+                    filledTopic.add(topic);
+                }
+            }
+            return filledTopic;
+        }
+    }
+
+    private List<Topic> fillTopic(List<Topic> topics) throws DaoException {
+
+        try (DaoHelper helper = factory.create()) {
+            SectionDao sectionDao = helper.createSectionDao();
+            UserDao userDao = helper.createUserDao();
+            ConferenceDao conferenceDao = helper.createConferenceDao();
+
+            List<Topic> filledTopic = new ArrayList<>();
+            for (Topic topic : topics) {
+
+                Long sectionId = topic.getSectionId();
+                Optional<Section> sectionWrapper = sectionDao.findBiId(sectionId);
+
+                Long userId = topic.getUserId();
+                Optional<User> userWrapper = userDao.findBiId(userId);
+
+                if (sectionWrapper.isPresent() && userWrapper.isPresent()) {
+                    Section section = sectionWrapper.get();
+                    User user = userWrapper.get();
+                    Long conferenceId = section.getConferenceId();
+
+                    Optional<Conference> conferenceWrapper = conferenceDao.findBiId(conferenceId);
+                    if (conferenceWrapper.isPresent()) {
+                        Conference conference = conferenceWrapper.get();
+
+                        topic.setConference(conference);
+                        topic.setSection(section);
+                        topic.setUser(user);
+                    }
+                    filledTopic.add(topic);
+                }
+            }
+            return filledTopic;
+        }
+    }
+
+
 }
