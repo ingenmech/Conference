@@ -1,11 +1,10 @@
 package com.epam.evm.conference.service;
 
-import com.epam.evm.conference.dao.TopicDao;
+import com.epam.evm.conference.dao.daoInterface.TopicDao;
 import com.epam.evm.conference.dao.helper.DaoHelper;
 import com.epam.evm.conference.dao.helper.DaoHelperFactory;
 import com.epam.evm.conference.exception.DaoException;
 import com.epam.evm.conference.exception.ServiceException;
-import com.epam.evm.conference.model.Topic;
 
 public class RemoveService {
 

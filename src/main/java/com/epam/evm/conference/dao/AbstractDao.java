@@ -1,5 +1,6 @@
 package com.epam.evm.conference.dao;
 
+import com.epam.evm.conference.dao.daoInterface.Dao;
 import com.epam.evm.conference.dao.extractor.FieldExtractor;
 import com.epam.evm.conference.dao.mapper.RowMapper;
 import com.epam.evm.conference.exception.DaoException;

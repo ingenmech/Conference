@@ -1,5 +1,6 @@
 package com.epam.evm.conference.dao;
 
+import com.epam.evm.conference.dao.daoInterface.SectionDao;
 import com.epam.evm.conference.dao.extractor.FieldExtractor;
 import com.epam.evm.conference.dao.extractor.SectionFieldExtractor;
 import com.epam.evm.conference.dao.mapper.RowMapper;
@@ -14,7 +15,7 @@ public class SectionDaoImpl extends AbstractDao<Section> implements SectionDao {
     private final static String UPDATE_SECTION = "";
 
     private final static String TABLE = "section";
-    private final static FieldExtractor EXTRACTOR = new SectionFieldExtractor();
+    private final static FieldExtractor<Section> EXTRACTOR = new SectionFieldExtractor();
     private final static RowMapper<Section> MAPPER = new SectionRowMapper();
 
     public SectionDaoImpl(Connection connection) {

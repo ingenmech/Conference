@@ -6,7 +6,7 @@ import com.epam.evm.conference.model.Topic;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class TopicRowMapper implements RowMapper {
+public class TopicRowMapper implements RowMapper<Topic> {
 
     private final static String ID = "id";
     private final static String USER_ID = "user_id";
@@ -15,7 +15,7 @@ public class TopicRowMapper implements RowMapper {
     private final static String STATUS = "status";
 
     @Override
-    public Object map(ResultSet resultSet) throws DaoException {
+    public Topic map(ResultSet resultSet) throws DaoException {
         try {
             Long id = resultSet.getLong(ID);
             Long userId = resultSet.getLong(USER_ID);

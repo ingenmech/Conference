@@ -1,4 +1,4 @@
-package com.epam.evm.conference.dao;
+package com.epam.evm.conference.dao.daoInterface;
 
 import com.epam.evm.conference.model.Section;
 

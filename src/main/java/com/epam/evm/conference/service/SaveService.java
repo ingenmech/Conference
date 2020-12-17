@@ -1,15 +1,11 @@
 package com.epam.evm.conference.service;
 
-import com.epam.evm.conference.dao.ConferenceDao;
-import com.epam.evm.conference.dao.SectionDao;
-import com.epam.evm.conference.dao.TopicDao;
+import com.epam.evm.conference.dao.daoInterface.*;
 import com.epam.evm.conference.dao.helper.DaoHelper;
 import com.epam.evm.conference.dao.helper.DaoHelperFactory;
 import com.epam.evm.conference.exception.DaoException;
 import com.epam.evm.conference.exception.ServiceException;
-import com.epam.evm.conference.model.Conference;
-import com.epam.evm.conference.model.Section;
-import com.epam.evm.conference.model.Topic;
+import com.epam.evm.conference.model.*;
 
 import java.util.Optional;
 
@@ -48,10 +44,33 @@ public class SaveService {
         try (DaoHelper helper = factory.create()) {
 
             TopicDao topicDao = helper.createTopicDao();
-            topicDao.save(topic);
+            Optional<Long> id = topicDao.save(topic);
 
         } catch (DaoException e) {
             throw new ServiceException("Save topic error", e);
+        }
+    }
+
+    public void saveMessage(Message message) throws ServiceException {
+
+        try (DaoHelper helper = factory.create()) {
+
+            MessageDao messageDao = helper.createMessageDao();
+            Optional<Long> id = messageDao.save(message);
+
+        } catch (DaoException e) {
+            throw new ServiceException("Save message error", e);
+        }
+    }
+
+    public void saveQuestion(Question question) throws ServiceException {
+
+        try (DaoHelper helper = factory.create()) {
+
+            QuestionDao questionDao = helper.createQuestionDao();
+            Optional<Long> id = questionDao.save(question);
+        } catch (DaoException e) {
+            throw new ServiceException("Save question error", e);
         }
     }
 

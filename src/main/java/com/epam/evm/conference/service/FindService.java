@@ -1,9 +1,9 @@
 package com.epam.evm.conference.service;
 
-import com.epam.evm.conference.dao.ConferenceDao;
-import com.epam.evm.conference.dao.SectionDao;
-import com.epam.evm.conference.dao.TopicDao;
-import com.epam.evm.conference.dao.UserDao;
+import com.epam.evm.conference.dao.daoInterface.ConferenceDao;
+import com.epam.evm.conference.dao.daoInterface.SectionDao;
+import com.epam.evm.conference.dao.daoInterface.TopicDao;
+import com.epam.evm.conference.dao.daoInterface.UserDao;
 import com.epam.evm.conference.dao.helper.DaoHelper;
 import com.epam.evm.conference.dao.helper.DaoHelperFactory;
 import com.epam.evm.conference.exception.DaoException;
@@ -17,15 +17,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class GetService {
+public class FindService {
 
     private final DaoHelperFactory factory;
 
-    public GetService(DaoHelperFactory factory) {
+    public FindService(DaoHelperFactory factory) {
         this.factory = factory;
     }
 
-    public List<Conference> getAllConferencesWithSections() throws ServiceException {
+    public List<Conference> findAllConferencesWithSections() throws ServiceException {
 
         try (DaoHelper helper = factory.create()) {
             ConferenceDao conferenceDao = helper.createConferenceDao();
@@ -54,7 +54,7 @@ public class GetService {
         }
     }
 
-    public List<Topic> getAllTopicsWithUsersSectionsConferences() throws ServiceException {
+    public List<Topic> findAllTopicsWithUsersSectionsConferences() throws ServiceException {
 
         try (DaoHelper helper = factory.create()) {
             TopicDao topicDao = helper.createTopicDao();
@@ -67,51 +67,15 @@ public class GetService {
         }
     }
 
-    public List<Topic> getAllTopicsByUserId(Long userId) throws ServiceException {
+    public List<Topic> findAllTopicsByUserId(Long userId) throws ServiceException {
 
         try (DaoHelper helper = factory.create()) {
             TopicDao topicDao = helper.createTopicDao();
             List<Topic> topics = topicDao.findAllTopicsByUserId(userId);
 
-            return fillTopic2(topics);
+            return fillTopic(topics);
         } catch (DaoException e) {
             throw new ServiceException("Get all users topics error", e);
-        }
-    }
-
-    private List<Topic> fillTopic2(List<Topic> topics) throws DaoException {
-
-        try (DaoHelper helper = factory.create()) {
-            SectionDao sectionDao = helper.createSectionDao();
-            UserDao userDao = helper.createUserDao();
-            ConferenceDao conferenceDao = helper.createConferenceDao();
-
-            List<Topic> filledTopic = new ArrayList<>();
-            for (Topic topic : topics) {
-
-                Long sectionId = topic.getSectionId();
-                Optional<Section> sectionWrapper = sectionDao.findBiId(sectionId);
-
-                Long userId = topic.getUserId();
-                Optional<User> userWrapper = userDao.findBiId(userId);
-
-                if (sectionWrapper.isPresent() && userWrapper.isPresent()) {
-                    Section section = sectionWrapper.get();
-                    User user = userWrapper.get();
-                    Long conferenceId = section.getConferenceId();
-
-                    Optional<Conference> conferenceWrapper = conferenceDao.findBiId(conferenceId);
-                    if (conferenceWrapper.isPresent()) {
-                        Conference conference = conferenceWrapper.get();
-
-                        topic.setConference(conference);
-                        topic.setSection(section);
-                        topic.setUser(user);
-                    }
-                    filledTopic.add(topic);
-                }
-            }
-            return filledTopic;
         }
     }
 

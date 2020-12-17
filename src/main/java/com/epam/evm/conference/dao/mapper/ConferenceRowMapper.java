@@ -8,12 +8,11 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
-public class ConferenceMapper implements RowMapper<Conference>{
+public class ConferenceRowMapper implements RowMapper<Conference>{
 
     private final static String ID = "id";
     private final static String NAME = "name";
     private final static String DATE = "date";
-    private final static String SECTION = "section";
 
     @Override
     public Conference map(ResultSet resultSet) throws DaoException {

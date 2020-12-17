@@ -2,7 +2,7 @@ package com.epam.evm.conference.command;
 
 import com.epam.evm.conference.exception.ServiceException;
 import com.epam.evm.conference.model.Topic;
-import com.epam.evm.conference.service.GetService;
+import com.epam.evm.conference.service.FindService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,9 +15,9 @@ public class UserRequestPageCommand implements Command {
     private final static String USER_ID = "userId";
     private final static String TOPIC_LIST = "userTopicList";
 
-    private final GetService service;
+    private final FindService service;
 
-    public UserRequestPageCommand(GetService service) {
+    public UserRequestPageCommand(FindService service) {
         this.service = service;
     }
 
@@ -27,9 +27,7 @@ public class UserRequestPageCommand implements Command {
         HttpSession session = request.getSession();
         Long userId = (Long)session.getAttribute(USER_ID);
 
-        List<Topic> topics = service.getAllTopicsByUserId(userId);
-
-        String status = topics.get(0).getStatus();
+        List<Topic> topics = service.findAllTopicsByUserId(userId);
         request.setAttribute(TOPIC_LIST, topics);
 
         return CommandResult.forward(GO_TO_SENT_REQUESTS);

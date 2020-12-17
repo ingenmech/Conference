@@ -1,8 +1,9 @@
 package com.epam.evm.conference.dao;
 
+import com.epam.evm.conference.dao.daoInterface.ConferenceDao;
 import com.epam.evm.conference.dao.extractor.ConferenceFieldExtractor;
 import com.epam.evm.conference.dao.extractor.FieldExtractor;
-import com.epam.evm.conference.dao.mapper.ConferenceMapper;
+import com.epam.evm.conference.dao.mapper.ConferenceRowMapper;
 import com.epam.evm.conference.dao.mapper.RowMapper;
 import com.epam.evm.conference.model.Conference;
 
@@ -14,8 +15,8 @@ public class ConferenceDaoImpl extends AbstractDao<Conference> implements Confer
     private final static String UPDATE_CONFERENCE = "";
 
     private final static String TABLE = "conference";
-    private final static FieldExtractor EXTRACTOR = new ConferenceFieldExtractor();
-    private final static RowMapper<Conference> MAPPER = new ConferenceMapper();
+    private final static FieldExtractor<Conference> EXTRACTOR = new ConferenceFieldExtractor();
+    private final static RowMapper<Conference> MAPPER = new ConferenceRowMapper();
 
     public ConferenceDaoImpl(Connection connection) {
         super(connection, MAPPER, EXTRACTOR, TABLE, INSERT_CONFERENCE, UPDATE_CONFERENCE);

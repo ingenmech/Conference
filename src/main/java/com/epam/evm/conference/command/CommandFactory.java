@@ -49,11 +49,11 @@ public class CommandFactory {
             case GO_TO_CREATE_CONFERENCE:
                 return new ForwardPageCommand(CRATE_CONFERENCE_JSP);
             case GO_TO_CREATE_REQUEST:
-                return new CreateRequestCommand(new GetService(new DaoHelperFactory()));
+                return new CreateRequestCommand(new FindService(new DaoHelperFactory()));
             case GO_TO_ACCEPT_REQUEST:
-                return new AdminRequestPageCommand(new GetService(new DaoHelperFactory()));
+                return new AdminRequestPageCommand(new FindService(new DaoHelperFactory()));
             case GO_TO_SENT_REQUESTS:
-                return new UserRequestPageCommand(new GetService(new DaoHelperFactory()));
+                return new UserRequestPageCommand(new FindService(new DaoHelperFactory()));
             case SHOW_CONFERENCE:
                 return new ListConferenceCommand();
             case USER_SEND_REQUEST:

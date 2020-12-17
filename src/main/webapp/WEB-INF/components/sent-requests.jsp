@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
@@ -16,7 +17,6 @@
 	<fmt:message bundle="${loc}" key="accept.request.remove" var="removeButton" />
 </head>
 <body>
-		<section class="column-main">
 		    <section class="column-main">
             	 <div class="table">
                 	  <table>
@@ -28,23 +28,23 @@
                                 <th></th>
                            </tr>
                 		   <c:forEach var="topic" items="${userTopicList}">
-                			  <form method="POST">
                 				<tr>
                 				   <td>${topic.status}</td>
                 				   <td>${topic.conference.name}</td>
                 				   <td>${topic.section.name}</td>
                 				   <td>${topic.name}</td>
                 				   <td>
+                				   <form>
                 				       <input type="hidden" name="topicId" value=${topic.id}>
                 						<div  class="dropdown-action ">
                 							<a href="javascript:void(0)" class="dropbtn-action">>>></a>
                 							<div class="dropdown-content-action">
-                                            <input type="submit" formaction="${pageContext.request.contextPath}/controller?command=adminRemoveRequest" value="${removeButton}">
+                                            <input type="submit"  formmethod="POST" formaction="${pageContext.request.contextPath}/controller?command=userRemoveRequest" value="${removeButton}">
                 							</div>
                 						</div>
+          						   </form>
                 				   </td>
                 				</tr>
-                		      </form>
                 		   </c:forEach>
                 	  </table>
                  </div>
