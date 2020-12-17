@@ -32,8 +32,8 @@ public class CommandFactory {
     private final static String ADMIN_ACCEPT_REQUEST = "adminAcceptRequest";
     private final static String ADMIN_REMOVE_REQUEST = "adminRemoveRequest";
     private final static String ACCEPT_REQUEST_JSP = "/controller?command=adminGoToAcceptRequest";
-    private final static String ACCEPTED = "accepted";
-    private final static String REJECTED = "rejected";
+    private final static String ACCEPTED = "ACCEPTED";
+    private final static String REJECTED = "REJECTED";
 
     private final static String USER_SEND_REQUEST = "userSendRequest";
     private final static String USER_REMOVE_REQUEST = "userRemoveRequest";
@@ -57,7 +57,7 @@ public class CommandFactory {
             case SHOW_CONFERENCE:
                 return new ListConferenceCommand();
             case USER_SEND_REQUEST:
-                return new SaveTopicCommand(new SaveService(new DaoHelperFactory()));
+                return new SaveRequestCommand(new SaveService(new DaoHelperFactory()));
             case USER_REMOVE_REQUEST:
                 return new RemoveRequestCommand(SENT_REQUESTS_JSP, new RemoveService(new DaoHelperFactory()));
             case ADMIN_SAVE_CONFERENCE:

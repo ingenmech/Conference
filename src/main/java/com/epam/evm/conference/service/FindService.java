@@ -1,17 +1,11 @@
 package com.epam.evm.conference.service;
 
-import com.epam.evm.conference.dao.daoInterface.ConferenceDao;
-import com.epam.evm.conference.dao.daoInterface.SectionDao;
-import com.epam.evm.conference.dao.daoInterface.TopicDao;
-import com.epam.evm.conference.dao.daoInterface.UserDao;
+import com.epam.evm.conference.dao.daoInterface.*;
 import com.epam.evm.conference.dao.helper.DaoHelper;
 import com.epam.evm.conference.dao.helper.DaoHelperFactory;
 import com.epam.evm.conference.exception.DaoException;
 import com.epam.evm.conference.exception.ServiceException;
-import com.epam.evm.conference.model.Conference;
-import com.epam.evm.conference.model.Section;
-import com.epam.evm.conference.model.Topic;
-import com.epam.evm.conference.model.User;
+import com.epam.evm.conference.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,16 +28,16 @@ public class FindService {
             List<Conference> conferences = conferenceDao.getAll();
             List<Section> sections = sectionDao.getAll();
             for (Conference conference : conferences) {
-                putSection(conference, sections);
+                initConference(conference, sections);
             }
             return conferences;
 
         } catch (DaoException e) {
-            throw new ServiceException("Get conference error", e);
+            throw new ServiceException("Find conference error", e);
         }
     }
 
-    private void putSection(Conference conference, List<Section> sections) {
+    private void initConference(Conference conference, List<Section> sections) {
 
         Long conferenceId = conference.getId();
         for (Section section : sections) {
@@ -54,45 +48,75 @@ public class FindService {
         }
     }
 
-    public List<Topic> findAllTopicsWithUsersSectionsConferences() throws ServiceException {
+    public List<Question> findAllQuestionWithMessage() throws ServiceException {
 
         try (DaoHelper helper = factory.create()) {
-            TopicDao topicDao = helper.createTopicDao();
-            List<Topic> topics = topicDao.getAll();
+            QuestionDao questionDao = helper.createQuestionDao();
+            List<Question> questions = questionDao.getAll();
 
-            return fillTopic(topics);
+            MessageDao messageDao = helper.createMessageDao();
+            List<Message> messages = messageDao.getAll();
+
+            for (Question question: questions){
+                initQuestion(question, messages);
+            }
+            return questions;
 
         } catch (DaoException e) {
-            throw new ServiceException("Get topic error", e);
+            throw new ServiceException("Find question error", e);
         }
     }
 
-    public List<Topic> findAllTopicsByUserId(Long userId) throws ServiceException {
+    private void initQuestion(Question question, List<Message> messages){
 
-        try (DaoHelper helper = factory.create()) {
-            TopicDao topicDao = helper.createTopicDao();
-            List<Topic> topics = topicDao.findAllTopicsByUserId(userId);
-
-            return fillTopic(topics);
-        } catch (DaoException e) {
-            throw new ServiceException("Get all users topics error", e);
+        Long questionId = question.getId();
+        for (Message message :messages ) {
+            Long messageQuestionId = message.getQuestionId();
+            if (questionId.equals(messageQuestionId)) {
+                question.addMessage(message);
+            }
         }
     }
 
-    private List<Topic> fillTopic(List<Topic> topics) throws DaoException {
+    public List<Request> findAllRequestsWithUsersSectionsConferences() throws ServiceException {
+
+        try (DaoHelper helper = factory.create()) {
+            RequestDao requestDao = helper.createTopicDao();
+            List<Request> requests = requestDao.getAll();
+
+            return fillRequests(requests);
+
+        } catch (DaoException e) {
+            throw new ServiceException("Find topic error", e);
+        }
+    }
+
+    public List<Request> findAllRequestsByUserId(Long userId) throws ServiceException {
+
+        try (DaoHelper helper = factory.create()) {
+            RequestDao requestDao = helper.createTopicDao();
+            List<Request> requests = requestDao.findAllRequestsByUserId(userId);
+
+            return fillRequests(requests);
+        } catch (DaoException e) {
+            throw new ServiceException("Find all users requests error", e);
+        }
+    }
+
+    private List<Request> fillRequests(List<Request> requests) throws DaoException {
 
         try (DaoHelper helper = factory.create()) {
             SectionDao sectionDao = helper.createSectionDao();
             UserDao userDao = helper.createUserDao();
             ConferenceDao conferenceDao = helper.createConferenceDao();
 
-            List<Topic> filledTopic = new ArrayList<>();
-            for (Topic topic : topics) {
+            List<Request> filledRequest = new ArrayList<>();
+            for (Request request : requests) {
 
-                Long sectionId = topic.getSectionId();
+                Long sectionId = request.getSectionId();
                 Optional<Section> sectionWrapper = sectionDao.findBiId(sectionId);
 
-                Long userId = topic.getUserId();
+                Long userId = request.getUserId();
                 Optional<User> userWrapper = userDao.findBiId(userId);
 
                 if (sectionWrapper.isPresent() && userWrapper.isPresent()) {
@@ -104,14 +128,14 @@ public class FindService {
                     if (conferenceWrapper.isPresent()) {
                         Conference conference = conferenceWrapper.get();
 
-                        topic.setConference(conference);
-                        topic.setSection(section);
-                        topic.setUser(user);
+                        request.setConference(conference);
+                        request.setSection(section);
+                        request.setUser(user);
                     }
-                    filledTopic.add(topic);
+                    filledRequest.add(request);
                 }
             }
-            return filledTopic;
+            return filledRequest;
         }
     }
 

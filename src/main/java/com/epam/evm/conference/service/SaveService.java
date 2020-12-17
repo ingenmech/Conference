@@ -39,15 +39,15 @@ public class SaveService {
         }
     }
 
-    public void saveTopic(Topic topic) throws ServiceException {
+    public void saveRequest(Request request) throws ServiceException {
 
         try (DaoHelper helper = factory.create()) {
 
-            TopicDao topicDao = helper.createTopicDao();
-            Optional<Long> id = topicDao.save(topic);
+            RequestDao requestDao = helper.createTopicDao();
+            requestDao.save(request);
 
         } catch (DaoException e) {
-            throw new ServiceException("Save topic error", e);
+            throw new ServiceException("Save request error", e);
         }
     }
 
@@ -56,7 +56,7 @@ public class SaveService {
         try (DaoHelper helper = factory.create()) {
 
             MessageDao messageDao = helper.createMessageDao();
-            Optional<Long> id = messageDao.save(message);
+            messageDao.save(message);
 
         } catch (DaoException e) {
             throw new ServiceException("Save message error", e);
@@ -68,7 +68,7 @@ public class SaveService {
         try (DaoHelper helper = factory.create()) {
 
             QuestionDao questionDao = helper.createQuestionDao();
-            Optional<Long> id = questionDao.save(question);
+            questionDao.save(question);
         } catch (DaoException e) {
             throw new ServiceException("Save question error", e);
         }

@@ -1,21 +1,21 @@
 package com.epam.evm.conference.model;
 
-public class Topic extends DatabaseEntity {
+public class Request extends DatabaseEntity {
 
     private final Long sectionId;
     private final Long userId;
-    private final String name;
+    private final String topic;
     private final String status;
 
     private Conference conference;
     private Section section;
     private User user;
 
-    public Topic(Long id, Long sectionId, Long userId, String name, String status) {
+    public Request(Long id, Long sectionId, Long userId, String topic, String status) {
         super(id);
         this.sectionId = sectionId;
         this.userId = userId;
-        this.name = name;
+        this.topic = topic;
         this.status = status;
     }
 
@@ -27,8 +27,8 @@ public class Topic extends DatabaseEntity {
         return userId;
     }
 
-    public String getName() {
-        return name;
+    public String getTopic() {
+        return topic;
     }
 
     public String getStatus() {
@@ -71,27 +71,27 @@ public class Topic extends DatabaseEntity {
             return false;
         }
 
-        Topic topic = (Topic) o;
+        Request request = (Request) o;
 
-        if (sectionId != null ? !sectionId.equals(topic.sectionId) : topic.sectionId != null) {
+        if (sectionId != null ? !sectionId.equals(request.sectionId) : request.sectionId != null) {
             return false;
         }
-        if (userId != null ? !userId.equals(topic.userId) : topic.userId != null) {
+        if (userId != null ? !userId.equals(request.userId) : request.userId != null) {
             return false;
         }
-        if (name != null ? !name.equals(topic.name) : topic.name != null) {
+        if (topic != null ? !topic.equals(request.topic) : request.topic != null) {
             return false;
         }
-        if (status != null ? !status.equals(topic.status) : topic.status != null) {
+        if (status != null ? !status.equals(request.status) : request.status != null) {
             return false;
         }
-        if (conference != null ? !conference.equals(topic.conference) : topic.conference != null) {
+        if (conference != null ? !conference.equals(request.conference) : request.conference != null) {
             return false;
         }
-        if (section != null ? !section.equals(topic.section) : topic.section != null) {
+        if (section != null ? !section.equals(request.section) : request.section != null) {
             return false;
         }
-        return user != null ? user.equals(topic.user) : topic.user == null;
+        return user != null ? user.equals(request.user) : request.user == null;
     }
 
     @Override
@@ -99,7 +99,7 @@ public class Topic extends DatabaseEntity {
         int result = super.hashCode();
         result = 31 * result + (sectionId != null ? sectionId.hashCode() : 0);
         result = 31 * result + (userId != null ? userId.hashCode() : 0);
-        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (topic != null ? topic.hashCode() : 0);
         result = 31 * result + (status != null ? status.hashCode() : 0);
         result = 31 * result + (conference != null ? conference.hashCode() : 0);
         result = 31 * result + (section != null ? section.hashCode() : 0);
@@ -112,7 +112,7 @@ public class Topic extends DatabaseEntity {
         return "Topic{" +
                 "sectionId=" + sectionId +
                 ", userId=" + userId +
-                ", name='" + name + '\'' +
+                ", name='" + topic + '\'' +
                 ", status='" + status + '\'' +
                 ", conference=" + conference +
                 ", section=" + section +

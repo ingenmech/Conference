@@ -29,6 +29,7 @@ public class CreateRequestCommand implements Command {
         Gson gson = new Gson();
         String conferenceJson = gson.toJson(conferences);
         request.setAttribute(MAP_SECTION, conferenceJson);
+
         return CommandResult.forward(CREATE_REQUEST_JSP);
     }
 

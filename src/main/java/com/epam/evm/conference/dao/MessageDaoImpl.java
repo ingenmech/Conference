@@ -11,7 +11,9 @@ import java.sql.Connection;
 
 public class MessageDaoImpl extends AbstractDao<Message> implements MessageDao {
 
-    private final static String INSERT_MESSAGE = "INSERT INTO message(QUESTION_ID, USER_ID, DATE_TIME, CONTENT) VALUES (?, ?, ?, ?)";
+    private final static String INSERT_MESSAGE =
+            "INSERT INTO message(QUESTION_ID, USER_ID, DATE_TIME, CONTENT) VALUES (?, ?, ?, ?)";
+
     private final static String UPDATE_MESSAGE = "";
     private final static String TABLE = "message";
     private final static RowMapper<Message> MAPPER = new MessageRowMapper();

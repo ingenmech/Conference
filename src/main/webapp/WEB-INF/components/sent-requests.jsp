@@ -27,15 +27,15 @@
                                 <th>${topic}</th>
                                 <th></th>
                            </tr>
-                		   <c:forEach var="topic" items="${userTopicList}">
+                		   <c:forEach var="request" items="${userRequestList}">
                 				<tr>
-                				   <td>${topic.status}</td>
-                				   <td>${topic.conference.name}</td>
-                				   <td>${topic.section.name}</td>
-                				   <td>${topic.name}</td>
+                				   <td>${request.status}</td>
+                				   <td>${request.conference.name}</td>
+                				   <td>${request.section.name}</td>
+                				   <td>${request.topic}</td>
                 				   <td>
                 				   <form>
-                				       <input type="hidden" name="topicId" value=${topic.id}>
+                				       <input type="hidden" name="requestId" value=${request.id}>
                 						<div  class="dropdown-action ">
                 							<a href="javascript:void(0)" class="dropbtn-action">>>></a>
                 							<div class="dropdown-content-action">

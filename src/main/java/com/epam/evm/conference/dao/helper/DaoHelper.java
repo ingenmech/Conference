@@ -28,8 +28,8 @@ public class DaoHelper implements AutoCloseable {
         return new SectionDaoImpl(connection);
     }
 
-    public TopicDao createTopicDao(){
-        return new TopicDaoImpl(connection);
+    public RequestDao createTopicDao(){
+        return new RequestDaoImpl(connection);
     }
 
     public MessageDao createMessageDao(){

@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class RemoveRequestCommand implements Command {
 
-    private final static String TOPIC_ID = "topicId";
+    private final static String REQUEST_ID = "requestId";
 
     private final String page;
     private final RemoveService service;
@@ -21,10 +21,10 @@ public class RemoveRequestCommand implements Command {
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
 
-        String idValue = request.getParameter(TOPIC_ID);
+        String idValue = request.getParameter(REQUEST_ID);
         Long id = Long.valueOf(idValue);
 
-        service.removeTopicById(id);
+        service.removeRequestById(id);
         return CommandResult.forward(page);
     }
 }

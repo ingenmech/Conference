@@ -5,7 +5,7 @@ $(document).ready(function () {
 		var sectionDropbox = $('#section');
 		sectionDropbox.empty();
 		var sectionString = $('#sections').val();
-		//var sectionMap = JSON.parse(sectionString);
+		var sectionMap = JSON.parse(sectionString);
 
 		for (i = 0; i < sectionMap.length; i++) {
 			var sections = sectionMap[i].sections;
