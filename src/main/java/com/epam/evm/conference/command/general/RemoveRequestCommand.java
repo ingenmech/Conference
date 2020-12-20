@@ -1,5 +1,7 @@
-package com.epam.evm.conference.command;
+package com.epam.evm.conference.command.general;
 
+import com.epam.evm.conference.command.Command;
+import com.epam.evm.conference.command.CommandResult;
 import com.epam.evm.conference.exception.ServiceException;
 import com.epam.evm.conference.service.RemoveService;
 

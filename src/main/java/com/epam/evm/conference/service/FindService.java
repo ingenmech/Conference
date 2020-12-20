@@ -48,17 +48,46 @@ public class FindService {
         }
     }
 
-    public List<Question> findAllQuestionWithMessage() throws ServiceException {
+    public List<Question> findQuestionsByUserId(Long userId) throws ServiceException{
+
+        try (DaoHelper helper = factory.create()) {
+            QuestionDao questionDao = helper.createQuestionDao();
+            return questionDao.findQuestionsByUserId(userId);
+
+        } catch (DaoException e) {
+            throw new ServiceException("Find question error", e);
+        }
+    }
+
+    public List<Message> findMessagesByQuestionId(Long questionId) throws ServiceException {
+
+        try (DaoHelper helper = factory.create()) {
+
+            MessageDao messageDao = helper.createMessageDao();
+
+            return messageDao.findMessagesByQuestionId(questionId);
+
+        } catch (DaoException e) {
+            throw new ServiceException("Find question error", e);
+        }
+    }
+
+    public List<Question> findAllQuestionWithUserLogin() throws ServiceException {
 
         try (DaoHelper helper = factory.create()) {
             QuestionDao questionDao = helper.createQuestionDao();
             List<Question> questions = questionDao.getAll();
 
-            MessageDao messageDao = helper.createMessageDao();
-            List<Message> messages = messageDao.getAll();
+            UserDao userDao = helper.createUserDao();
 
             for (Question question: questions){
-                initQuestion(question, messages);
+                Long userId = question.getUserId();
+                Optional<User> userWrapper = userDao.findBiId(userId);
+                if (userWrapper.isPresent()){
+                    User user = userWrapper.get();
+                    String userLogin = user.getLogin();
+                    question.setUserLogin(userLogin);
+                }
             }
             return questions;
 
@@ -67,16 +96,16 @@ public class FindService {
         }
     }
 
-    private void initQuestion(Question question, List<Message> messages){
-
-        Long questionId = question.getId();
-        for (Message message :messages ) {
-            Long messageQuestionId = message.getQuestionId();
-            if (questionId.equals(messageQuestionId)) {
-                question.addMessage(message);
-            }
-        }
-    }
+//    private void initQuestion(Question question, List<Message> messages){
+//
+//        Long questionId = question.getId();
+//        for (Message message :messages ) {
+//            Long messageQuestionId = message.getQuestionId();
+//            if (questionId.equals(messageQuestionId)) {
+//                question.addMessage(message);
+//            }
+//        }
+//    }
 
     public List<Request> findAllRequestsWithUsersSectionsConferences() throws ServiceException {
 

@@ -59,15 +59,16 @@ public abstract class AbstractDao<T extends DatabaseEntity> implements Dao<T> {
     @Override
     public Optional<Long> save(T entity) throws DaoException {
 
-        Map<Integer, Object> fields;
+        Map<Integer, Object> fields = extractor.extract(entity);
+        Long id = entity.getId();
         String query;
 
-        if (entity.getId() == null) {
+        if (id == null) {
             query = saveQuery;
-            fields = extractor.extractForSave(entity);
         } else {
             query = updateQuery;
-            fields = extractor.extractForUpdate(entity);
+            Integer updateId = fields.size() + 1;
+            fields.put(updateId, id);
         }
 
         return executeUpdate(query, fields);

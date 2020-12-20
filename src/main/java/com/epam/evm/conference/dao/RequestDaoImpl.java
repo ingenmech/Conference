@@ -14,9 +14,10 @@ import java.util.List;
 public class RequestDaoImpl extends AbstractDao<Request> implements RequestDao {
 
     private final static String INSERT_REQUEST =
-            "INSERT INTO request(ID, USER_ID, SECTION_ID, TOPIC, STATUS) VALUES (?, ?, ?, ?, ?)";
+            "INSERT INTO request(USER_ID, SECTION_ID, TOPIC, STATUS) VALUES (?, ?, ?, ?)";
 
-    private final static String UPDATE_REQUEST_STATUS = "UPDATE request SET status = ? WHERE id = ?";
+    private final static String UPDATE_REQUEST_STATUS =
+            "UPDATE request SET user_id = ?, section_id = ?, topic = ?, status = ? WHERE id = ?";
     private final static String SELECT_REQUEST_BY_USER_ID = "SELECT * FROM request WHERE user_id = ?";
     private final static String TABLE = "request";
 

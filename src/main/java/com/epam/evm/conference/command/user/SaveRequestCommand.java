@@ -1,7 +1,10 @@
-package com.epam.evm.conference.command;
+package com.epam.evm.conference.command.user;
 
+import com.epam.evm.conference.command.Command;
+import com.epam.evm.conference.command.CommandResult;
 import com.epam.evm.conference.exception.ServiceException;
 import com.epam.evm.conference.model.Request;
+import com.epam.evm.conference.model.RequestStatus;
 import com.epam.evm.conference.service.SaveService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +16,7 @@ public class SaveRequestCommand implements Command {
     private final static String SECTION_ID = "section";
     private final static String TOPIC = "topic";
     private final static String USER_ID = "userId";
-    private final static String DEFAULT_STATUS = "CONSIDERING";
+    private final static RequestStatus DEFAULT_STATUS = RequestStatus.CONSIDERING;
     private final static String GO_TO_SENT_REQUESTS = "/controller?command=userSentRequests";
 
     private final SaveService service;

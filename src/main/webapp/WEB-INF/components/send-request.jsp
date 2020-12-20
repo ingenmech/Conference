@@ -13,8 +13,8 @@
 		<fmt:message bundle="${loc}" key="request.choose.topic" var="chooseTopic" />
 		<fmt:message bundle="${loc}" key="request.holder.topic" var="holderTopic" />
 		<fmt:message bundle="${loc}" key="request.send.request" var="sendRequest" />
-        <script type="text/javascript" language="JavaScript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script type="text/javascript" language="JavaScript" src="${pageContext.request.contextPath}/static/js/choose-section.js"></script>
+		<script type="text/javascript" language="JavaScript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script type="text/javascript" language="JavaScript" src="${pageContext.request.contextPath}/static/js/choose-section.js"></script>
 	</head>
 	<section class="column-main">
 		<div class="accept">
@@ -22,20 +22,20 @@
 				<input type="hidden" name="command" value="userSendRequest" />
 				<label for="conference"><h4>${chooseConference}</h4></label>
 				<select id="conference" name="conference">
-				<c:forEach var="conferences" items="${conferenceList}">
+					<c:forEach var="conferences" items="${conferenceList}">
 					<option value="${conferences.id}">
-					<c:out value="${conferences.date}  ->  " />
-					<c:out value="${conferences.name}" />
-				    </option>
+						<c:out value="${conferences.date}  ->  " />
+						<c:out value="${conferences.name}" />
+					</option>
 				</c:forEach>
-				</select>
-				<label for="section"><h4>${chooseSection}</h4></label>
-				<input id="sections" type="hidden" value='${sectionList}'/>
-                <select id="section" name="section">
-                </select>
-				<label for="topic"><h4>${chooseTopic}</h4></label>
-				<input id="topic" type="text" name="topic" placeholder="${holderTopic}">
-				<input type="submit" value="${sendRequest}">
-			</form>
-		</div>
-	</section>
+			</select>
+			<label for="section"><h4>${chooseSection}</h4></label>
+			<input id="sections" type="hidden" value='${sectionList}'/>
+			<select id="section" name="section">
+			</select>
+			<label for="topic"><h4>${chooseTopic}</h4></label>
+			<input id="topic" type="text" name="topic" placeholder="${holderTopic}">
+			<input type="submit" value="${sendRequest}">
+		</form>
+	</div>
+</section>

@@ -8,7 +8,6 @@ import java.util.Map;
 
 public class MessageFieldExtractor implements FieldExtractor<Message>{
 
-    private final static String ID = "id";
     private final static int QUESTION_ID = 1;
     private final static int USER_ID = 2;
     private final static int DATE_TIME = 3;
@@ -16,7 +15,7 @@ public class MessageFieldExtractor implements FieldExtractor<Message>{
 
 
     @Override
-    public Map<Integer, Object> extractForSave(Message entity) {
+    public Map<Integer, Object> extract(Message entity) {
 
         Long questionId = entity.getQuestionId();
         Long userId = entity.getUserId();
@@ -32,8 +31,4 @@ public class MessageFieldExtractor implements FieldExtractor<Message>{
         return map;
     }
 
-    @Override
-    public Map<Integer, Object> extractForUpdate(Message entity) {
-        return null;
-    }
 }

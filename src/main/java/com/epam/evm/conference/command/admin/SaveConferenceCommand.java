@@ -1,5 +1,7 @@
-package com.epam.evm.conference.command;
+package com.epam.evm.conference.command.admin;
 
+import com.epam.evm.conference.command.Command;
+import com.epam.evm.conference.command.CommandResult;
 import com.epam.evm.conference.exception.ServiceException;
 import com.epam.evm.conference.model.Conference;
 import com.epam.evm.conference.model.Section;
@@ -37,8 +39,8 @@ public class SaveConferenceCommand implements Command {
 
         String[] sectionsName = request.getParameterValues(SECTION);
         List<Section> sections = new ArrayList<>();
-        for (int i = 0; i < sectionsName.length; i++) {
-            sections.add(new Section(null, null, sectionsName[i]));
+        for (String value : sectionsName) {
+            sections.add(new Section(null, null, value));
         }
 
         String date = request.getParameter(DATE);

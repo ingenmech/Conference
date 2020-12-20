@@ -7,6 +7,7 @@ public class Question extends DatabaseEntity {
     private final Long userId;
     private final String content;
 
+    private String userLogin;
     private List<Message> messages;
 
     public Question(Long id, Long userId, String content) {
@@ -33,5 +34,13 @@ public class Question extends DatabaseEntity {
 
     public int messageSize(){
         return messages.size();
+    }
+
+    public String getUserLogin() {
+        return userLogin;
+    }
+
+    public void setUserLogin(String userLogin) {
+        this.userLogin = userLogin;
     }
 }

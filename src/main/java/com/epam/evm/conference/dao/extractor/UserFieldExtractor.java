@@ -7,12 +7,8 @@ import java.util.Map;
 public class UserFieldExtractor implements FieldExtractor<User>{
 
     @Override
-    public Map<Integer, Object> extractForSave(User entity) {
+    public Map<Integer, Object> extract(User entity) {
         return null;
     }
 
-    @Override
-    public Map<Integer, Object> extractForUpdate(User entity) {
-        return null;
-    }
 }

@@ -35,6 +35,9 @@
 					<li>
 						<a class="button-menu" href="${pageContext.request.contextPath}/controller?command=adminGoToAcceptRequest">${adminRequests}</a>
 					</li>
+					 <li>
+                    	<a class="button-menu" href="${pageContext.request.contextPath}/controller?command=adminQuestionsPage">${question}</a>
+                     </li>
 				</c:if>
 				<c:if test="${sessionScope.userRole eq 'USER'}" >
 				  <li>
@@ -44,7 +47,7 @@
 					  <a class="button-menu" href="${pageContext.request.contextPath}/controller?command=userSentRequests">${userRequests}</a>
 				  </li>
 				  <li>
-					  <a class="button-menu" href="#">${question}</a>
+					  <a class="button-menu" href="${pageContext.request.contextPath}/controller?command=userQuestionsPage">${question}</a>
 				  </li>
 			    </c:if>
 		    </ul>

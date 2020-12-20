@@ -5,13 +5,14 @@ public class Request extends DatabaseEntity {
     private final Long sectionId;
     private final Long userId;
     private final String topic;
-    private final String status;
+    private final RequestStatus status;
 
+    //TODO DTO
     private Conference conference;
     private Section section;
     private User user;
 
-    public Request(Long id, Long sectionId, Long userId, String topic, String status) {
+    public Request(Long id, Long sectionId, Long userId, String topic, RequestStatus status) {
         super(id);
         this.sectionId = sectionId;
         this.userId = userId;
@@ -31,7 +32,7 @@ public class Request extends DatabaseEntity {
         return topic;
     }
 
-    public String getStatus() {
+    public RequestStatus getStatus() {
         return status;
     }
 

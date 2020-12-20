@@ -2,6 +2,7 @@ package com.epam.evm.conference.dao.mapper;
 
 import com.epam.evm.conference.exception.DaoException;
 import com.epam.evm.conference.model.Request;
+import com.epam.evm.conference.model.RequestStatus;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,7 +22,8 @@ public class RequestRowMapper implements RowMapper<Request> {
             Long userId = resultSet.getLong(USER_ID);
             Long sectionId = resultSet.getLong(SECTION_ID);
             String topic = resultSet.getString(TOPIC);
-            String status = resultSet.getString(STATUS);
+            String statusRow = resultSet.getString(STATUS);
+            RequestStatus status =RequestStatus.valueOf(statusRow);
 
             return new Request(id, sectionId, userId, topic, status);
         } catch (SQLException e) {
