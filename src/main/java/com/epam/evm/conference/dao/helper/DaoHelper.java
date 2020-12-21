@@ -5,6 +5,7 @@ import com.epam.evm.conference.connection.ProxyConnection;
 import com.epam.evm.conference.dao.*;
 import com.epam.evm.conference.dao.daoInterface.*;
 import com.epam.evm.conference.exception.DaoException;
+import com.epam.evm.conference.exception.ServiceException;
 
 import java.sql.SQLException;
 
@@ -53,11 +54,11 @@ public class DaoHelper implements AutoCloseable {
         }
     }
 
-    public void rollback() throws DaoException {
+    public void rollback() throws ServiceException {
         try {
             connection.rollback();
         } catch (SQLException stack) {
-            throw new DaoException("Rollback error", stack);
+            throw new ServiceException("Rollback error", stack);
         }
     }
 

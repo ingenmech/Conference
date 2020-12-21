@@ -19,8 +19,9 @@ public class SaveService {
 
     public void saveConferenceWithSection(Conference conference) throws ServiceException {
 
-        try (DaoHelper helper = factory.create()) {
-
+        DaoHelper helper = null;
+        try {
+            helper = factory.create();
             helper.startTransaction();
             ConferenceDao conferenceDao = helper.createConferenceDao();
             Optional<Long> conferenceId = conferenceDao.save(conference);
@@ -35,7 +36,12 @@ public class SaveService {
             helper.endTransaction();
 
         } catch (DaoException e) {
+            helper.rollback();
             throw new ServiceException("Save conference error", e);
+        } finally {
+            if (helper != null) {
+                helper.close();
+            }
         }
     }
 
