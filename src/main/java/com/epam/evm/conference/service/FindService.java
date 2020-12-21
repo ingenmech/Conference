@@ -96,17 +96,6 @@ public class FindService {
         }
     }
 
-//    private void initQuestion(Question question, List<Message> messages){
-//
-//        Long questionId = question.getId();
-//        for (Message message :messages ) {
-//            Long messageQuestionId = message.getQuestionId();
-//            if (questionId.equals(messageQuestionId)) {
-//                question.addMessage(message);
-//            }
-//        }
-//    }
-
     public List<Request> findAllRequestsWithUsersSectionsConferences() throws ServiceException {
 
         try (DaoHelper helper = factory.create()) {

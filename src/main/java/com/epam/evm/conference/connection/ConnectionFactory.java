@@ -20,7 +20,7 @@ public class ConnectionFactory {
     private final Properties properties;
 
     public ConnectionFactory() {
-        properties = readProperties(DB_PROPERTIES);
+        properties = readProperties();
     }
 
     public Connection create() {
@@ -32,17 +32,16 @@ public class ConnectionFactory {
 
         try {
             Class.forName(driver);
-            Connection connection = DriverManager.getConnection(url, userName, password);
-            return connection;
+            return DriverManager.getConnection(url, userName, password);
         } catch (SQLException | ClassNotFoundException e) {
             throw new ConnectionPoolException("Can't create connection", e);
         }
     }
 
-    private Properties readProperties(String fileName){
+    private Properties readProperties(){
 
         ClassLoader classLoader = getClass().getClassLoader();
-        try (InputStream inputStream = classLoader.getResourceAsStream(fileName)){
+        try (InputStream inputStream = classLoader.getResourceAsStream(DB_PROPERTIES)){
             Properties properties = new Properties();
             properties.load(inputStream);
             return properties;
