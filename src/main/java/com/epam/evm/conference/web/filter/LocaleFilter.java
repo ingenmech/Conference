@@ -11,7 +11,7 @@ public class LocaleFilter implements Filter {
     private final static String SESSION_LOCALE = "sessionLocale";
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig){
 
     }
 

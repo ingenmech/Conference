@@ -8,7 +8,7 @@ public class Conference extends DatabaseEntity {
 
     private final String name;
     private final LocalDateTime date;
-    private List<Section> sections;
+    private final List<Section> sections;
 
     public Conference(Long id, String name, LocalDateTime date) {
         super(id);

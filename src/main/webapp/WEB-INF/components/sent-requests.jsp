@@ -30,8 +30,8 @@
         <c:forEach var="request" items="${userRequestList}">
         <tr>
          <td>${request.status}</td>
-         <td>${request.conference.name}</td>
-         <td>${request.section.name}</td>
+         <td>${request.conferenceName}</td>
+         <td>${request.sectionName}</td>
          <td>${request.topic}</td>
          <td>
              <form>

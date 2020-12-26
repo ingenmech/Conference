@@ -60,7 +60,6 @@ public class Servlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-    //TODO
     @Override
     public void destroy() {
         super.destroy();

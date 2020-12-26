@@ -23,6 +23,8 @@ public class LocaleCommand implements Command {
 
         HttpSession session = request.getSession();
         session.setAttribute(LOCALE_KEY, locale);
+        String actualPage = request.getHeader("referer");
+        session.setAttribute("varTwo", actualPage);
         return CommandResult.forward(MAIN_JSP);
     }
 }

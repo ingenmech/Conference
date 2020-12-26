@@ -7,7 +7,7 @@
 </head>
 <body>
   <div>
-    <jsp:forward page="${pageContext.request.contextPath}/controller?command=main" />
+    <jsp:forward page="/controller?command=main" />
   </div>
 </body>
 </html>

@@ -8,52 +8,56 @@
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/styles.css">
 	<fmt:setLocale value="${sessionScope.locale}" />
 	<fmt:setBundle basename="properties.locale" var="loc" />
-    <fmt:message bundle="${loc}" key="accept.request.table.user" var="user" />
     <fmt:message bundle="${loc}" key="question.page.question" var="userQuestion" />
-    <fmt:message bundle="${loc}" key="question.page.create" var="createQuestion" />
+    <fmt:message bundle="${loc}" key="message.empty.message" var="emptyMessage" />
+    <fmt:message bundle="${loc}" key="question.page.send" var="send" />
+    <fmt:message bundle="${loc}" key="message.page.placeholder" var="holder" />
 </head>
 <body>
   <section class="column-main">
       <div class="table">
          <table>
             <tr>
-               <th class="col-15">${user}</th>
-               <th class="col-70">${questionContent}</th>
-               <th class="col-15"></th>
+               <th class="col-15">${userQuestion} -->></th>
+               <th class="col-85">${questionContent}</th>
            </tr>
-         <c:forEach var="message" items="messagesList">
-           <tr>
+     <c:if test="${not empty messagesList}" var="isEmpty">
+         <c:forEach var="message" items="${messagesList}">
+            <tr>
                <td>${message.userLogin}</td>
                <td>${message.content}</td>
-               <td>
-                   <div  class="show-message">
-                        <input type="submit" value="Send">
-                   </div>
-               </td>
-           </tr>
+            </tr>
          </c:forEach>
-       <tr>
+     </c:if>
+     <c:if test="${isEmpty eq 'false'}">
+        <tr>
+          <td></td>
+          <td>${emptyMessage}</td>
+        </tr>
+     </c:if>
+        <tr>
        	    <td></td>
        	    <td>
        	    	<div class="container">
        	    	   <form method="POST" action="${pageContext.request.contextPath}/controller">
-       	    	      <input type="hidden" name="command" value="message" />
+       	    	      <input type="hidden" name="command" value="allUsersAddMessage" />
        	    	      <input type="hidden" name="questionId" value="${questionId}">
-       					<div class="row">
+       	    	      <input type="hidden" name="questionContent" value="${questionContent}">
+       					 <div class="row">
        					    <div >
-       						   <label for="subject">Message</label>
+       						   <label for="content">Message</label>
        					    </div>
        					    <div class="text">
-       							<textarea id="subject" name="subject" placeholder="Write something.." style="height:150px"></textarea>
+       							<textarea id="content" name="content" placeholder="${holder}" style="height:100px"></textarea>
        	 				    </div>
-       	        		</div>
-       					<div class="row">
-       					<input type="submit" value="${sendMessage}">
-       					</div>
+       	        		 </div>
+       					 <div class="row">
+       					     <input type="submit" value="${send}">
+       					 </div>
        				</form>
        			</div>
        	    </td>
-       </tr>
+        </tr>
    </table>
 </div>
 </section>

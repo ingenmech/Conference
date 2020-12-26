@@ -8,4 +8,5 @@ import java.util.List;
 public interface RequestDao extends Dao<Request>{
 
     List<Request> findAllRequestsByUserId(Long userId) throws DaoException;
+    //List<Request> findAllRequestsWithParams() throws DaoException;
 }

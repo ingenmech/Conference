@@ -15,6 +15,8 @@ public class CommandFactory {
     private final static String SIGN_IN_PAGE = "/WEB-INF/pages/login-page.jsp";
     private final static String MAIN_PAGE = "/WEB-INF/pages/main-page.jsp";
     private final static String CRATE_CONFERENCE_PAGE = "/WEB-INF/pages/create-conference-page.jsp";
+    private final static String CRATE_QUESTION_PAGE = "/WEB-INF/pages/create-question-page.jsp";
+
 
     private final static String LOCALE_ENG = "en";
     private final static String LOCALE_RU = "ru";
@@ -26,6 +28,7 @@ public class CommandFactory {
     private final static String GO_TO_ACCEPT_REQUEST = "adminGoToAcceptRequest";
     private final static String GO_TO_CREATE_REQUEST = "userCreateRequest";
     private final static String GO_TO_SENT_REQUESTS = "userSentRequests";
+    private final static String GO_TO_CREATE_QUESTION = "userCreateQuestionPage";
 
     private final static String LOGIN = "login";
     private final static String LOGOUT = "logout";
@@ -63,6 +66,8 @@ public class CommandFactory {
                 return new AdminRequestPageCommand(new FindService(new DaoHelperFactory()));
             case GO_TO_SENT_REQUESTS:
                 return new UserRequestPageCommand(new FindService(new DaoHelperFactory()));
+            case GO_TO_CREATE_QUESTION:
+                return new ForwardPageCommand(CRATE_QUESTION_PAGE);
             case SHOW_CONFERENCE:
                 return new ListConferenceCommand();
             case USER_SEND_REQUEST:

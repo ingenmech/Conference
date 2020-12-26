@@ -25,6 +25,5 @@ public class UserRowMapper implements RowMapper<User> {
         } catch (SQLException e) {
             throw new DaoException("Error UserRowMapper", e);
         }
-
     }
 }

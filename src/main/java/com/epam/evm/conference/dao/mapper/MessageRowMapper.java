@@ -16,6 +16,8 @@ public class MessageRowMapper implements RowMapper<Message> {
     private final static String DATE_TIME = "date_time";
     private final static String CONTENT = "content";
 
+    private final static String USER_LOGIN = "user_login";
+
     @Override
     public Message map(ResultSet resultSet) throws DaoException {
 
@@ -26,7 +28,8 @@ public class MessageRowMapper implements RowMapper<Message> {
             Timestamp datestamp = resultSet.getTimestamp(DATE_TIME);
             LocalDateTime dateTime = datestamp.toLocalDateTime();
             String content = resultSet.getString(CONTENT);
-            return new Message(id, questionId, userId, dateTime, content);
+            String userLogin = resultSet.getString(USER_LOGIN);
+            return new Message(id, questionId, userId, dateTime, content, userLogin);
         } catch (SQLException e) {
             throw new DaoException("Message RowMapper error", e);
         }

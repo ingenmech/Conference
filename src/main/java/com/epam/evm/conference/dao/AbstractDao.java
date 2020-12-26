@@ -12,7 +12,7 @@ import java.util.*;
 public abstract class AbstractDao<T extends DatabaseEntity> implements Dao<T> {
 
     private final static String SELECT_BY_ID_QUERY = "SELECT * FROM %s WHERE id = ?";
-    private final static String SELECT_ALL_QUERY = "SELECT * FROM %s";
+    //private final static String SELECT_ALL_QUERY = "SELECT * FROM %s";
     private final static String DELETE_BY_ID_QUERY = "DELETE FROM %s WHERE id = ?";
 
     private final RowMapper<T> mapper;
@@ -20,17 +20,19 @@ public abstract class AbstractDao<T extends DatabaseEntity> implements Dao<T> {
     private final String table;
     private final String saveQuery;
     private final String updateQuery;
+    private final String selectAllQuery;
 
-    private Connection connection;
+    private final Connection connection;
 
     protected AbstractDao(Connection connection, RowMapper<T> mapper, FieldExtractor<T> extractor,
-                          String table, String saveQuery, String updateQuery) {
+                          String table, String saveQuery, String updateQuery, String selectAllQuery) {
         this.connection = connection;
         this.mapper = mapper;
         this.extractor = extractor;
         this.table = table;
         this.saveQuery = saveQuery;
         this.updateQuery = updateQuery;
+        this.selectAllQuery = selectAllQuery;
     }
 
     @Override
@@ -52,8 +54,8 @@ public abstract class AbstractDao<T extends DatabaseEntity> implements Dao<T> {
     @Override
     public List<T> getAll() throws DaoException {
 
-        String query = String.format(SELECT_ALL_QUERY, table);
-        return executeQuery(query);
+        //String query = String.format(SELECT_ALL_QUERY, table);
+        return executeQuery(selectAllQuery);
     }
 
     @Override

@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 
 public class CreateQuestionCommand implements Command {
 
-    private final static String USER_MESSAGE_PAGE = "/WEB-INF/pages/questions-page.jsp";
+    private final static String USER_QUESTIONS_PAGE = "/controller?command=userQuestionsPage";
     private final static String USER_ID = "userId";
     private final static String CONTENT = "content";
     private final SaveService service;
@@ -32,6 +32,6 @@ public class CreateQuestionCommand implements Command {
         Question question = new Question(null, userId, content);
         service.saveQuestion(question);
 
-        return CommandResult.forward(USER_MESSAGE_PAGE);
+        return CommandResult.forward(USER_QUESTIONS_PAGE);
     }
 }

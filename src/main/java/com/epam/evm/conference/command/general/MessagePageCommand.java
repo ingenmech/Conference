@@ -15,6 +15,7 @@ public class MessagePageCommand implements Command {
     private final static String SEND_MASSAGES_PAGE = "/WEB-INF/pages/messages-page.jsp";
     private final static String QUESTION_ID = "questionId";
     private final static String MESSAGES_LIST = "messagesList";
+    private final static String QUESTION_CONTENT = "questionContent";
     private final FindService service;
 
     public MessagePageCommand(FindService service) {
@@ -27,6 +28,10 @@ public class MessagePageCommand implements Command {
 
         String questionIdRow = request.getParameter(QUESTION_ID);
         Long questionId = Long.valueOf(questionIdRow);
+
+        String questionContent = request.getParameter(QUESTION_CONTENT);
+        request.setAttribute(QUESTION_CONTENT, questionContent);
+        request.setAttribute(QUESTION_ID, questionId);
 
         List<Message> messages = service.findMessagesByQuestionId(questionId);
         request.setAttribute(MESSAGES_LIST, messages);

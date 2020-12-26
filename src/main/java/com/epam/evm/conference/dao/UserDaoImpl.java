@@ -15,7 +15,7 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
 
     private final static String FIND_BY_LOGIN_AND_PASSWORD =
             "SELECT * FROM user WHERE login = ? AND password = SHA1( ? )";
-
+    private final static String SELECT_ALL = "SELECT * FROM user";
     private final static String INSERT_USER = "";
     private final static String UPDATE_USER = "";
     private final static String TABLE = "user";
@@ -24,7 +24,7 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
     private final static FieldExtractor<User> EXTRACTOR = new UserFieldExtractor();
 
     public UserDaoImpl(Connection connection) {
-        super(connection, MAPPER, EXTRACTOR, TABLE, INSERT_USER, UPDATE_USER);
+        super(connection, MAPPER, EXTRACTOR, TABLE, INSERT_USER, UPDATE_USER, SELECT_ALL);
     }
 
     @Override

@@ -7,10 +7,10 @@ public class Request extends DatabaseEntity {
     private final String topic;
     private final RequestStatus status;
 
-    //TODO DTO
-    private Conference conference;
-    private Section section;
-    private User user;
+    //TODO DTO?
+    private String conferenceName;
+    private String sectionName;
+    private String userLogin;
 
     public Request(Long id, Long sectionId, Long userId, String topic, RequestStatus status) {
         super(id);
@@ -18,6 +18,18 @@ public class Request extends DatabaseEntity {
         this.userId = userId;
         this.topic = topic;
         this.status = status;
+    }
+
+    public Request(Long id, Long sectionId, Long userId, String topic, RequestStatus status,
+    String conferenceName, String sectionName, String userLogin) {
+        super(id);
+        this.sectionId = sectionId;
+        this.userId = userId;
+        this.topic = topic;
+        this.status = status;
+        this.conferenceName = conferenceName;
+        this.sectionName = sectionName;
+        this.userLogin = userLogin;
     }
 
     public Long getSectionId() {
@@ -36,28 +48,28 @@ public class Request extends DatabaseEntity {
         return status;
     }
 
-    public Conference getConference() {
-        return conference;
+    public String getConferenceName() {
+        return conferenceName;
     }
 
-    public void setConference(Conference conference) {
-        this.conference = conference;
+    public void setConferenceName(String conferenceName) {
+        this.conferenceName = conferenceName;
     }
 
-    public Section getSection() {
-        return section;
+    public String getSectionName() {
+        return sectionName;
     }
 
-    public void setSection(Section section) {
-        this.section = section;
+    public void setSectionName(String sectionName) {
+        this.sectionName = sectionName;
     }
 
-    public User getUser() {
-        return user;
+    public String getUserLogin() {
+        return userLogin;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserLogin(String userLogin) {
+        this.userLogin = userLogin;
     }
 
     @Override
@@ -71,7 +83,6 @@ public class Request extends DatabaseEntity {
         if (!super.equals(o)) {
             return false;
         }
-
         Request request = (Request) o;
 
         if (sectionId != null ? !sectionId.equals(request.sectionId) : request.sectionId != null) {
@@ -83,16 +94,16 @@ public class Request extends DatabaseEntity {
         if (topic != null ? !topic.equals(request.topic) : request.topic != null) {
             return false;
         }
-        if (status != null ? !status.equals(request.status) : request.status != null) {
+        if (status != request.status) {
             return false;
         }
-        if (conference != null ? !conference.equals(request.conference) : request.conference != null) {
+        if (conferenceName != null ? !conferenceName.equals(request.conferenceName) : request.conferenceName != null) {
             return false;
         }
-        if (section != null ? !section.equals(request.section) : request.section != null) {
+        if (sectionName != null ? !sectionName.equals(request.sectionName) : request.sectionName != null) {
             return false;
         }
-        return user != null ? user.equals(request.user) : request.user == null;
+        return userLogin != null ? userLogin.equals(request.userLogin) : request.userLogin == null;
     }
 
     @Override
@@ -102,22 +113,22 @@ public class Request extends DatabaseEntity {
         result = 31 * result + (userId != null ? userId.hashCode() : 0);
         result = 31 * result + (topic != null ? topic.hashCode() : 0);
         result = 31 * result + (status != null ? status.hashCode() : 0);
-        result = 31 * result + (conference != null ? conference.hashCode() : 0);
-        result = 31 * result + (section != null ? section.hashCode() : 0);
-        result = 31 * result + (user != null ? user.hashCode() : 0);
+        result = 31 * result + (conferenceName != null ? conferenceName.hashCode() : 0);
+        result = 31 * result + (sectionName != null ? sectionName.hashCode() : 0);
+        result = 31 * result + (userLogin != null ? userLogin.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
-        return "Topic{" +
+        return "Request{" +
                 "sectionId=" + sectionId +
                 ", userId=" + userId +
-                ", name='" + topic + '\'' +
-                ", status='" + status + '\'' +
-                ", conference=" + conference +
-                ", section=" + section +
-                ", user=" + user +
+                ", topic='" + topic + '\'' +
+                ", status=" + status +
+                ", conferenceName='" + conferenceName + '\'' +
+                ", sectionName='" + sectionName + '\'' +
+                ", userLogin='" + userLogin + '\'' +
                 "} " + super.toString();
     }
 }

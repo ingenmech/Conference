@@ -30,13 +30,18 @@ public class SaveService {
             for (int i = 0; i < conference.sizeSections(); i++) {
                 Section section = conference.getSection(i);
                 Long id = conferenceId.get();
+                //TODO skip or throw exception
                 section.setConferenceId(id);
                 sectionDao.save(section);
             }
             helper.endTransaction();
 
         } catch (DaoException e) {
-            helper.rollback();
+            try {
+                helper.rollback();
+            } catch (DaoException stack) {
+                throw new ServiceException("", stack);
+            }
             throw new ServiceException("Save conference error", e);
         } finally {
             if (helper != null) {

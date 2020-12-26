@@ -10,46 +10,48 @@
 	<fmt:setBundle basename="properties.locale" var="loc" />
     <fmt:message bundle="${loc}" key="accept.request.table.user" var="user" />
     <fmt:message bundle="${loc}" key="question.page.question" var="userQuestion" />
-    <fmt:message bundle="${loc}" key="question.page.create" var="createQuestion" />
-    <fmt:message bundle="${loc}" key="question.page.send" var="sendMessage" />
+    <fmt:message bundle="${loc}" key="message.empty.message" var="emptyMessage" />
 </head>
 <body>
   <section class="column-main">
       <div class="table">
          <table>
             <tr>
+            <c:if test="${sessionScope.userRole eq 'ADMIN'}" >
                <th class="col-15">${user}</th>
                <th class="col-70">${userQuestion}</th>
                <th class="col-15"></th>
+            </c:if>
+            <c:if test="${sessionScope.userRole eq 'USER'}" >
+                <th class="col-85">${userQuestion}</th>
+                <th class="col-15"></th>
+                </c:if>
            </tr>
-           <c:forEach var="question" items="questionsList">
+     <c:if test="${not empty questionsList}" >
+           <c:forEach var="question" items="${questionsList}">
            <tr>
+              <c:if test="${sessionScope.userRole eq 'ADMIN'}" >
                <td>${question.userLogin}</td>
+              </c:if>
                <td>${question.content}</td>
                <td>
                  <form method="POST" action="${pageContext.request.contextPath}/controller">
-                   <input type="hidden" name="command" value="allUsersMessagePage" />
-                   <input type="hidden" name="questionId" value="${question.id}">
-                   <input type="hidden" name="questionContent" value="${question.content}">
+                      <input type="hidden" name="command" value="allUsersMessagePage" />
+                      <input type="hidden" name="questionId" value="${question.id}">
+                      <input type="hidden" name="questionContent" value="${question.content}">
                    <div  class="show-message">
-                        <input type="submit" value="${sendMessage}">
+                      <input type="submit" value=">>>">
                    </div>
                  </form>
                </td>
            </tr>
        </c:forEach>
-       <c:if test="${sessionScope.userRole eq 'USER'}" >
-       <tr>
-       	  <td></td>
-       		<td>
-       		   <form method="POST" action="${pageContext.request.contextPath}/controller">
-       		     <input type="hidden" name="command" value="userCreateQuestion" />
-       			   <div class="show-message">
-       			      <input type="submit" value="${createQuestion}">
-       			   </div>
-       		   </form>
-       		</td>
-       </tr>
+     </c:if>
+       <c:if test="${isEmpty eq 'false'}">
+                 <tr>
+                 <td></td>
+                 <td>${emptyMessage}</td>
+                 </tr>
        </c:if>
    </table>
 </div>

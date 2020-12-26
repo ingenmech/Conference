@@ -13,6 +13,8 @@
 	<fmt:message bundle="${loc}" key="menu.user.requests" var="userRequests" />
 	<fmt:message bundle="${loc}" key="menu.user.send" var="createRequest" />
 	<fmt:message bundle="${loc}" key="menu.user.question" var="question" />
+	<fmt:message bundle="${loc}" key="question.user.page.question" var="userQuestion" />
+	<fmt:message bundle="${loc}" key="question.page.questions" var="questions" />
 	<script type="text/javascript" language="JavaScript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script type="text/javascript" language="JavaScript" src="${pageContext.request.contextPath}/static/js/hover-btn.js"></script>
 </head>
@@ -25,9 +27,7 @@
 						<a class="button-menu" href="${pageContext.request.contextPath}/controller?command=getConferences">
 						${list}</a>
 					</li>
-					<li>
-						<a class="button-menu" href="#">${archive}</a>
-					</li>
+					<!-- <li><a class="button-menu" href="#">${archive}</a></li> -->
 				<c:if test="${sessionScope.userRole eq 'ADMIN'}" >
 					<li>
 						<a class="button-menu" href="${pageContext.request.contextPath}/controller?command=adminCreate">${create}</a>
@@ -36,7 +36,7 @@
 						<a class="button-menu" href="${pageContext.request.contextPath}/controller?command=adminGoToAcceptRequest">${adminRequests}</a>
 					</li>
 					 <li>
-                    	<a class="button-menu" href="${pageContext.request.contextPath}/controller?command=adminQuestionsPage">${question}</a>
+                    	<a class="button-menu" href="${pageContext.request.contextPath}/controller?command=adminQuestionsPage">${questions}</a>
                      </li>
 				</c:if>
 				<c:if test="${sessionScope.userRole eq 'USER'}" >
@@ -47,7 +47,10 @@
 					  <a class="button-menu" href="${pageContext.request.contextPath}/controller?command=userSentRequests">${userRequests}</a>
 				  </li>
 				  <li>
-					  <a class="button-menu" href="${pageContext.request.contextPath}/controller?command=userQuestionsPage">${question}</a>
+                      <a class="button-menu" href="${pageContext.request.contextPath}/controller?command=userCreateQuestionPage">${question}</a>
+                  </li>
+				  <li>
+					  <a class="button-menu" href="${pageContext.request.contextPath}/controller?command=userQuestionsPage">${userQuestion}</a>
 				  </li>
 			    </c:if>
 		    </ul>

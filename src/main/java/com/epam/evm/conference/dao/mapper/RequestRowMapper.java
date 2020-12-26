@@ -15,6 +15,11 @@ public class RequestRowMapper implements RowMapper<Request> {
     private final static String TOPIC = "topic";
     private final static String STATUS = "status";
 
+    private final static String SECTION_NAME = "section_name";
+    private final static String CONFERENCE_NAME = "conference_name";
+    private final static String USER_LOGIN = "user_login";
+
+
     @Override
     public Request map(ResultSet resultSet) throws DaoException {
         try {
@@ -25,7 +30,11 @@ public class RequestRowMapper implements RowMapper<Request> {
             String statusRow = resultSet.getString(STATUS);
             RequestStatus status =RequestStatus.valueOf(statusRow);
 
-            return new Request(id, sectionId, userId, topic, status);
+            String sectionName = resultSet.getString(SECTION_NAME);
+            String conferenceName = resultSet.getString(CONFERENCE_NAME);
+            String userLogin= resultSet.getString(USER_LOGIN);
+
+            return new Request(id, sectionId, userId, topic, status, conferenceName, sectionName, userLogin);
         } catch (SQLException e) {
             throw new DaoException("Error SectionRowMapper", e);
         }

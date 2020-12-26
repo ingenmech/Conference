@@ -109,7 +109,7 @@ ul, li{
 	text-align: center;
 	text-decoration: none;
 	display: inline-block;
-	font-size: 18px;
+	font-size: 16px;
 	font-weight: 400;
 	margin: 4px auto;
 	width: 100%;
@@ -164,6 +164,10 @@ ul, li{
 .table table {
   border-collapse: collapse;
   width: 100%;
+}
+
+.table td {
+  font-size: 14px;
 }
 
 .table th, td {
@@ -326,11 +330,14 @@ input[type=time],  select {
 	margin-bottom: 15px;
 }
 
+
+
 /************* message form ******************/
 
 textarea {
   width: 99%;
   resize: vertical;
+  font-size: 18px;
 }
 
 .container label {
@@ -348,10 +355,22 @@ textarea {
   cursor: pointer;
 }
 
-.container input[type=submit]:hover {
+.show-message input[type=submit] {
+  width: 70%;
+  background-color: #302F2F;
+  color: white;
+  padding: 8px 8px;
+  margin: auto;
+  border: none;
+  cursor: pointer;
+  display: block;
+}
+
+.container input[type=submit]:hover, .show-message input[type=submit]:hover {
   background-color: #FFDD00;
   color: black;
 }
+
 
 .col-15 {
   width: 15%;
@@ -359,6 +378,10 @@ textarea {
 
 .col-85 {
   width: 85%;
+}
+
+.col-70 {
+  width: 70%;
 }
 
 /* Clear floats after the columns */
@@ -369,7 +392,7 @@ textarea {
 }
 
 /************* For mobile device: ************/
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 800px) {
 	
 	[class*="column-"]{
 		width: 100%;

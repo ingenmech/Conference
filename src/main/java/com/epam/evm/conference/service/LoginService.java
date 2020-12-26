@@ -12,7 +12,7 @@ import java.util.Optional;
 
 public class LoginService {
 
-    private DaoHelperFactory daoHelperFactory;
+    private final DaoHelperFactory daoHelperFactory;
 
     public LoginService(DaoHelperFactory daoHelperFactory) {
         this.daoHelperFactory = daoHelperFactory;
