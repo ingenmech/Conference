@@ -391,6 +391,37 @@ textarea {
   clear: both;
 }
 
+/************* paging ******************/
+
+.page-number{
+  margin: 7px 40px;
+} 
+
+
+.paging {
+  display: flex;
+  margin: 10px auto;
+  width: 10%;
+} 
+
+.paging-button, .disable-button{
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  font-size: 20px;
+  background-color: #302F2F;
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 4px 10px;
+
+}
+
+.paging-button:hover{
+  background-color: #FFDD00;
+  color: black;
+}
+
 /************* For mobile device: ************/
 @media only screen and (max-width: 800px) {
 	

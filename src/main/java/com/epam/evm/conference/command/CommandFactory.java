@@ -2,10 +2,7 @@ package com.epam.evm.conference.command;
 
 import com.epam.evm.conference.command.admin.*;
 import com.epam.evm.conference.command.general.*;
-import com.epam.evm.conference.command.user.CreateQuestionCommand;
-import com.epam.evm.conference.command.user.SaveRequestCommand;
-import com.epam.evm.conference.command.user.UserQuestionPageCommand;
-import com.epam.evm.conference.command.user.UserRequestPageCommand;
+import com.epam.evm.conference.command.user.*;
 import com.epam.evm.conference.dao.helper.DaoHelperFactory;
 import com.epam.evm.conference.model.RequestStatus;
 import com.epam.evm.conference.service.*;
@@ -32,7 +29,7 @@ public class CommandFactory {
 
     private final static String LOGIN = "login";
     private final static String LOGOUT = "logout";
-    private final static String SHOW_CONFERENCE = "getConference";
+    private final static String SHOW_CONFERENCE = "getConferences";
     private final static String ALL_USERS_ADD_MESSAGE = "allUsersAddMessage";
     private final static String ALL_USERS_MESSAGE_PAGE = "allUsersMessagePage";
 
@@ -61,29 +58,29 @@ public class CommandFactory {
             case GO_TO_CREATE_CONFERENCE:
                 return new ForwardPageCommand(CRATE_CONFERENCE_PAGE);
             case GO_TO_CREATE_REQUEST:
-                return new CreateRequestCommand(new FindService(new DaoHelperFactory()));
+                return new RequestPageCommand(new FindService(new DaoHelperFactory()));
             case GO_TO_ACCEPT_REQUEST:
                 return new AdminRequestPageCommand(new FindService(new DaoHelperFactory()));
             case GO_TO_SENT_REQUESTS:
-                return new UserRequestPageCommand(new FindService(new DaoHelperFactory()));
+                return new SubmittedRequestsPageCommand(new FindService(new DaoHelperFactory()));
             case GO_TO_CREATE_QUESTION:
                 return new ForwardPageCommand(CRATE_QUESTION_PAGE);
             case SHOW_CONFERENCE:
-                return new ListConferenceCommand();
+                return new ListConferenceCommand(new FindService(new DaoHelperFactory()));
             case USER_SEND_REQUEST:
-                return new SaveRequestCommand(new SaveService(new DaoHelperFactory()));
+                return new SaverRequestCommand(new SaveService(new DaoHelperFactory()));
             case USER_REMOVE_REQUEST:
                 return new RemoveRequestCommand(SENT_REQUESTS_PAGE_COMMAND, new RemoveService(new DaoHelperFactory()));
             case USER_QUESTIONS_PAGE:
                 return new UserQuestionPageCommand(new FindService(new DaoHelperFactory()));
             case USER_CREATE_QUESTION:
-                return new CreateQuestionCommand(new SaveService(new DaoHelperFactory()));
+                return new SaverQuestionCommand(new SaveService(new DaoHelperFactory()));
             case ALL_USERS_ADD_MESSAGE:
                 return new AddMessageCommand(new SaveService(new DaoHelperFactory()));
             case ALL_USERS_MESSAGE_PAGE:
                 return new MessagePageCommand(new FindService(new DaoHelperFactory()));
             case ADMIN_SAVE_CONFERENCE:
-                return new SaveConferenceCommand(new SaveService(new DaoHelperFactory()));
+                return new SaverConferenceCommand(new SaveService(new DaoHelperFactory()));
             case ADMIN_ACCEPT_REQUEST:
                 return new StatusRequestCommand(ACCEPTED, new UpdateService(new DaoHelperFactory()));
             case ADMIN_REJECT_REQUEST:

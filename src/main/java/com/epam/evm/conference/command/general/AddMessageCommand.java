@@ -34,7 +34,7 @@ public class AddMessageCommand implements Command {
         String content = request.getParameter(CONTENT);
         LocalDateTime dateTime = LocalDateTime.now();
 
-        Message message = new Message(null, questionId, userId, dateTime,content);
+        Message message = new Message(null, questionId, userId, dateTime, content);
         service.saveMessage(message);
 
         String questionContent = request.getParameter(QUESTION_CONTENT);

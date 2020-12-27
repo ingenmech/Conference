@@ -12,8 +12,9 @@ import java.util.*;
 public abstract class AbstractDao<T extends DatabaseEntity> implements Dao<T> {
 
     private final static String SELECT_BY_ID_QUERY = "SELECT * FROM %s WHERE id = ?";
-    //private final static String SELECT_ALL_QUERY = "SELECT * FROM %s";
     private final static String DELETE_BY_ID_QUERY = "DELETE FROM %s WHERE id = ?";
+    private final static String SELECT_BY_LIMIT = "SELECT * FROM %s limit ? offset ?";
+    private final static String SELECT_ROWS_NUMBER = "SELECT COUNT(*) AS rowsNumber FROM %s";
 
     private final RowMapper<T> mapper;
     private final FieldExtractor<T> extractor;
@@ -54,8 +55,22 @@ public abstract class AbstractDao<T extends DatabaseEntity> implements Dao<T> {
     @Override
     public List<T> getAll() throws DaoException {
 
-        //String query = String.format(SELECT_ALL_QUERY, table);
         return executeQuery(selectAllQuery);
+    }
+
+    public List<T> findEntityByLimit(int limit, int offset) throws DaoException {
+
+        String query = String.format(SELECT_BY_LIMIT, table);
+        return executeQuery(query, limit, offset);
+    }
+
+    public Long countRows() throws DaoException, SQLException {
+
+        String query = String.format(SELECT_ROWS_NUMBER, table);
+        PreparedStatement statement = createStatement(query);
+        ResultSet resultSet = statement.executeQuery();
+        resultSet.next();
+        return resultSet.getLong(0);
     }
 
     @Override

@@ -10,14 +10,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class CreateQuestionCommand implements Command {
+public class SaverQuestionCommand implements Command {
 
     private final static String USER_QUESTIONS_PAGE = "/controller?command=userQuestionsPage";
     private final static String USER_ID = "userId";
     private final static String CONTENT = "content";
     private final SaveService service;
 
-    public CreateQuestionCommand(SaveService service) {
+    public SaverQuestionCommand(SaveService service) {
         this.service = service;
     }
 

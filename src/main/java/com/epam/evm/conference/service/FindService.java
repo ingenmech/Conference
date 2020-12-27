@@ -17,6 +17,25 @@ public class FindService {
         this.factory = factory;
     }
 
+    public List<Conference> findConferencesWithLimit(int limit, int offset) throws ServiceException {
+
+        try (DaoHelper helper = factory.create()) {
+            ConferenceDao conferenceDao = helper.createConferenceDao();
+            SectionDao sectionDao = helper.createSectionDao();
+
+            List<Conference> conferences = conferenceDao.findConferenceWithLimit(limit, offset);
+            for (Conference conference : conferences) {
+                Long conferenceId = conference.getId();
+                List<Section> sections = sectionDao.findSectionsByConferenceId(conferenceId);
+                initConference(conference, sections);
+            }
+            return conferences;
+
+        } catch (DaoException e) {
+            throw new ServiceException("Find conference by limit error", e);
+        }
+    }
+
     public List<Conference> findAllConferencesWithSections() throws ServiceException {
 
         try (DaoHelper helper = factory.create()) {

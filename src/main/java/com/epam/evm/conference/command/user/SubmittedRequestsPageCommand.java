@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
-public class UserRequestPageCommand implements Command {
+public class SubmittedRequestsPageCommand implements Command {
 
     private final static String GO_TO_SENT_REQUESTS = "/WEB-INF/pages/sent-requests-page.jsp";
     private final static String USER_ID = "userId";
@@ -19,7 +19,7 @@ public class UserRequestPageCommand implements Command {
 
     private final FindService service;
 
-    public UserRequestPageCommand(FindService service) {
+    public SubmittedRequestsPageCommand(FindService service) {
         this.service = service;
     }
 

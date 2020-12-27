@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class SaveRequestCommand implements Command {
+public class SaverRequestCommand implements Command {
 
     private final static String SECTION_ID = "section";
     private final static String TOPIC = "topic";
@@ -21,7 +21,7 @@ public class SaveRequestCommand implements Command {
 
     private final SaveService service;
 
-    public SaveRequestCommand(SaveService service) {
+    public SaverRequestCommand(SaveService service) {
         this.service = service;
     }
 

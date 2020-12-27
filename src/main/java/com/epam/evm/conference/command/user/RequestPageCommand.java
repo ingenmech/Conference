@@ -1,4 +1,4 @@
-package com.epam.evm.conference.command.admin;
+package com.epam.evm.conference.command.user;
 
 import com.epam.evm.conference.command.Command;
 import com.epam.evm.conference.command.CommandResult;
@@ -11,14 +11,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
-public class CreateRequestCommand implements Command {
+public class RequestPageCommand implements Command {
 
     private final static String CREATE_REQUEST_JSP = "/WEB-INF/pages/send-request-page.jsp";
     private final static String LIST_CONFERENCE = "conferenceList";
     private final static String MAP_SECTION = "sectionList";
     private final FindService service;
 
-    public CreateRequestCommand(FindService service) {
+    public RequestPageCommand(FindService service) {
         this.service = service;
     }
 
