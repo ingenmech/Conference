@@ -2,6 +2,7 @@ $(document).ready(function(){
     var maxField = 10; //Input fields increment limitation
     var addButton = $('.add-button'); //Add button selector
     var wrapper = $('.section'); //Input field wrapper
+    var holder = $("#section").attr('placeholder');
     var topicField = '<div><input id="section" type="text" name="section" value=""/><button class="remove-button">-</button></div>'; //New input field html 
     var x = 1; //Initial field counter is 1
 
@@ -10,7 +11,7 @@ $(document).ready(function(){
         //Check maximum number of input fields
         if(x < maxField){ 
             x++; //Increment field counter
-            var topicField = '<div><input id="section" type="text" name="section" placeholder="Write section name.."/><button class="remove-button">-</button></div>'
+            var topicField = '<div><input id="section" type="text" name="section" placeholder="'+ holder +'" required/><button class="remove-button">-</button></div>'
             $(wrapper).append(topicField); //Add field html
         }
     });

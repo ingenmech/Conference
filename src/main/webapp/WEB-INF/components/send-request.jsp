@@ -34,7 +34,7 @@
 			<select id="section" name="section">
 			</select>
 			<label for="topic"><h4>${chooseTopic}</h4></label>
-			<input id="topic" type="text" name="topic" placeholder="${holderTopic}">
+			<input id="topic" type="text" name="topic" placeholder="${holderTopic}" pattern=".{1,150}" required>
 			<input type="submit" value="${sendRequest}">
 		</form>
 	</div>

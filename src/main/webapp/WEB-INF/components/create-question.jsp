@@ -24,7 +24,7 @@
   							<label for="content">${userQuestion}</label>
   						</div>
   						<div class="text">
-  							<textarea id="content" name="content" placeholder="${holder}" style="height:100px"></textarea>
+  							<textarea id="content" name="content" placeholder="${holder}" style="height:100px" pattern=".{1,150}" required></textarea>
   						</div>
   					</div>
   					<div class="row">

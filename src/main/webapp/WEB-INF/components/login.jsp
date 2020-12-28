@@ -26,8 +26,8 @@
 				<input type="hidden" name="command" value="login" />
 				<label for="login">${user}</label>
 				<input type="text" name="login" placeholder="${holderLogin}">
-				<label for="password">${password}</label>
-				<input type="password" name="password" placeholder="${holderPassword}">
+				<label for="password" pattern=".{1,45}" required>${password}</label>
+				<input type="password" name="password" placeholder="${holderPassword}" pattern=".{1,45}" required>
 				<input type="submit" value="${btnLogin}">
 			</form>
 		</div>

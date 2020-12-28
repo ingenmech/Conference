@@ -17,6 +17,7 @@
 	<fmt:message bundle="${loc}" key="create.conference.message" var="message" />
 	<script type="text/javascript" language="JavaScript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script type="text/javascript" language="JavaScript" src="${pageContext.request.contextPath}/static/js/add-btn.js"></script>
+	
 </head>
 <body>
 	<section class="column-main">
@@ -30,21 +31,21 @@
 				<input type="hidden" name="command" value="adminSaveConference" />
 				<div>
 					<label for="conference"><h4>${conferenceName}</h4></label>
-					<input id="name-conference" type="text" name="conference" placeholder="${conferenceHolder}">
+					<input id="name-conference" type="text" name="conference" placeholder="${conferenceHolder}" pattern=".{1,150}" required>
 				</div>
 				<div class="section">
 					<label for="section"><h4>${sectionName}</h4></label>
 					<div>
-						<input id="section" type="text" name="section" placeholder="${sectionHolder}">
+						<input id="section" type="text" name="section" placeholder="${sectionHolder}" pattern=".{1,150}" required>
 						<button type="button" class="add-button">+</button>
 					</div>
 				</div>
 				<div>
 					<label for="date"><h4>${conferenceDate}</h4></label>
-					<input id="date" type="date" name="date">
+					<input id="date" type="date" name="date" required>
 					<label for="time"><h4>${conferenceTime}</h4></label>
-					<input id="time" type="time" name="time">
-					<input type="submit" value="${conferenceCreate}">
+					<input id="time" type="time" name="time" required>
+					<input id="sendConf" type="submit" value="${conferenceCreate}" >
 				</div>
 			</form>
 		</div>

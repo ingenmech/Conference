@@ -60,10 +60,10 @@
        <input type="hidden" name="direction"  value="next">
       <div class="paging-comp">
       <c:set var="elemNumber" value="${elementNumber}" />
-      <c:if test="${elemStatus eq elemNumber}"> 
+      <c:if test="${elemStatus eq elemNumber}" var="isExist"> 
         <button type="submit" formmethod="GET" formaction="${pageContext.request.contextPath}/controller" class="paging-button">></button>
       </c:if>
-      <c:if test="${elemStatus < elementNumber}"> 
+      <c:if test="${isExist eq 'false'}"> 
         <button type="submit" disabled="disabled" class="disable-button">></button>
       </c:if>
       </div>

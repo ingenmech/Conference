@@ -48,7 +48,7 @@
        						   <label for="content">Message</label>
        					    </div>
        					    <div class="text">
-       							<textarea id="content" name="content" placeholder="${holder}" style="height:100px"></textarea>
+       							<textarea id="content" name="content" placeholder="${holder}" style="height:100px" pattern=".{1,300}" required></textarea>
        	 				    </div>
        	        		 </div>
        					 <div class="row">
