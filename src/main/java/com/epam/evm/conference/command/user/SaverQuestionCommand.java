@@ -4,7 +4,7 @@ import com.epam.evm.conference.command.Command;
 import com.epam.evm.conference.command.CommandResult;
 import com.epam.evm.conference.exception.ServiceException;
 import com.epam.evm.conference.model.Question;
-import com.epam.evm.conference.service.SaveService;
+import com.epam.evm.conference.service.QuestionService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,9 +16,9 @@ public class SaverQuestionCommand implements Command {
     private final static String USER_ID = "userId";
     private final static String CONTENT = "content";
 
-    private final SaveService service;
+    private final QuestionService service;
 
-    public SaverQuestionCommand(SaveService service) {
+    public SaverQuestionCommand(QuestionService service) {
         this.service = service;
     }
 

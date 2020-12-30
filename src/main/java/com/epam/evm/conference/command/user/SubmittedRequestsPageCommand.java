@@ -4,7 +4,7 @@ import com.epam.evm.conference.command.Command;
 import com.epam.evm.conference.command.CommandResult;
 import com.epam.evm.conference.exception.ServiceException;
 import com.epam.evm.conference.model.Request;
-import com.epam.evm.conference.service.FindService;
+import com.epam.evm.conference.service.RequestService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,9 +17,9 @@ public class SubmittedRequestsPageCommand implements Command {
     private final static String USER_ID = "userId";
     private final static String REQUEST_LIST = "userRequestList";
 
-    private final FindService service;
+    private final RequestService service;
 
-    public SubmittedRequestsPageCommand(FindService service) {
+    public SubmittedRequestsPageCommand(RequestService service) {
         this.service = service;
     }
 

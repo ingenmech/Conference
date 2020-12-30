@@ -4,7 +4,7 @@ import com.epam.evm.conference.command.Command;
 import com.epam.evm.conference.command.CommandResult;
 import com.epam.evm.conference.exception.ServiceException;
 import com.epam.evm.conference.model.Conference;
-import com.epam.evm.conference.service.FindService;
+import com.epam.evm.conference.service.ConferenceService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,9 +17,9 @@ public class RequestPageCommand implements Command {
     private final static int TOPIC_LENGTH = 150;
     private final static String TOPIC_LENGTH_KEY = "topicLength";
 
-    private final FindService service;
+    private final ConferenceService service;
 
-    public RequestPageCommand(FindService service) {
+    public RequestPageCommand(ConferenceService service) {
         this.service = service;
     }
 

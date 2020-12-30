@@ -4,7 +4,7 @@ import com.epam.evm.conference.command.Command;
 import com.epam.evm.conference.command.CommandResult;
 import com.epam.evm.conference.exception.ServiceException;
 import com.epam.evm.conference.model.Question;
-import com.epam.evm.conference.service.FindService;
+import com.epam.evm.conference.service.QuestionService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,9 +17,9 @@ public class UserQuestionPageCommand implements Command {
     private final static String USER_QUESTION_LIST = "questionsList";
     private final static String USER_ID = "userId";
 
-    private final FindService service;
+    private final QuestionService service;
 
-    public UserQuestionPageCommand(FindService service) {
+    public UserQuestionPageCommand(QuestionService service) {
         this.service = service;
     }
 

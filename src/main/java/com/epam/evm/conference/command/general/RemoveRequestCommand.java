@@ -3,7 +3,7 @@ package com.epam.evm.conference.command.general;
 import com.epam.evm.conference.command.Command;
 import com.epam.evm.conference.command.CommandResult;
 import com.epam.evm.conference.exception.ServiceException;
-import com.epam.evm.conference.service.RemoveService;
+import com.epam.evm.conference.service.RequestService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,9 +13,9 @@ public class RemoveRequestCommand implements Command {
     private final static String REQUEST_ID = "requestId";
 
     private final String page;
-    private final RemoveService service;
+    private final RequestService service;
 
-    public RemoveRequestCommand(String page, RemoveService service) {
+    public RemoveRequestCommand(String page, RequestService service) {
         this.page = page;
         this.service = service;
     }

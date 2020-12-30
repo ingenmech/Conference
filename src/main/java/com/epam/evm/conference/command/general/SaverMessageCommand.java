@@ -4,7 +4,7 @@ import com.epam.evm.conference.command.Command;
 import com.epam.evm.conference.command.CommandResult;
 import com.epam.evm.conference.exception.ServiceException;
 import com.epam.evm.conference.model.Message;
-import com.epam.evm.conference.service.SaveService;
+import com.epam.evm.conference.service.MessageService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,9 +18,9 @@ public class SaverMessageCommand implements Command {
     private final static String CONTENT = "content";
     private final static String QUESTION_CONTENT = "questionContent";
     private final static String ALL_USERS_MESSAGE_PAGE = "/controller?command=allUsersMessagePage";
-    private final SaveService service;
+    private final MessageService service;
 
-    public SaverMessageCommand(SaveService service) {
+    public SaverMessageCommand(MessageService service) {
         this.service = service;
     }
 

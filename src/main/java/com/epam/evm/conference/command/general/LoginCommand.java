@@ -4,7 +4,7 @@ import com.epam.evm.conference.command.Command;
 import com.epam.evm.conference.command.CommandResult;
 import com.epam.evm.conference.exception.ServiceException;
 import com.epam.evm.conference.model.User;
-import com.epam.evm.conference.service.LoginService;
+import com.epam.evm.conference.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,9 +22,9 @@ public class LoginCommand implements Command {
     private final static String ERROR = "errorMessage";
     private final static String ERROR_MESSAGE = "invalidLogin";
 
-    private final LoginService service;
+    private final UserService service;
 
-    public LoginCommand(LoginService service) {
+    public LoginCommand(UserService service) {
         this.service = service;
     }
 

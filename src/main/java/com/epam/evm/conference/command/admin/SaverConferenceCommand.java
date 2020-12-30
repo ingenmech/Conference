@@ -5,7 +5,7 @@ import com.epam.evm.conference.command.CommandResult;
 import com.epam.evm.conference.exception.ServiceException;
 import com.epam.evm.conference.model.Conference;
 import com.epam.evm.conference.model.Section;
-import com.epam.evm.conference.service.SaveService;
+import com.epam.evm.conference.service.ConferenceService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,9 +26,9 @@ public class SaverConferenceCommand implements Command {
     private final static String MESSAGE = "conferenceCreated";
     private final static String MESSAGE_KEY = "message";
 
-    private final SaveService service;
+    private final ConferenceService service;
 
-    public SaverConferenceCommand(SaveService service) {
+    public SaverConferenceCommand(ConferenceService service) {
         this.service = service;
     }
 

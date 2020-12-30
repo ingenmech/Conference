@@ -6,6 +6,7 @@ import com.epam.evm.conference.command.user.*;
 import com.epam.evm.conference.dao.helper.DaoHelperFactory;
 import com.epam.evm.conference.model.RequestStatus;
 import com.epam.evm.conference.service.*;
+import com.epam.evm.conference.service.old.*;
 
 public class CommandFactory {
 
@@ -56,39 +57,39 @@ public class CommandFactory {
             case GO_TO_CREATE_CONFERENCE:
                 return new SaverConferencePageCommand();
             case GO_TO_CREATE_REQUEST:
-                return new RequestPageCommand(new FindService(new DaoHelperFactory()));
+                return new RequestPageCommand(new ConferenceService(new DaoHelperFactory()));
             case GO_TO_ACCEPT_REQUEST:
-                return new AdminRequestPageCommand(new FindService(new DaoHelperFactory()));
+                return new AdminRequestPageCommand(new RequestService(new DaoHelperFactory()));
             case GO_TO_SENT_REQUESTS:
-                return new SubmittedRequestsPageCommand(new FindService(new DaoHelperFactory()));
+                return new SubmittedRequestsPageCommand(new RequestService(new DaoHelperFactory()));
             case GO_TO_CREATE_QUESTION:
                 return new SaverQuestionPageCommand();
             case SHOW_CONFERENCE:
-                return new ListConferenceCommand(new FindService(new DaoHelperFactory()));
+                return new ListConferenceCommand(new ConferenceService(new DaoHelperFactory()));
             case USER_SEND_REQUEST:
-                return new SaverRequestCommand(new SaveService(new DaoHelperFactory()));
+                return new SaverRequestCommand(new RequestService(new DaoHelperFactory()));
             case USER_REMOVE_REQUEST:
-                return new RemoveRequestCommand(SENT_REQUESTS_PAGE_COMMAND, new RemoveService(new DaoHelperFactory()));
+                return new RemoveRequestCommand(SENT_REQUESTS_PAGE_COMMAND, new RequestService(new DaoHelperFactory()));
             case USER_QUESTIONS_PAGE:
-                return new UserQuestionPageCommand(new FindService(new DaoHelperFactory()));
+                return new UserQuestionPageCommand(new QuestionService(new DaoHelperFactory()));
             case USER_CREATE_QUESTION:
-                return new SaverQuestionCommand(new SaveService(new DaoHelperFactory()));
+                return new SaverQuestionCommand(new QuestionService(new DaoHelperFactory()));
             case ALL_USERS_ADD_MESSAGE:
-                return new SaverMessageCommand(new SaveService(new DaoHelperFactory()));
+                return new SaverMessageCommand(new MessageService(new DaoHelperFactory()));
             case ALL_USERS_MESSAGE_PAGE:
-                return new MessagePageCommand(new FindService(new DaoHelperFactory()));
+                return new MessagePageCommand(new MessageService(new DaoHelperFactory()));
             case ADMIN_SAVE_CONFERENCE:
-                return new SaverConferenceCommand(new SaveService(new DaoHelperFactory()));
+                return new SaverConferenceCommand(new ConferenceService(new DaoHelperFactory()));
             case ADMIN_ACCEPT_REQUEST:
-                return new StatusRequestCommand(ACCEPTED, new UpdateService(new DaoHelperFactory()));
+                return new StatusRequestCommand(ACCEPTED, new RequestService(new DaoHelperFactory()));
             case ADMIN_REJECT_REQUEST:
-                return new StatusRequestCommand(REJECTED, new UpdateService(new DaoHelperFactory()));
+                return new StatusRequestCommand(REJECTED, new RequestService(new DaoHelperFactory()));
             case ADMIN_REMOVE_REQUEST:
-                return new RemoveRequestCommand(ACCEPT_REQUEST_PAGE_COMMAND, new RemoveService(new DaoHelperFactory()));
+                return new RemoveRequestCommand(ACCEPT_REQUEST_PAGE_COMMAND, new RequestService(new DaoHelperFactory()));
             case ADMIN_QUESTIONS_PAGE:
-                return new AdminQuestionPageCommand(new FindService(new DaoHelperFactory()));
+                return new AdminQuestionPageCommand(new QuestionService(new DaoHelperFactory()));
             case LOGIN:
-                return new LoginCommand(new LoginService(new DaoHelperFactory()));
+                return new LoginCommand(new UserService(new DaoHelperFactory()));
             case LOGOUT:
                 return new LogoutCommand();
             case LOCALE_ENG:

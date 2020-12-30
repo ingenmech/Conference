@@ -4,7 +4,7 @@ import com.epam.evm.conference.command.Command;
 import com.epam.evm.conference.command.CommandResult;
 import com.epam.evm.conference.exception.ServiceException;
 import com.epam.evm.conference.model.Message;
-import com.epam.evm.conference.service.FindService;
+import com.epam.evm.conference.service.MessageService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,11 +16,11 @@ public class MessagePageCommand implements Command {
     private final static String QUESTION_ID = "questionId";
     private final static String MESSAGES_LIST = "messagesList";
     private final static String QUESTION_CONTENT = "questionContent";
-    private final FindService service;
+    private final MessageService service;
     private final static int LENGTH = 300;
     private final static String MESSAGE_LENGTH = "messageLength";
 
-    public MessagePageCommand(FindService service) {
+    public MessagePageCommand(MessageService service) {
         this.service = service;
     }
 

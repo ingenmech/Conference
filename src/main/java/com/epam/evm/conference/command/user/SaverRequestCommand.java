@@ -5,7 +5,7 @@ import com.epam.evm.conference.command.CommandResult;
 import com.epam.evm.conference.exception.ServiceException;
 import com.epam.evm.conference.model.Request;
 import com.epam.evm.conference.model.RequestStatus;
-import com.epam.evm.conference.service.SaveService;
+import com.epam.evm.conference.service.RequestService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,9 +19,9 @@ public class SaverRequestCommand implements Command {
     private final static RequestStatus DEFAULT_STATUS = RequestStatus.CONSIDERING;
     private final static String GO_TO_SENT_REQUESTS = "/controller?command=userSentRequests";
 
-    private final SaveService service;
+    private final RequestService service;
 
-    public SaverRequestCommand(SaveService service) {
+    public SaverRequestCommand(RequestService service) {
         this.service = service;
     }
 

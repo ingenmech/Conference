@@ -1,19 +1,22 @@
 package com.epam.evm.conference.service;
 
-import com.epam.evm.conference.dao.daoInterface.*;
+import com.epam.evm.conference.dao.daoInterface.ConferenceDao;
+import com.epam.evm.conference.dao.daoInterface.SectionDao;
 import com.epam.evm.conference.dao.helper.DaoHelper;
 import com.epam.evm.conference.dao.helper.DaoHelperFactory;
 import com.epam.evm.conference.exception.DaoException;
 import com.epam.evm.conference.exception.ServiceException;
-import com.epam.evm.conference.model.*;
+import com.epam.evm.conference.model.Conference;
+import com.epam.evm.conference.model.Section;
 
 import java.util.List;
+import java.util.Optional;
 
-public class FindService {
+public class ConferenceService {
 
     private final DaoHelperFactory factory;
 
-    public FindService(DaoHelperFactory factory) {
+    public ConferenceService(DaoHelperFactory factory) {
         this.factory = factory;
     }
 
@@ -65,63 +68,36 @@ public class FindService {
         }
     }
 
-    public List<Question> findQuestionsByUserId(Long userId) throws ServiceException{
+    public void saveConferenceWithSection(Conference conference) throws ServiceException {
 
-        try (DaoHelper helper = factory.create()) {
+        DaoHelper helper = null;
+        try {
+            helper = factory.create();
+            helper.startTransaction();
+            ConferenceDao conferenceDao = helper.createConferenceDao();
+            Optional<Long> conferenceId = conferenceDao.save(conference);
 
-            QuestionDao questionDao = helper.createQuestionDao();
-            return questionDao.findQuestionsByUserId(userId);
-
-        } catch (DaoException e) {
-            throw new ServiceException("Find question error", e);
-        }
-    }
-
-    public List<Message> findMessagesByQuestionId(Long questionId) throws ServiceException {
-
-        try (DaoHelper helper = factory.create()) {
-
-            MessageDao messageDao = helper.createMessageDao();
-            return messageDao.findMessagesByQuestionId(questionId);
-
-        } catch (DaoException e) {
-            throw new ServiceException("Find question error", e);
-        }
-    }
-
-    public List<Question> findAllQuestionWithUserLogin(int limit, int offset) throws ServiceException {
-
-        try (DaoHelper helper = factory.create()) {
-
-            QuestionDao questionDao = helper.createQuestionDao();
-            return questionDao.findEntityByLimit(limit, offset);
+            SectionDao sectionDao = helper.createSectionDao();
+            for (int i = 0; i < conference.sizeSections(); i++) {
+                Section section = conference.getSection(i);
+                Long id = conferenceId.get();
+                //TODO skip or throw exception
+                section.setConferenceId(id);
+                sectionDao.save(section);
+            }
+            helper.endTransaction();
 
         } catch (DaoException e) {
-            throw new ServiceException("Find question error", e);
-        }
-    }
-
-    public List<Request> findAllRequestsWithUsersSectionsConferences(int limit, int offset) throws ServiceException {
-
-        try (DaoHelper helper = factory.create()) {
-
-            RequestDao requestDao = helper.createTopicDao();
-            return  requestDao.findEntityByLimit(limit, offset);
-
-        } catch (DaoException e) {
-            throw new ServiceException("Find all users requests error", e);
-        }
-    }
-
-    public List<Request> findAllRequestsByUserId(Long userId) throws ServiceException {
-
-        try (DaoHelper helper = factory.create()) {
-
-            RequestDao requestDao = helper.createTopicDao();
-            return requestDao.findAllRequestsByUserId(userId);
-
-        } catch (DaoException e) {
-            throw new ServiceException("Find all users requests by id error", e);
+            try {
+                helper.rollback();
+            } catch (DaoException stack) {
+                throw new ServiceException("", stack);
+            }
+            throw new ServiceException("Save conference error", e);
+        } finally {
+            if (helper != null) {
+                helper.close();
+            }
         }
     }
 }

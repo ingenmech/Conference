@@ -1,20 +1,19 @@
 package com.epam.evm.conference.service;
 
+import com.epam.evm.conference.dao.daoInterface.UserDao;
 import com.epam.evm.conference.dao.helper.DaoHelper;
 import com.epam.evm.conference.dao.helper.DaoHelperFactory;
-import com.epam.evm.conference.dao.daoInterface.UserDao;
 import com.epam.evm.conference.exception.DaoException;
 import com.epam.evm.conference.exception.ServiceException;
 import com.epam.evm.conference.model.User;
 
 import java.util.Optional;
 
-
-public class LoginService {
+public class UserService {
 
     private final DaoHelperFactory daoHelperFactory;
 
-    public LoginService(DaoHelperFactory daoHelperFactory) {
+    public UserService(DaoHelperFactory daoHelperFactory) {
         this.daoHelperFactory = daoHelperFactory;
     }
 

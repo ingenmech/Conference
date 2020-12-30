@@ -13,7 +13,6 @@ public abstract class AbstractDao<T extends DatabaseEntity> implements Dao<T> {
 
     private final static String SELECT_BY_ID_QUERY = "SELECT * FROM %s WHERE id = ?";
     private final static String DELETE_BY_ID_QUERY = "DELETE FROM %s WHERE id = ?";
-    private final static String SELECT_BY_LIMIT = "SELECT * FROM %s limit ? offset ?";
     private final static String SELECT_ROWS_NUMBER = "SELECT COUNT(*) AS rowsNumber FROM %s";
 
     private final RowMapper<T> mapper;
