@@ -10,7 +10,7 @@ import com.epam.evm.conference.service.RequestService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class StatusRequestCommand implements Command {
+public class RequestStatusCommand implements Command {
 
     private final static String ACCEPT_REQUEST_JSP = "/controller?command=adminGoToAcceptRequest";
     private final static String REQUEST_ID = "requestId";
@@ -21,7 +21,7 @@ public class StatusRequestCommand implements Command {
     private final RequestStatus status;
     private final RequestService service;
 
-    public StatusRequestCommand(RequestStatus status, RequestService service) {
+    public RequestStatusCommand(RequestStatus status, RequestService service) {
         this.status = status;
         this.service = service;
     }

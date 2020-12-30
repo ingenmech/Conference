@@ -6,7 +6,7 @@ import com.epam.evm.conference.command.CommandResult;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class SaverQuestionPageCommand implements Command {
+public class QuestionSaverPageCommand implements Command {
 
     private final static String CRATE_QUESTION_PAGE = "/WEB-INF/pages/create-question-page.jsp";
     private final static int LENGTH = 150;

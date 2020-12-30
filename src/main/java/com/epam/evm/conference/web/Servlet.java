@@ -21,6 +21,7 @@ public class Servlet extends HttpServlet {
     private final static Logger LOGGER = LogManager.getLogger(Servlet.class);
     private final static String COMMAND = "command";
     private final static String ERROR_MESSAGE = "errorMessage";
+    private final static String ERROR_JSP = "/WEB-INF/pages/error.jsp";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
@@ -51,6 +52,11 @@ public class Servlet extends HttpServlet {
             LOGGER.error(e.getMessage(), e);
             String errorMessage = e.getMessage();
             request.setAttribute(ERROR_MESSAGE, errorMessage);
+            try {
+                dispatch(ERROR_JSP, request, response);
+            } catch (IOException | ServletException c) {
+                LOGGER.error(c.getMessage(), c);
+            }
         }
     }
 

@@ -4,39 +4,34 @@ import com.epam.evm.conference.command.Command;
 import com.epam.evm.conference.command.CommandResult;
 import com.epam.evm.conference.exception.ServiceException;
 import com.epam.evm.conference.model.Request;
-import com.epam.evm.conference.model.RequestStatus;
 import com.epam.evm.conference.service.RequestService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
-public class SaverRequestCommand implements Command {
+public class UserRequestsPageCommand implements Command {
 
-    private final static String SECTION_ID = "section";
-    private final static String TOPIC = "topic";
+    private final static String GO_TO_SENT_REQUESTS = "/WEB-INF/pages/sent-requests-page.jsp";
     private final static String USER_ID = "userId";
-    private final static RequestStatus DEFAULT_STATUS = RequestStatus.CONSIDERING;
-    private final static String GO_TO_SENT_REQUESTS = "/controller?command=userSentRequests";
+    private final static String REQUEST_LIST = "userRequestList";
 
     private final RequestService service;
 
-    public SaverRequestCommand(RequestService service) {
+    public UserRequestsPageCommand(RequestService service) {
         this.service = service;
     }
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
 
-        String rowSectionId = request.getParameter(SECTION_ID);
-        Long sectionId = Long.valueOf(rowSectionId);
         HttpSession session = request.getSession();
         Long userId = (Long)session.getAttribute(USER_ID);
-        String topicName = request.getParameter(TOPIC);
 
-        Request topic = new Request(null, sectionId, userId,  topicName, DEFAULT_STATUS);
-        service.saveRequest(topic);
+        List<Request> requests = service.findAllRequestsByUserId(userId);
+        request.setAttribute(REQUEST_LIST, requests);
 
-        return CommandResult.redirect(GO_TO_SENT_REQUESTS);
+        return CommandResult.forward(GO_TO_SENT_REQUESTS);
     }
 }

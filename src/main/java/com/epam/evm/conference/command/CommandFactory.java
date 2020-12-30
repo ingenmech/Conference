@@ -50,41 +50,41 @@ public class CommandFactory {
 
         switch (command) {
             case GO_TO_SIGN_IN:
-                return new ForwardPageCommand(SIGN_IN_PAGE);
+                return new PageForwarderCommand(SIGN_IN_PAGE);
             case GO_TO_MAIN:
-                return new ForwardPageCommand(MAIN_PAGE);
+                return new PageForwarderCommand(MAIN_PAGE);
             case GO_TO_CREATE_CONFERENCE:
-                return new SaverConferencePageCommand();
+                return new ConferenceSaverPageCommand();
             case GO_TO_CREATE_REQUEST:
-                return new RequestPageCommand(new ConferenceService(new DaoHelperFactory()));
+                return new RequestSaverPageCommand(new ConferenceService(new DaoHelperFactory()));
             case GO_TO_ACCEPT_REQUEST:
                 return new AdminRequestPageCommand(new RequestService(new DaoHelperFactory()));
             case GO_TO_SENT_REQUESTS:
-                return new SubmittedRequestsPageCommand(new RequestService(new DaoHelperFactory()));
+                return new UserRequestsPageCommand(new RequestService(new DaoHelperFactory()));
             case GO_TO_CREATE_QUESTION:
-                return new SaverQuestionPageCommand();
+                return new QuestionSaverPageCommand();
             case SHOW_CONFERENCE:
-                return new ListConferenceCommand(new ConferenceService(new DaoHelperFactory()));
+                return new ConferenceListCommand(new ConferenceService(new DaoHelperFactory()));
             case USER_SEND_REQUEST:
-                return new SaverRequestCommand(new RequestService(new DaoHelperFactory()));
+                return new RequestSaverCommand(new RequestService(new DaoHelperFactory()));
             case USER_REMOVE_REQUEST:
-                return new RemoveRequestCommand(SENT_REQUESTS_PAGE_COMMAND, new RequestService(new DaoHelperFactory()));
+                return new RequestRemoverCommand(SENT_REQUESTS_PAGE_COMMAND, new RequestService(new DaoHelperFactory()));
             case USER_QUESTIONS_PAGE:
                 return new UserQuestionPageCommand(new QuestionService(new DaoHelperFactory()));
             case USER_CREATE_QUESTION:
-                return new SaverQuestionCommand(new QuestionService(new DaoHelperFactory()));
+                return new QuestionSaverCommand(new QuestionService(new DaoHelperFactory()));
             case ALL_USERS_ADD_MESSAGE:
-                return new SaverMessageCommand(new MessageService(new DaoHelperFactory()));
+                return new MessageSaverCommand(new MessageService(new DaoHelperFactory()));
             case ALL_USERS_MESSAGE_PAGE:
                 return new MessagePageCommand(new MessageService(new DaoHelperFactory()));
             case ADMIN_SAVE_CONFERENCE:
-                return new SaverConferenceCommand(new ConferenceService(new DaoHelperFactory()));
+                return new ConferenceSaverCommand(new ConferenceService(new DaoHelperFactory()));
             case ADMIN_ACCEPT_REQUEST:
-                return new StatusRequestCommand(ACCEPTED, new RequestService(new DaoHelperFactory()));
+                return new RequestStatusCommand(ACCEPTED, new RequestService(new DaoHelperFactory()));
             case ADMIN_REJECT_REQUEST:
-                return new StatusRequestCommand(REJECTED, new RequestService(new DaoHelperFactory()));
+                return new RequestStatusCommand(REJECTED, new RequestService(new DaoHelperFactory()));
             case ADMIN_REMOVE_REQUEST:
-                return new RemoveRequestCommand(ACCEPT_REQUEST_PAGE_COMMAND, new RequestService(new DaoHelperFactory()));
+                return new RequestRemoverCommand(ACCEPT_REQUEST_PAGE_COMMAND, new RequestService(new DaoHelperFactory()));
             case ADMIN_QUESTIONS_PAGE:
                 return new AdminQuestionPageCommand(new QuestionService(new DaoHelperFactory()));
             case LOGIN:

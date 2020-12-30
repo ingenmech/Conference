@@ -16,7 +16,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SaverConferenceCommand implements Command {
+public class ConferenceSaverCommand implements Command {
 
     private final static String CONFERENCE = "conference";
     private final static String SECTION = "section";
@@ -28,7 +28,7 @@ public class SaverConferenceCommand implements Command {
 
     private final ConferenceService service;
 
-    public SaverConferenceCommand(ConferenceService service) {
+    public ConferenceSaverCommand(ConferenceService service) {
         this.service = service;
     }
 

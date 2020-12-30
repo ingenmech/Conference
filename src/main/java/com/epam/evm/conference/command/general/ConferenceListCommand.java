@@ -8,7 +8,7 @@ import com.epam.evm.conference.service.ConferenceService;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-public class ListConferenceCommand  extends AbstractPaginationCommand<Conference> implements Command {
+public class ConferenceListCommand extends AbstractPaginationCommand<Conference> implements Command {
 
     private final static String LIST_CONFERENCE_PAGE = "WEB-INF/pages/list-conference-page.jsp";
     private final static String CONFERENCE_LIST = "conferenceList";
@@ -16,7 +16,7 @@ public class ListConferenceCommand  extends AbstractPaginationCommand<Conference
 
     private final ConferenceService service;
 
-    public ListConferenceCommand(ConferenceService service) {
+    public ConferenceListCommand(ConferenceService service) {
         super(LIST_CONFERENCE_PAGE, CONFERENCE_LIST, ELEMENTS_NUMBER_ON_PAGE);
         this.service = service;
     }

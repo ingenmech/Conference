@@ -6,7 +6,7 @@ import com.epam.evm.conference.command.CommandResult;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class SaverConferencePageCommand implements Command {
+public class ConferenceSaverPageCommand implements Command {
 
     private final static String CRATE_CONFERENCE_PAGE = "/WEB-INF/pages/create-conference-page.jsp";
     private final static int CONFERENCE_LENGTH = 150;

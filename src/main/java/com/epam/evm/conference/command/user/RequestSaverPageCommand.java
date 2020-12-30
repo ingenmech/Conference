@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
-public class RequestPageCommand implements Command {
+public class RequestSaverPageCommand implements Command {
 
     private final static String CREATE_REQUEST_JSP = "/WEB-INF/pages/send-request-page.jsp";
     private final static String LIST_CONFERENCE = "conferenceList";
@@ -19,7 +19,7 @@ public class RequestPageCommand implements Command {
 
     private final ConferenceService service;
 
-    public RequestPageCommand(ConferenceService service) {
+    public RequestSaverPageCommand(ConferenceService service) {
         this.service = service;
     }
 

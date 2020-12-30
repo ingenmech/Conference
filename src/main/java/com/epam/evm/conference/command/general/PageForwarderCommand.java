@@ -6,11 +6,11 @@ import com.epam.evm.conference.command.CommandResult;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class ForwardPageCommand implements Command {
+public class PageForwarderCommand implements Command {
 
     private final String page;
 
-    public ForwardPageCommand(String page) {
+    public PageForwarderCommand(String page) {
         this.page = page;
     }
 

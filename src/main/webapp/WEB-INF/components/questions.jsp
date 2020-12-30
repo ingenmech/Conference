@@ -52,6 +52,7 @@
        </c:if>
    </table>
 </div>
+<c:if test="${sessionScope.userRole eq 'ADMIN'}">
  <div class="paging">
     <form>
     <input type="hidden" name="command" value="adminQuestionsPage">
@@ -84,4 +85,5 @@
       </div>
     </form>
   </div>
+ </c:if>
 </section>

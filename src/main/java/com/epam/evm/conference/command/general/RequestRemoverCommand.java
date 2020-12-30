@@ -8,14 +8,14 @@ import com.epam.evm.conference.service.RequestService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class RemoveRequestCommand implements Command {
+public class RequestRemoverCommand implements Command {
 
     private final static String REQUEST_ID = "requestId";
 
     private final String page;
     private final RequestService service;
 
-    public RemoveRequestCommand(String page, RequestService service) {
+    public RequestRemoverCommand(String page, RequestService service) {
         this.page = page;
         this.service = service;
     }
