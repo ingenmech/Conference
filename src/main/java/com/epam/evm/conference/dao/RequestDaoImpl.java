@@ -18,12 +18,11 @@ public class RequestDaoImpl extends AbstractDao<Request> implements RequestDao {
 
     private final static String UPDATE_REQUEST =
             "UPDATE request SET user_id = ?, section_id = ?, topic = ?, status = ? WHERE id = ?";
-    //private final static String SELECT_REQUEST_BY_USER_ID = "SELECT * FROM request WHERE user_id = ?";
-    private final static String SELECT_REQUESTS_WITH_JOIN_PARAMS =
+    private final static String SELECT_ALL_REQUESTS_WITH_JOIN_PARAMS =
             "SELECT request.id, request.user_id, request.section_id, request.topic, request.status, section.name AS section_name, user.login AS user_login, conference.name AS conference_name FROM (((request " +
                     "LEFT JOIN user ON request.user_id = user.id) " +
                     "LEFT JOIN section ON request.section_id = section.id) " +
-                    "LEFT JOIN conference ON section.conference_id = conference.id)";
+                    "LEFT JOIN conference ON section.conference_id = conference.id) ORDER BY id DESC";
     private final static String SELECT_REQUEST_BY_USER_ID =
             "SELECT request.id, request.user_id, request.section_id, request.topic, request.status, section.name AS section_name, user.login AS user_login, conference.name AS conference_name FROM (((request " +
             "LEFT JOIN section ON request.section_id = section.id) " +
@@ -35,7 +34,7 @@ public class RequestDaoImpl extends AbstractDao<Request> implements RequestDao {
     private final static RowMapper<Request> MAPPER = new RequestRowMapper();
 
     public RequestDaoImpl(Connection connection) {
-        super(connection, MAPPER, EXTRACTOR, TABLE, INSERT_REQUEST, UPDATE_REQUEST, SELECT_REQUESTS_WITH_JOIN_PARAMS);
+        super(connection, MAPPER, EXTRACTOR, TABLE, INSERT_REQUEST, UPDATE_REQUEST, SELECT_ALL_REQUESTS_WITH_JOIN_PARAMS);
     }
 
     @Override

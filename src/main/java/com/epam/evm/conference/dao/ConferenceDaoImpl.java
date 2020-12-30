@@ -15,7 +15,7 @@ public class ConferenceDaoImpl extends AbstractDao<Conference> implements Confer
 
     private final static String INSERT_CONFERENCE = "INSERT INTO conference(name, date) VALUES (?, ?)";
     private final static String UPDATE_CONFERENCE = "";
-    private final static String SELECT_ALL = "SELECT * FROM conference";
+    private final static String SELECT_ALL = "SELECT * FROM conference ORDER BY date";
 
     private final static String TABLE = "conference";
     private final static FieldExtractor<Conference> EXTRACTOR = new ConferenceFieldExtractor();

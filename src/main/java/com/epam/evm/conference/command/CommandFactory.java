@@ -6,7 +6,6 @@ import com.epam.evm.conference.command.user.*;
 import com.epam.evm.conference.dao.helper.DaoHelperFactory;
 import com.epam.evm.conference.model.RequestStatus;
 import com.epam.evm.conference.service.*;
-import com.epam.evm.conference.service.old.*;
 
 public class CommandFactory {
 
