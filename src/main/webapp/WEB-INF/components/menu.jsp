@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html>
-<head>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<fmt:setLocale value="${sessionScope.locale}" />
 	<fmt:setBundle basename="properties.locale" var="loc" />
@@ -17,8 +15,6 @@
 	<fmt:message bundle="${loc}" key="question.page.questions" var="questions" />
 	<script type="text/javascript" language="JavaScript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script type="text/javascript" language="JavaScript" src="${pageContext.request.contextPath}/static/js/hover-btn.js"></script>
-</head>
-<body>
 <section>
 	<div class="column-menu">
 		<div id="buttons">
@@ -57,5 +53,3 @@
 	    </div>
     </div>
 </section>
-</body>
-</html>

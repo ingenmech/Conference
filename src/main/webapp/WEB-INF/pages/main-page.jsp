@@ -11,7 +11,7 @@
   <div>
     <jsp:include page="../components/menu.jsp"/>
   </div>
-  <div class="hello">
+  <div class="column-main">
      <p>Login ${sessionScope.login}</p>
      <p>Role ${sessionScope.userRole}</p>
      <p>Locale ${sessionScope.locale}</p>

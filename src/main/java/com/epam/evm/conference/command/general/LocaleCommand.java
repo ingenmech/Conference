@@ -10,7 +10,6 @@ import javax.servlet.http.HttpSession;
 public class LocaleCommand implements Command {
 
     private final static String LOCALE_KEY = "locale";
-    private final static String PATH = "path";
     private final static String MAIN_JSP = "/WEB-INF/pages/main-page.jsp";
     private final String locale;
 
@@ -23,8 +22,17 @@ public class LocaleCommand implements Command {
 
         HttpSession session = request.getSession();
         session.setAttribute(LOCALE_KEY, locale);
-        String actualPage = request.getHeader("referer");
-        session.setAttribute("varTwo", actualPage);
+//        String referer = request.getHeader("referer");
+
+//        try {
+//            URI uri = new URI(referer);
+//            String query = uri.getQuery();
+//            //session.setAttribute("var", query);
+//            return CommandResult.forward(String.format("/controller?%s",query));
+//        } catch (URISyntaxException e) {
+//            throw new ServiceException("uri syntax error from locale command", e);
+//        }
+
         return CommandResult.forward(MAIN_JSP);
     }
 }

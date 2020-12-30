@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html lang="en">
-<head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/styles.css">
@@ -12,8 +10,6 @@
     <fmt:message bundle="${loc}" key="question.page.question" var="userQuestion" />
     <fmt:message bundle="${loc}" key="message.page.placeholder" var="holder" />
     <fmt:message bundle="${loc}" key="question.page.send" var="send" />
-</head>
-<body>
   <section class="column-main">
        <div class="send-request">
   			<div class="container">
@@ -24,7 +20,7 @@
   							<label for="content">${userQuestion}</label>
   						</div>
   						<div class="text">
-  							<textarea id="content" name="content" placeholder="${holder}" style="height:100px" pattern=".{1,150}" required></textarea>
+  							<textarea id="content" name="content" placeholder="${holder}" style="height:100px" maxlength="${questionLength}"  required></textarea>
   						</div>
   					</div>
   					<div class="row">
@@ -34,5 +30,3 @@
   			</div>
        </div>
 </section>
-</body>
-</html>

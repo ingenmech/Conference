@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html lang="en">
-<head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/styles.css">
@@ -12,8 +10,6 @@
     <fmt:message bundle="${loc}" key="message.empty.message" var="emptyMessage" />
     <fmt:message bundle="${loc}" key="question.page.send" var="send" />
     <fmt:message bundle="${loc}" key="message.page.placeholder" var="holder" />
-</head>
-<body>
   <section class="column-main">
       <div class="table">
          <table>
@@ -45,10 +41,10 @@
        	    	      <input type="hidden" name="questionContent" value="${questionContent}">
        					 <div class="row">
        					    <div >
-       						   <label for="content">Message</label>
+       						   <label for="content">${holder}</label>
        					    </div>
        					    <div class="text">
-       							<textarea id="content" name="content" placeholder="${holder}" style="height:100px" pattern=".{1,300}" required></textarea>
+       							<textarea id="content" name="content" placeholder="${holder}" style="height:100px" maxlength="${messageLength}" required></textarea>
        	 				    </div>
        	        		 </div>
        					 <div class="row">
@@ -61,5 +57,3 @@
    </table>
 </div>
 </section>
-</body>
-</html>

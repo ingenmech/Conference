@@ -16,6 +16,7 @@ public class UserQuestionPageCommand implements Command {
     private final static String ADMIN_QUESTION_PAGE = "/WEB-INF/pages/questions-page.jsp";
     private final static String USER_QUESTION_LIST = "questionsList";
     private final static String USER_ID = "userId";
+
     private final FindService service;
 
     public UserQuestionPageCommand(FindService service) {

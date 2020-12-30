@@ -16,13 +16,12 @@ public class ConnectionPool {
     private final static int POOL_SIZE = 5;
     private final static AtomicBoolean INSTANCE_FLAG = new AtomicBoolean();
     private final static ReentrantLock INSTANCE_LOCK = new ReentrantLock();
+    private final static ReentrantLock CONNECTION_LOCK = new ReentrantLock();
+    private final static Semaphore SEMAPHORE = new Semaphore(POOL_SIZE, true);
 
     private static ConnectionPool instance = null;
 
-    private final ReentrantLock connectionLock = new ReentrantLock();
-    private final Semaphore semaphore = new Semaphore(POOL_SIZE, true);
     private final ConnectionFactory connectionFactory = new ConnectionFactory();
-
     private final Queue<ProxyConnection> availableConnection;
     private final Queue<ProxyConnection> connectionsInUse;
 
@@ -30,7 +29,6 @@ public class ConnectionPool {
     private ConnectionPool() {
         this.availableConnection = new ArrayDeque<>();
         this.connectionsInUse = new ArrayDeque<>();
-
     }
 
     public static ConnectionPool getInstance() {
@@ -49,23 +47,10 @@ public class ConnectionPool {
                 INSTANCE_LOCK.unlock();
             }
         }
-
         return instance;
     }
 
-    public void returnConnection(ProxyConnection proxyConnection) {
 
-        connectionLock.lock();
-        try {
-            if (connectionsInUse.contains(proxyConnection)) {
-                availableConnection.offer(proxyConnection);
-                connectionsInUse.remove(proxyConnection);
-                semaphore.release();
-            }
-        } finally {
-            connectionLock.unlock();
-        }
-    }
 
     private void init() {
 
@@ -79,9 +64,9 @@ public class ConnectionPool {
 
     public ProxyConnection getConnection() {
 
-        connectionLock.lock();
+        CONNECTION_LOCK.lock();
         try {
-            semaphore.acquire();
+            SEMAPHORE.acquire();
 
             ProxyConnection connection = availableConnection.poll();
             connectionsInUse.offer(connection);
@@ -89,7 +74,21 @@ public class ConnectionPool {
         } catch (InterruptedException e) {
             throw new ConnectionPoolException("Connection is interrupted", e);
         } finally {
-            connectionLock.unlock();
+            CONNECTION_LOCK.unlock();
+        }
+    }
+
+    public void returnConnection(ProxyConnection proxyConnection) {
+
+        CONNECTION_LOCK.lock();
+        try {
+            if (connectionsInUse.contains(proxyConnection)) {
+                availableConnection.offer(proxyConnection);
+                connectionsInUse.remove(proxyConnection);
+                SEMAPHORE.release();
+            }
+        } finally {
+            CONNECTION_LOCK.unlock();
         }
     }
 

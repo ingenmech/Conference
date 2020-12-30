@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 
-public class AddMessageCommand implements Command {
+public class SaverMessageCommand implements Command {
 
     private final static String USER_ID = "userId";
     private final static String QUESTION_ID = "questionId";
@@ -20,7 +20,7 @@ public class AddMessageCommand implements Command {
     private final static String ALL_USERS_MESSAGE_PAGE = "/controller?command=allUsersMessagePage";
     private final SaveService service;
 
-    public AddMessageCommand(SaveService service) {
+    public SaverMessageCommand(SaveService service) {
         this.service = service;
     }
 

@@ -17,6 +17,8 @@ public class MessagePageCommand implements Command {
     private final static String MESSAGES_LIST = "messagesList";
     private final static String QUESTION_CONTENT = "questionContent";
     private final FindService service;
+    private final static int LENGTH = 300;
+    private final static String MESSAGE_LENGTH = "messageLength";
 
     public MessagePageCommand(FindService service) {
         this.service = service;
@@ -25,6 +27,8 @@ public class MessagePageCommand implements Command {
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+
+        request.setAttribute(MESSAGE_LENGTH, LENGTH);
 
         String questionIdRow = request.getParameter(QUESTION_ID);
         Long questionId = Long.valueOf(questionIdRow);

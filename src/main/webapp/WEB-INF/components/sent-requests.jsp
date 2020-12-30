@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html lang="en">
-<head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/styles.css">
@@ -15,8 +13,6 @@
     <fmt:message bundle="${loc}" key="accept.request.table.user" var="user" />
     <fmt:message bundle="${loc}" key="accept.request.status" var="requestStatus" />
     <fmt:message bundle="${loc}" key="accept.request.remove" var="removeButton" />
-</head>
-<body>
   <section class="column-main">
       <div class="table">
          <table>
@@ -29,7 +25,9 @@
         </tr>
         <c:forEach var="request" items="${userRequestList}">
         <tr>
-         <td>${request.status}</td>
+         <td>
+            <fmt:message bundle="${loc}" key="request.status.${request.status}" />
+         </td>
          <td>${request.conferenceName}</td>
          <td>${request.sectionName}</td>
          <td>${request.topic}</td>
@@ -49,5 +47,3 @@
 </table>
 </div>
 </section>
-</body>
-</html>

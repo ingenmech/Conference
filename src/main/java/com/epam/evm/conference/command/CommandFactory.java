@@ -11,9 +11,6 @@ public class CommandFactory {
 
     private final static String SIGN_IN_PAGE = "/WEB-INF/pages/login-page.jsp";
     private final static String MAIN_PAGE = "/WEB-INF/pages/main-page.jsp";
-    private final static String CRATE_CONFERENCE_PAGE = "/WEB-INF/pages/create-conference-page.jsp";
-    private final static String CRATE_QUESTION_PAGE = "/WEB-INF/pages/create-question-page.jsp";
-
 
     private final static String LOCALE_ENG = "en";
     private final static String LOCALE_RU = "ru";
@@ -21,11 +18,6 @@ public class CommandFactory {
 
     private final static String GO_TO_SIGN_IN = "signIn";
     private final static String GO_TO_MAIN = "main";
-    private final static String GO_TO_CREATE_CONFERENCE = "adminCreate";
-    private final static String GO_TO_ACCEPT_REQUEST = "adminGoToAcceptRequest";
-    private final static String GO_TO_CREATE_REQUEST = "userCreateRequest";
-    private final static String GO_TO_SENT_REQUESTS = "userSentRequests";
-    private final static String GO_TO_CREATE_QUESTION = "userCreateQuestionPage";
 
     private final static String LOGIN = "login";
     private final static String LOGOUT = "logout";
@@ -39,6 +31,8 @@ public class CommandFactory {
     private final static String ADMIN_REMOVE_REQUEST = "adminRemoveRequest";
     private final static String ADMIN_QUESTIONS_PAGE = "adminQuestionsPage";
     private final static String ACCEPT_REQUEST_PAGE_COMMAND = "/controller?command=adminGoToAcceptRequest";
+    private final static String GO_TO_CREATE_CONFERENCE = "adminCreate";
+    private final static String GO_TO_ACCEPT_REQUEST = "adminGoToAcceptRequest";
     private final static RequestStatus ACCEPTED = RequestStatus.ACCEPTED;
     private final static RequestStatus REJECTED = RequestStatus.REJECTED;
 
@@ -47,6 +41,10 @@ public class CommandFactory {
     private final static String USER_SEND_REQUEST = "userSendRequest";
     private final static String USER_REMOVE_REQUEST = "userRemoveRequest";
     private final static String SENT_REQUESTS_PAGE_COMMAND = "/controller?command=userSentRequests";
+    private final static String GO_TO_CREATE_REQUEST = "userCreateRequest";
+    private final static String GO_TO_SENT_REQUESTS = "userSentRequests";
+    private final static String GO_TO_CREATE_QUESTION = "userCreateQuestionPage";
+
 
     public static Command create(String command) {
 
@@ -56,7 +54,7 @@ public class CommandFactory {
             case GO_TO_MAIN:
                 return new ForwardPageCommand(MAIN_PAGE);
             case GO_TO_CREATE_CONFERENCE:
-                return new ForwardPageCommand(CRATE_CONFERENCE_PAGE);
+                return new SaverConferencePageCommand();
             case GO_TO_CREATE_REQUEST:
                 return new RequestPageCommand(new FindService(new DaoHelperFactory()));
             case GO_TO_ACCEPT_REQUEST:
@@ -64,7 +62,7 @@ public class CommandFactory {
             case GO_TO_SENT_REQUESTS:
                 return new SubmittedRequestsPageCommand(new FindService(new DaoHelperFactory()));
             case GO_TO_CREATE_QUESTION:
-                return new ForwardPageCommand(CRATE_QUESTION_PAGE);
+                return new SaverQuestionPageCommand();
             case SHOW_CONFERENCE:
                 return new ListConferenceCommand(new FindService(new DaoHelperFactory()));
             case USER_SEND_REQUEST:
@@ -76,7 +74,7 @@ public class CommandFactory {
             case USER_CREATE_QUESTION:
                 return new SaverQuestionCommand(new SaveService(new DaoHelperFactory()));
             case ALL_USERS_ADD_MESSAGE:
-                return new AddMessageCommand(new SaveService(new DaoHelperFactory()));
+                return new SaverMessageCommand(new SaveService(new DaoHelperFactory()));
             case ALL_USERS_MESSAGE_PAGE:
                 return new MessagePageCommand(new FindService(new DaoHelperFactory()));
             case ADMIN_SAVE_CONFERENCE:

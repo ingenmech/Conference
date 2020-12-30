@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
-public abstract class AbstractPageIteratorCommand<T> implements Command {
+public abstract class AbstractPaginationCommand<T> implements Command {
 
     private final String page;
     private final String keyList;
@@ -19,7 +19,7 @@ public abstract class AbstractPageIteratorCommand<T> implements Command {
     private final static String PREVIOUS = "previous";
     private final static String NEXT = "next";
 
-    protected AbstractPageIteratorCommand(String page, String keyList, int elementsLimitNumber){
+    protected AbstractPaginationCommand(String page, String keyList, int elementsLimitNumber){
         this.page = page;
         this.keyList = keyList;
         this.elementsLimitNumber = elementsLimitNumber;

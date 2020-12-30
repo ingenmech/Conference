@@ -60,7 +60,7 @@ public abstract class AbstractDao<T extends DatabaseEntity> implements Dao<T> {
 
     public List<T> findEntityByLimit(int limit, int offset) throws DaoException {
 
-        String query = String.format(SELECT_BY_LIMIT, table);
+        String query = selectAllQuery.concat(" LIMIT ? OFFSET ?");
         return executeQuery(query, limit, offset);
     }
 

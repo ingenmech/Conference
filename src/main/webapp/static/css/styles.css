@@ -127,6 +127,7 @@ ul, li{
 .column-main{
 	width: 75%;
 	float: left;
+  min-height: 500px;
 	padding-top: 35px;
 }
 
@@ -167,7 +168,7 @@ ul, li{
 }
 
 .table td {
-  font-size: 14px;
+  font-size: 18px;
 }
 
 .table th, td {
@@ -307,6 +308,7 @@ input[type=time],  select {
   display: inline-block;
   border: 1px solid #ccc;
   box-sizing: border-box;
+  font-size: medium;
 }
 
 .accept input[type=submit], .send-request input[type=submit], .form-signin input[type=submit]{
@@ -356,11 +358,11 @@ textarea {
 }
 
 .show-message input[type=submit] {
-  width: 70%;
+  width: 50px;
   background-color: #302F2F;
   color: white;
   padding: 8px 8px;
-  margin: auto;
+  margin: 5px auto ;
   border: none;
   cursor: pointer;
   display: block;
@@ -389,6 +391,10 @@ textarea {
   content: "";
   display: table;
   clear: both;
+}
+
+input:invalid, textarea:invalid {
+  border: #FFDD00 solid 1px;
 }
 
 /************* paging ******************/

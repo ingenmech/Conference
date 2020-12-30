@@ -23,7 +23,7 @@ public class FindService {
             ConferenceDao conferenceDao = helper.createConferenceDao();
             SectionDao sectionDao = helper.createSectionDao();
 
-            List<Conference> conferences = conferenceDao.findConferenceWithLimit(limit, offset);
+            List<Conference> conferences = conferenceDao.findEntityByLimit(limit, offset);
             for (Conference conference : conferences) {
                 Long conferenceId = conference.getId();
                 List<Section> sections = sectionDao.findSectionsByConferenceId(conferenceId);
@@ -89,24 +89,24 @@ public class FindService {
         }
     }
 
-    public List<Question> findAllQuestionWithUserLogin() throws ServiceException {
+    public List<Question> findAllQuestionWithUserLogin(int limit, int offset) throws ServiceException {
 
         try (DaoHelper helper = factory.create()) {
 
             QuestionDao questionDao = helper.createQuestionDao();
-            return questionDao.getAll();
+            return questionDao.findEntityByLimit(limit, offset);
 
         } catch (DaoException e) {
             throw new ServiceException("Find question error", e);
         }
     }
 
-    public List<Request> findAllRequestsWithUsersSectionsConferences() throws ServiceException {
+    public List<Request> findAllRequestsWithUsersSectionsConferences(int limit, int offset) throws ServiceException {
 
         try (DaoHelper helper = factory.create()) {
 
             RequestDao requestDao = helper.createTopicDao();
-            return  requestDao.getAll();
+            return  requestDao.findEntityByLimit(limit, offset);
 
         } catch (DaoException e) {
             throw new ServiceException("Find all users requests error", e);

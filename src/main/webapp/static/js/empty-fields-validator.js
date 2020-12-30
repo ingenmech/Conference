@@ -1,3 +1,5 @@
+//TODO extra realisation, in project used HTML5 attributes (KISS principle)
+
  $(document).ready(function () {
      $('input[type="submit"]').attr('disabled', true);
 
@@ -29,3 +31,9 @@
      });
  });
 <script type="text/javascript" language="JavaScript" src="${pageContext.request.contextPath}/static/js/empty-fields-validator.js"></script>
+
+<div class="message">
+		     <c:if test="${message eq 'conferenceCreated' }">
+         		 <h3>${message}</h3>
+             </c:if>
+		 </div>

@@ -15,16 +15,16 @@ public class ErrorFilter implements Filter {
     private final static Logger LOGGER = LogManager.getLogger(ErrorFilter.class);
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig) {
 
     }
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
 
-        try{
+        try {
             filterChain.doFilter(servletRequest, servletResponse);
-        } catch (Exception e){
+        } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
 
             String errorMessage = e.getMessage();

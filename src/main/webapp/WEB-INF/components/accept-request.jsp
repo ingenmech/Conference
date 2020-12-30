@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html lang="en">
-<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/styles.css">
@@ -16,8 +14,6 @@
     <fmt:message bundle="${loc}" key="accept.request.accept" var="acceptButton" />
     <fmt:message bundle="${loc}" key="accept.request.reject" var="rejectButton" />
     <fmt:message bundle="${loc}" key="accept.request.remove" var="removeButton" />
-</head>
-<body>
    <section class="column-main">
        <div class="table">
          <table>
@@ -29,9 +25,11 @@
                <th>${user}</th>
                <th></th>
            </tr>
-        <c:forEach var="request" items="${requestList}">
+        <c:forEach var="request" items="${requestList}" varStatus="reqStatus">
            <tr>
-             <td>${request.status}</td>
+             <td>
+                <fmt:message bundle="${loc}" key="request.status.${request.status}" />
+             </td>
              <td>${request.conferenceName}</td>
              <td>${request.sectionName}</td>
              <td>${request.topic}</td>
@@ -58,9 +56,40 @@
               </form>
             </td>
           </tr>
+          <c:set var="elemStatus" value="${reqStatus.count}" />
         </c:forEach>
 </table>
 </div>
+<div class="paging">
+    <form>
+    <input type="hidden" name="command" value="adminGoToAcceptRequest">
+    <input type="hidden" name="pageNumber"  value=${pageNumber}>
+    <input type="hidden" name="direction"  value="previous">
+    <div class="paging-comp">
+      <c:if test="${pageNumber > 1}">
+      <button type="submit" formmethod="GET" formaction="${pageContext.request.contextPath}/controller" class="paging-button"><</button>
+      </c:if>
+      <c:if test="${pageNumber eq 1}">
+      <button type="submit" disabled="disabled" class="disable-button"><</button>
+      </c:if>
+    </div>
+    </form>
+    <div class="page-number">
+      <li>${pageNumber}</li>
+    </div>
+    <form>
+       <input type="hidden" name="command" value="adminGoToAcceptRequest">
+       <input type="hidden" name="pageNumber"  value=${pageNumber}>
+       <input type="hidden" name="direction"  value="next">
+      <div class="paging-comp">
+      <c:set var="elemNumber" value="${elementNumber}" />
+      <c:if test="${elemStatus eq elemNumber}" var="isExist"> 
+        <button type="submit" formmethod="GET" formaction="${pageContext.request.contextPath}/controller" class="paging-button">></button>
+      </c:if>
+      <c:if test="${isExist eq 'false'}"> 
+        <button type="submit" disabled="disabled" class="disable-button">></button>
+      </c:if>
+      </div>
+    </form>
+  </div>
 </section>
-</body>
-</html>

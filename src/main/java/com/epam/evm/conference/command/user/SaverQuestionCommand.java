@@ -15,6 +15,7 @@ public class SaverQuestionCommand implements Command {
     private final static String USER_QUESTIONS_PAGE = "/controller?command=userQuestionsPage";
     private final static String USER_ID = "userId";
     private final static String CONTENT = "content";
+
     private final SaveService service;
 
     public SaverQuestionCommand(SaveService service) {

@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html lang="en">
-<head>
+<%@ taglib prefix="cp" uri="/WEB-INF/tld/parserLocalDateTime.tld" %>
+<%@ taglib prefix="cp" uri="/WEB-INF/tld/parserLocalDateTime.tld" %>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/styles.css">
@@ -11,8 +11,6 @@
   <fmt:message bundle="${loc}" key="accept.request.table.conference" var="conference" />
   <fmt:message bundle="${loc}" key="accept.request.table.section" var="section" />
   <fmt:message bundle="${loc}" key="accept.request.table.date" var="date" />
-</head>
-<body>
  <section class="column-main">
   <div class="table">
     <table>
@@ -23,7 +21,9 @@
        </tr>
       <c:forEach var="conference" items="${conferenceList}" varStatus="confStatus">
         <tr>
-          <td>${conference.date}</td>
+          <td>
+            <cp:parse-local-date pattern="dd/MM/yyyy HH:mm" dateTime="${conference.date}" />
+          </td>
           <td>${conference.name}</td>
           <td>
           <c:forEach var="section" items="${conference.sections}" varStatus="status" >
@@ -70,5 +70,3 @@
     </form>
   </div>
 </section>
-</body>
-</html>

@@ -35,4 +35,5 @@ public class QuestionDaoImpl extends AbstractDao<Question> implements QuestionDa
     public List<Question> findQuestionsByUserId(Long userId) throws DaoException {
         return executeQuery(SELECT_QUESTION_BY_USER_ID, userId);
     }
+
 }

@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html lang="en">
-<head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/styles.css">
@@ -17,26 +16,18 @@
 	<fmt:message bundle="${loc}" key="create.conference.message" var="message" />
 	<script type="text/javascript" language="JavaScript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script type="text/javascript" language="JavaScript" src="${pageContext.request.contextPath}/static/js/add-btn.js"></script>
-	
-</head>
-<body>
 	<section class="column-main">
 		<div class="accept">
-		 <div class="message">
-		     <c:if test="${message eq 'conferenceCreated' }">
-         		 <h3>${message}</h3>
-             </c:if>
-		 </div>
 			<form method="POST" action="${pageContext.request.contextPath}/controller">
 				<input type="hidden" name="command" value="adminSaveConference" />
 				<div>
 					<label for="conference"><h4>${conferenceName}</h4></label>
-					<input id="name-conference" type="text" name="conference" placeholder="${conferenceHolder}" pattern=".{1,150}" required>
+					<input id="name-conference" type="text" name="conference" placeholder="${conferenceHolder}"  maxlength="${conferenceLength}" required>
 				</div>
 				<div class="section">
 					<label for="section"><h4>${sectionName}</h4></label>
 					<div>
-						<input id="section" type="text" name="section" placeholder="${sectionHolder}" pattern=".{1,150}" required>
+						<input id="section" type="text" name="section" placeholder="${sectionHolder}" maxlength="${sectionLength}" required>
 						<button type="button" class="add-button">+</button>
 					</div>
 				</div>
@@ -50,5 +41,3 @@
 			</form>
 		</div>
 	</section>
-</body>
-</html>
