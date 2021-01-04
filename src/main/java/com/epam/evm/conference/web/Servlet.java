@@ -22,6 +22,7 @@ public class Servlet extends HttpServlet {
     private final static String COMMAND = "command";
     private final static String ERROR_MESSAGE = "errorMessage";
     private final static String ERROR_JSP = "/WEB-INF/pages/error.jsp";
+    private final static RequestContentHelper CONTENT_HELPER = new RequestContentHelper();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
@@ -38,7 +39,10 @@ public class Servlet extends HttpServlet {
         try {
             String commandParameter = request.getParameter(COMMAND);
             Command command = CommandFactory.create(commandParameter);
-            CommandResult result = command.execute(request, response);
+            RequestContent requestContent = CONTENT_HELPER.create(request);
+            CommandResult result = command.execute(requestContent);
+            CONTENT_HELPER.initRequest(requestContent, request);
+
             boolean isRedirect = result.isRedirect();
             String page = result.getPage();
 

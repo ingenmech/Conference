@@ -2,9 +2,7 @@ package com.epam.evm.conference.command.user;
 
 import com.epam.evm.conference.command.Command;
 import com.epam.evm.conference.command.CommandResult;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import com.epam.evm.conference.web.RequestContent;
 
 public class QuestionSaverPageCommand implements Command {
 
@@ -13,9 +11,9 @@ public class QuestionSaverPageCommand implements Command {
     private final static String QUESTION_LENGTH = "questionLength";
 
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
+    public CommandResult execute(RequestContent content) {
 
-        request.setAttribute(QUESTION_LENGTH, LENGTH);
+        content.setAttribute(QUESTION_LENGTH, LENGTH);
 
         return CommandResult.forward(CRATE_QUESTION_PAGE);
     }

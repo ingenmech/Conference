@@ -5,10 +5,8 @@ import com.epam.evm.conference.command.CommandResult;
 import com.epam.evm.conference.exception.ServiceException;
 import com.epam.evm.conference.model.Request;
 import com.epam.evm.conference.service.RequestService;
+import com.epam.evm.conference.web.RequestContent;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 public class UserRequestsPageCommand implements Command {
@@ -24,13 +22,12 @@ public class UserRequestsPageCommand implements Command {
     }
 
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+    public CommandResult execute(RequestContent content) throws ServiceException {
 
-        HttpSession session = request.getSession();
-        Long userId = (Long)session.getAttribute(USER_ID);
+        Long userId = (Long)content.getSessionAttribute(USER_ID);
 
         List<Request> requests = service.findAllRequestsByUserId(userId);
-        request.setAttribute(REQUEST_LIST, requests);
+        content.setAttribute(REQUEST_LIST, requests);
 
         return CommandResult.forward(GO_TO_SENT_REQUESTS);
     }

@@ -4,9 +4,7 @@ import com.epam.evm.conference.command.Command;
 import com.epam.evm.conference.command.CommandResult;
 import com.epam.evm.conference.exception.ServiceException;
 import com.epam.evm.conference.service.RequestService;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import com.epam.evm.conference.web.RequestContent;
 
 public class RequestRemoverCommand implements Command {
 
@@ -21,9 +19,9 @@ public class RequestRemoverCommand implements Command {
     }
 
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+    public CommandResult execute(RequestContent content) throws ServiceException {
 
-        String idValue = request.getParameter(REQUEST_ID);
+        String idValue = content.getParameter(REQUEST_ID);
         Long id = Long.valueOf(idValue);
 
         service.removeRequestById(id);

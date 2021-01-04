@@ -34,7 +34,7 @@ public class QuestionService {
         try (DaoHelper helper = factory.create()) {
 
             QuestionDao questionDao = helper.createQuestionDao();
-            return questionDao.findEntityByLimit(limit, offset);
+            return questionDao.findEntityForPagination(limit, offset);
 
         } catch (DaoException e) {
             throw new ServiceException("Find question error", e);

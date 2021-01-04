@@ -22,7 +22,7 @@ public class RequestService {
         try (DaoHelper helper = factory.create()) {
 
             RequestDao requestDao = helper.createTopicDao();
-            return  requestDao.findEntityByLimit(limit, offset);
+            return  requestDao.findEntityForPagination(limit, offset);
 
         } catch (DaoException e) {
             throw new ServiceException("Find all users requests error", e);

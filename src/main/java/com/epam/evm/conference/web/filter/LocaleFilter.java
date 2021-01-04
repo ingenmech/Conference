@@ -8,6 +8,7 @@ import java.io.IOException;
 public class LocaleFilter implements Filter {
 
     private final static String LOCALE = "locale";
+    private final static String DEFAULT_LOCALE = "en";
     private final static String SESSION_LOCALE = "sessionLocale";
 
     @Override
@@ -20,13 +21,15 @@ public class LocaleFilter implements Filter {
 
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         String locale = request.getParameter(SESSION_LOCALE);
+        HttpSession session = request.getSession();
 
         if(locale != null){
-            HttpSession session = request.getSession();
             session.setAttribute(LOCALE, locale);
         } else {
-            filterChain.doFilter(servletRequest, servletResponse);
+            session.setAttribute(LOCALE, DEFAULT_LOCALE);
         }
+            filterChain.doFilter(servletRequest, servletResponse);
+
     }
 
     @Override

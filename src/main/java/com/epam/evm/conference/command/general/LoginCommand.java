@@ -5,10 +5,8 @@ import com.epam.evm.conference.command.CommandResult;
 import com.epam.evm.conference.exception.ServiceException;
 import com.epam.evm.conference.model.User;
 import com.epam.evm.conference.service.UserService;
+import com.epam.evm.conference.web.RequestContent;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
 public class LoginCommand implements Command {
@@ -29,10 +27,10 @@ public class LoginCommand implements Command {
     }
 
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+    public CommandResult execute(RequestContent content) throws ServiceException {
 
-        String login = request.getParameter(LOGIN);
-        String password = request.getParameter(PASSWORD);
+        String login = content.getParameter(LOGIN);
+        String password = content.getParameter(PASSWORD);
         Optional<User> guest = service.login(login, password);
 
         if (guest.isPresent()) {
@@ -40,13 +38,12 @@ public class LoginCommand implements Command {
             Long id = user.getId();
             String role = user.getRole();
 
-            HttpSession session = request.getSession();
-            session.setAttribute(ID, id);
-            session.setAttribute(LOGIN, login);
-            session.setAttribute(ROLE, role);
+            content.putSessionAttribute(ID, id);
+            content.putSessionAttribute(LOGIN, login);
+            content.putSessionAttribute(ROLE, role);
             return CommandResult.redirect(MAIN_PAGE);
         } else {
-            request.setAttribute(ERROR, ERROR_MESSAGE);
+            content.putSessionAttribute(ERROR, ERROR_MESSAGE);
             return CommandResult.forward(LOGIN_PAGE);
         }
     }

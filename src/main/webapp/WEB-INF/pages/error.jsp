@@ -1,9 +1,10 @@
-<%@ page isErrorPage="true" contentType="text/html"; pageEncoding="UTF-8"%>
+<%@ page isErrorPage="true" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html>
 <head>
 <title>Error Page</title>
 <fmt:setLocale value="${sessionScope.locale}" />
 <fmt:setBundle basename="properties.locale" var="loc" />
+<fmt:message bundle="${loc}" key="error.page.message" var="error"/>
 </head>
 <body>
   <div>
@@ -11,7 +12,7 @@
   </div>
   <div class="errorMessage">
   <div>
-     <h3><fmt:message bundle="${loc}" key="error.page.message"/></h4>
+     <h3>${error}</h3>
      <h4>${errorMessage}</h4>
   </div>
      Request from ${pageContext.errorData.requestURI} is failed

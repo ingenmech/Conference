@@ -4,8 +4,8 @@ import com.epam.evm.conference.command.Command;
 import com.epam.evm.conference.exception.ServiceException;
 import com.epam.evm.conference.model.Conference;
 import com.epam.evm.conference.service.ConferenceService;
+import com.epam.evm.conference.web.RequestContent;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public class ConferenceListCommand extends AbstractPaginationCommand<Conference> implements Command {
@@ -22,8 +22,8 @@ public class ConferenceListCommand extends AbstractPaginationCommand<Conference>
     }
 
     @Override
-    public List<Conference> createService(HttpServletRequest request, int offset) throws ServiceException {
-        return service.findConferencesWithLimit(ELEMENTS_NUMBER_ON_PAGE, offset);
+    public List<Conference> createService(RequestContent content, int offset) throws ServiceException {
+        return service.findConferencesForPagination(ELEMENTS_NUMBER_ON_PAGE, offset);
     }
 
 }

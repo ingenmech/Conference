@@ -20,8 +20,10 @@ public class UserService {
     public Optional<User> login(String login, String password) throws ServiceException {
 
         try (DaoHelper daoHelper = daoHelperFactory.create()) {
+
             UserDao dao = daoHelper.createUserDao();
             return dao.findUserByLoginAndPassword(login, password);
+
         } catch (DaoException e) {
             throw new ServiceException("Login error", e);
         }

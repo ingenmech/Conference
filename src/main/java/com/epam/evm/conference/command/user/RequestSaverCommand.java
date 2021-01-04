@@ -6,10 +6,7 @@ import com.epam.evm.conference.exception.ServiceException;
 import com.epam.evm.conference.model.Request;
 import com.epam.evm.conference.model.RequestStatus;
 import com.epam.evm.conference.service.RequestService;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import com.epam.evm.conference.web.RequestContent;
 
 public class RequestSaverCommand implements Command {
 
@@ -26,13 +23,13 @@ public class RequestSaverCommand implements Command {
     }
 
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+    public CommandResult execute(RequestContent content) throws ServiceException {
 
-        String rowSectionId = request.getParameter(SECTION_ID);
+        String rowSectionId = content.getParameter(SECTION_ID);
         Long sectionId = Long.valueOf(rowSectionId);
-        HttpSession session = request.getSession();
-        Long userId = (Long)session.getAttribute(USER_ID);
-        String topicName = request.getParameter(TOPIC);
+
+        Long userId = (Long)content.getSessionAttribute(USER_ID);
+        String topicName = content.getParameter(TOPIC);
 
         Request topic = new Request(null, sectionId, userId,  topicName, DEFAULT_STATUS);
         service.saveRequest(topic);

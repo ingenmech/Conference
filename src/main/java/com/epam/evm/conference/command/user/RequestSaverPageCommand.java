@@ -5,9 +5,8 @@ import com.epam.evm.conference.command.CommandResult;
 import com.epam.evm.conference.exception.ServiceException;
 import com.epam.evm.conference.model.Conference;
 import com.epam.evm.conference.service.ConferenceService;
+import com.epam.evm.conference.web.RequestContent;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public class RequestSaverPageCommand implements Command {
@@ -24,12 +23,12 @@ public class RequestSaverPageCommand implements Command {
     }
 
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+    public CommandResult execute(RequestContent content) throws ServiceException {
 
-        request.setAttribute(TOPIC_LENGTH_KEY, TOPIC_LENGTH);
+        content.setAttribute(TOPIC_LENGTH_KEY, TOPIC_LENGTH);
 
         List<Conference> conferences = service.findAllConferencesWithSections();
-        request.setAttribute(LIST_CONFERENCE, conferences);
+        content.setAttribute(LIST_CONFERENCE, conferences);
 
         return CommandResult.forward(CREATE_REQUEST_JSP);
     }

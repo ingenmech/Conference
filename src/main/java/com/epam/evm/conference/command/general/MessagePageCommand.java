@@ -5,9 +5,8 @@ import com.epam.evm.conference.command.CommandResult;
 import com.epam.evm.conference.exception.ServiceException;
 import com.epam.evm.conference.model.Message;
 import com.epam.evm.conference.service.MessageService;
+import com.epam.evm.conference.web.RequestContent;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public class MessagePageCommand implements Command {
@@ -26,19 +25,19 @@ public class MessagePageCommand implements Command {
 
 
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+    public CommandResult execute(RequestContent content) throws ServiceException {
 
-        request.setAttribute(MESSAGE_LENGTH, LENGTH);
+        content.setAttribute(MESSAGE_LENGTH, LENGTH);
 
-        String questionIdRow = request.getParameter(QUESTION_ID);
+        String questionIdRow = content.getParameter(QUESTION_ID);
         Long questionId = Long.valueOf(questionIdRow);
 
-        String questionContent = request.getParameter(QUESTION_CONTENT);
-        request.setAttribute(QUESTION_CONTENT, questionContent);
-        request.setAttribute(QUESTION_ID, questionId);
+        String questionContent = content.getParameter(QUESTION_CONTENT);
+        content.setAttribute(QUESTION_CONTENT, questionContent);
+        content.setAttribute(QUESTION_ID, questionId);
 
         List<Message> messages = service.findMessagesByQuestionId(questionId);
-        request.setAttribute(MESSAGES_LIST, messages);
+        content.setAttribute(MESSAGES_LIST, messages);
         return CommandResult.forward(SEND_MASSAGES_PAGE);
     }
 }

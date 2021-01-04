@@ -2,9 +2,7 @@ package com.epam.evm.conference.command.general;
 
 import com.epam.evm.conference.command.Command;
 import com.epam.evm.conference.command.CommandResult;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import com.epam.evm.conference.web.RequestContent;
 
 public class PageForwarderCommand implements Command {
 
@@ -15,7 +13,7 @@ public class PageForwarderCommand implements Command {
     }
 
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
+    public CommandResult execute(RequestContent content) {
         return CommandResult.forward(page);
     }
 }

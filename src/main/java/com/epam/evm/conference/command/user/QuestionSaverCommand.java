@@ -5,10 +5,7 @@ import com.epam.evm.conference.command.CommandResult;
 import com.epam.evm.conference.exception.ServiceException;
 import com.epam.evm.conference.model.Question;
 import com.epam.evm.conference.service.QuestionService;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import com.epam.evm.conference.web.RequestContent;
 
 public class QuestionSaverCommand implements Command {
 
@@ -23,16 +20,14 @@ public class QuestionSaverCommand implements Command {
     }
 
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+    public CommandResult execute(RequestContent requestContent) throws ServiceException {
 
-        HttpSession session = request.getSession();
-        Long userId = (Long) session.getAttribute(USER_ID);
-
-        String content = request.getParameter(CONTENT);
+        Long userId = (Long) requestContent.getSessionAttribute(USER_ID);
+        String content = requestContent.getParameter(CONTENT);
 
         Question question = new Question(null, userId, content);
         service.saveQuestion(question);
 
-        return CommandResult.forward(USER_QUESTIONS_PAGE);
+        return CommandResult.redirect(USER_QUESTIONS_PAGE);
     }
 }

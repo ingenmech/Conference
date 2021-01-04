@@ -20,13 +20,13 @@ public class ConferenceService {
         this.factory = factory;
     }
 
-    public List<Conference> findConferencesWithLimit(int limit, int offset) throws ServiceException {
+    public List<Conference> findConferencesForPagination(int limit, int offset) throws ServiceException {
 
         try (DaoHelper helper = factory.create()) {
             ConferenceDao conferenceDao = helper.createConferenceDao();
             SectionDao sectionDao = helper.createSectionDao();
 
-            List<Conference> conferences = conferenceDao.findEntityByLimit(limit, offset);
+            List<Conference> conferences = conferenceDao.findEntityForPagination(limit, offset);
             for (Conference conference : conferences) {
                 Long conferenceId = conference.getId();
                 List<Section> sections = sectionDao.findSectionsByConferenceId(conferenceId);
@@ -70,34 +70,27 @@ public class ConferenceService {
 
     public void saveConferenceWithSection(Conference conference) throws ServiceException {
 
-        DaoHelper helper = null;
-        try {
-            helper = factory.create();
+        try (DaoHelper helper = factory.create()) {
+
             helper.startTransaction();
             ConferenceDao conferenceDao = helper.createConferenceDao();
             Optional<Long> conferenceId = conferenceDao.save(conference);
+            if (conferenceId.isEmpty()) {
+                throw new ServiceException("Conference don't save");
+            }
+            Long id = conferenceId.get();
 
             SectionDao sectionDao = helper.createSectionDao();
             for (int i = 0; i < conference.sizeSections(); i++) {
                 Section section = conference.getSection(i);
-                Long id = conferenceId.get();
-                //TODO skip or throw exception
                 section.setConferenceId(id);
                 sectionDao.save(section);
             }
             helper.endTransaction();
 
         } catch (DaoException e) {
-            try {
-                helper.rollback();
-            } catch (DaoException stack) {
-                throw new ServiceException("", stack);
-            }
+            // rollback in DaoHelper endTransaction method
             throw new ServiceException("Save conference error", e);
-        } finally {
-            if (helper != null) {
-                helper.close();
-            }
         }
     }
 }

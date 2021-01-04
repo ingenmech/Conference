@@ -5,10 +5,8 @@ import com.epam.evm.conference.command.CommandResult;
 import com.epam.evm.conference.exception.ServiceException;
 import com.epam.evm.conference.model.Message;
 import com.epam.evm.conference.service.MessageService;
+import com.epam.evm.conference.web.RequestContent;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 
 public class MessageSaverCommand implements Command {
@@ -25,21 +23,20 @@ public class MessageSaverCommand implements Command {
     }
 
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+    public CommandResult execute(RequestContent requestContent) throws ServiceException {
 
-        HttpSession session = request.getSession();
-        Long userId = (Long) session.getAttribute(USER_ID);
-        String questionIdRow = request.getParameter(QUESTION_ID);
+        Long userId = (Long) requestContent.getSessionAttribute(USER_ID);
+        String questionIdRow = requestContent.getParameter(QUESTION_ID);
         Long questionId = Long.valueOf(questionIdRow);
-        String content = request.getParameter(CONTENT);
+        String content = requestContent.getParameter(CONTENT);
         LocalDateTime dateTime = LocalDateTime.now();
 
         Message message = new Message(null, questionId, userId, dateTime, content);
         service.saveMessage(message);
 
-        String questionContent = request.getParameter(QUESTION_CONTENT);
-        request.setAttribute(QUESTION_CONTENT, questionContent);
-        request.setAttribute(QUESTION_ID, questionId);
-        return CommandResult.forward(ALL_USERS_MESSAGE_PAGE);
+        String questionContent = requestContent.getParameter(QUESTION_CONTENT);
+        requestContent.setAttribute(QUESTION_CONTENT, questionContent);
+        requestContent.setAttribute(QUESTION_ID, questionId);
+        return CommandResult.redirect(ALL_USERS_MESSAGE_PAGE);
     }
 }

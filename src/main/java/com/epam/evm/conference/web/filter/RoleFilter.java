@@ -13,7 +13,7 @@ public class RoleFilter implements Filter {
     private final static String MAIN_PAGE = "/WEB-INF/pages/main-page.jsp";
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig) {
     }
 
     @Override
@@ -26,12 +26,12 @@ public class RoleFilter implements Filter {
 
         if(role == null){
             session.setAttribute(ROLE, GUEST);
-            ServletContext context = request.getServletContext();
-            RequestDispatcher dispatcher = context.getRequestDispatcher(MAIN_PAGE);
-            dispatcher.forward(request, response);
-        } else {
-            filterChain.doFilter(servletRequest, servletResponse);
+           // ServletContext context = request.getServletContext();
+//            RequestDispatcher dispatcher = context.getRequestDispatcher(MAIN_PAGE);
+//            dispatcher.forward(request, response);
         }
+            filterChain.doFilter(servletRequest, servletResponse);
+
     }
 
     @Override

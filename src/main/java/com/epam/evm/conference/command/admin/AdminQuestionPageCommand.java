@@ -5,8 +5,8 @@ import com.epam.evm.conference.command.general.AbstractPaginationCommand;
 import com.epam.evm.conference.exception.ServiceException;
 import com.epam.evm.conference.model.Question;
 import com.epam.evm.conference.service.QuestionService;
+import com.epam.evm.conference.web.RequestContent;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public class AdminQuestionPageCommand extends AbstractPaginationCommand<Question> implements Command {
@@ -22,7 +22,7 @@ public class AdminQuestionPageCommand extends AbstractPaginationCommand<Question
     }
 
     @Override
-    public List<Question> createService(HttpServletRequest request, int offset) throws ServiceException {
+    public List<Question> createService(RequestContent content, int offset) throws ServiceException {
         return service.findAllQuestionWithUserLogin(ELEMENTS_LIMIT, offset);
     }
 }

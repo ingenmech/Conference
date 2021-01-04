@@ -2,9 +2,7 @@ package com.epam.evm.conference.command.admin;
 
 import com.epam.evm.conference.command.Command;
 import com.epam.evm.conference.command.CommandResult;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import com.epam.evm.conference.web.RequestContent;
 
 public class ConferenceSaverPageCommand implements Command {
 
@@ -15,10 +13,10 @@ public class ConferenceSaverPageCommand implements Command {
     private final static String SECTION_LENGTH_KEY = "sectionLength";
 
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
+    public CommandResult execute(RequestContent content) {
 
-        request.setAttribute(CONFERENCE_LENGTH_KEY, CONFERENCE_LENGTH);
-        request.setAttribute(SECTION_LENGTH_KEY, SECTION_LENGTH);
+        content.setAttribute(CONFERENCE_LENGTH_KEY, CONFERENCE_LENGTH);
+        content.setAttribute(SECTION_LENGTH_KEY, SECTION_LENGTH);
 
         return CommandResult.forward(CRATE_CONFERENCE_PAGE);
     }

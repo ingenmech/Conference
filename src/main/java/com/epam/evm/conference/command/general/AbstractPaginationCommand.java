@@ -3,9 +3,8 @@ package com.epam.evm.conference.command.general;
 import com.epam.evm.conference.command.Command;
 import com.epam.evm.conference.command.CommandResult;
 import com.epam.evm.conference.exception.ServiceException;
+import com.epam.evm.conference.web.RequestContent;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public abstract class AbstractPaginationCommand<T> implements Command {
@@ -19,36 +18,36 @@ public abstract class AbstractPaginationCommand<T> implements Command {
     private final static String PREVIOUS = "previous";
     private final static String NEXT = "next";
 
-    protected AbstractPaginationCommand(String page, String keyList, int elementsLimitNumber){
+    protected AbstractPaginationCommand(String page, String keyList, int elementsLimitNumber) {
         this.page = page;
         this.keyList = keyList;
         this.elementsLimitNumber = elementsLimitNumber;
     }
 
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+    public CommandResult execute(RequestContent content) throws ServiceException {
 
-        String pageNumberRow = request.getParameter(PAGE_NUMBER);
+        String pageNumberRow = content.getParameter(PAGE_NUMBER);
         int pageNumber = (pageNumberRow != null) ? Integer.parseInt(pageNumberRow) : 0;
         if (pageNumber < 0) {
             pageNumber = 0;
         }
-        String direction = request.getParameter(DIRECTION);
-        if (PREVIOUS.equals(direction) && pageNumber != 0){
-            pageNumber-=2;
+        String direction = content.getParameter(DIRECTION);
+        if (PREVIOUS.equals(direction) && pageNumber != 0) {
+            pageNumber -= 2;
         }
         int offset = pageNumber * elementsLimitNumber;
-        List<T> list = createService(request, offset);
+        List<T> list = createService(content, offset);
         if (!list.isEmpty()) {
-            request.setAttribute(keyList, list);
+            content.setAttribute(keyList, list);
             pageNumber++;
         }
 
-        request.setAttribute(PAGE_NUMBER, pageNumber);
-        request.setAttribute(ELEMENTS_NUMBER, elementsLimitNumber);
+        content.setAttribute(PAGE_NUMBER, pageNumber);
+        content.setAttribute(ELEMENTS_NUMBER, elementsLimitNumber);
 
         return CommandResult.forward(page);
     }
 
-    public abstract List<T> createService(HttpServletRequest request, int offset) throws ServiceException;
+    public abstract List<T> createService(RequestContent content, int offset) throws ServiceException;
 }

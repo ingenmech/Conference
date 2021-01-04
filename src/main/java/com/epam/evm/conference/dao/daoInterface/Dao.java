@@ -11,6 +11,6 @@ public interface Dao<T> {
     List<T> getAll() throws DaoException;
     Optional<Long> save(T item) throws DaoException;
     void removeById(Long id) throws DaoException;
-    List<T> findEntityByLimit(int limit, int offset) throws DaoException;
+    List<T> findEntityForPagination(int limit, int offset) throws DaoException;
 
 }

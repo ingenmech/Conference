@@ -6,9 +6,7 @@ import com.epam.evm.conference.exception.ServiceException;
 import com.epam.evm.conference.model.Request;
 import com.epam.evm.conference.model.RequestStatus;
 import com.epam.evm.conference.service.RequestService;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import com.epam.evm.conference.web.RequestContent;
 
 public class RequestStatusCommand implements Command {
 
@@ -27,18 +25,18 @@ public class RequestStatusCommand implements Command {
     }
 
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+    public CommandResult execute(RequestContent content) throws ServiceException {
 
-        String idRow = request.getParameter(REQUEST_ID);
+        String idRow = content.getParameter(REQUEST_ID);
         Long id = Long.valueOf(idRow);
 
-        String userIdRow = request.getParameter(USER_ID);
+        String userIdRow = content.getParameter(USER_ID);
         Long userId = Long.valueOf(userIdRow);
 
-        String sectionIdRow = request.getParameter(SECTION_ID);
+        String sectionIdRow = content.getParameter(SECTION_ID);
         Long sectionId = Long.valueOf(sectionIdRow);
 
-        String topic = request.getParameter(TOPIC);
+        String topic = content.getParameter(TOPIC);
 
         Request userRequest = new Request(id, sectionId, userId, topic, status);
 

@@ -57,7 +57,8 @@ public abstract class AbstractDao<T extends DatabaseEntity> implements Dao<T> {
         return executeQuery(selectAllQuery);
     }
 
-    public List<T> findEntityByLimit(int limit, int offset) throws DaoException {
+    @Override
+    public List<T> findEntityForPagination(int limit, int offset) throws DaoException {
 
         String query = selectAllQuery.concat(" LIMIT ? OFFSET ?");
         return executeQuery(query, limit, offset);
@@ -111,10 +112,6 @@ public abstract class AbstractDao<T extends DatabaseEntity> implements Dao<T> {
             throw new DaoException("Prepared statement query error ", e);
         }
     }
-
-
-// TODO for paging
-//    protected <E> List<E> executeQuery(String query, Object... params) throws DaoException {
 
     protected List<T> executeQuery(String query, Object... params) throws DaoException {
 

@@ -2,10 +2,7 @@ package com.epam.evm.conference.command.general;
 
 import com.epam.evm.conference.command.Command;
 import com.epam.evm.conference.command.CommandResult;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import com.epam.evm.conference.web.RequestContent;
 
 public class LocaleCommand implements Command {
 
@@ -18,20 +15,9 @@ public class LocaleCommand implements Command {
     }
 
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
+    public CommandResult execute(RequestContent request) {
 
-        HttpSession session = request.getSession();
-        session.setAttribute(LOCALE_KEY, locale);
-//        String referer = request.getHeader("referer");
-
-//        try {
-//            URI uri = new URI(referer);
-//            String query = uri.getQuery();
-//            //session.setAttribute("var", query);
-//            return CommandResult.forward(String.format("/controller?%s",query));
-//        } catch (URISyntaxException e) {
-//            throw new ServiceException("uri syntax error from locale command", e);
-//        }
+        request.putSessionAttribute(LOCALE_KEY, locale);
 
         return CommandResult.forward(MAIN_JSP);
     }

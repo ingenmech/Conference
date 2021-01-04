@@ -58,7 +58,7 @@ public class CommandFactory {
             case GO_TO_CREATE_REQUEST:
                 return new RequestSaverPageCommand(new ConferenceService(new DaoHelperFactory()));
             case GO_TO_ACCEPT_REQUEST:
-                return new AdminRequestPageCommand(new RequestService(new DaoHelperFactory()));
+                return new AdminRequestsPageCommand(new RequestService(new DaoHelperFactory()));
             case GO_TO_SENT_REQUESTS:
                 return new UserRequestsPageCommand(new RequestService(new DaoHelperFactory()));
             case GO_TO_CREATE_QUESTION:
