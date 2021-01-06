@@ -5,7 +5,6 @@ import com.epam.evm.conference.connection.ProxyConnection;
 import com.epam.evm.conference.dao.*;
 import com.epam.evm.conference.dao.daoInterface.*;
 import com.epam.evm.conference.exception.DaoException;
-import com.epam.evm.conference.exception.ServiceException;
 
 import java.sql.SQLException;
 
@@ -25,19 +24,19 @@ public class DaoHelper implements AutoCloseable {
         return new ConferenceDaoImpl(connection);
     }
 
-    public SectionDao createSectionDao(){
+    public SectionDao createSectionDao() {
         return new SectionDaoImpl(connection);
     }
 
-    public RequestDao createTopicDao(){
+    public RequestDao createTopicDao() {
         return new RequestDaoImpl(connection);
     }
 
-    public MessageDao createMessageDao(){
+    public MessageDao createMessageDao() {
         return new MessageDaoImpl(connection);
     }
 
-    public QuestionDao createQuestionDao(){
+    public QuestionDao createQuestionDao() {
         return new QuestionDaoImpl(connection);
     }
 
@@ -46,9 +45,9 @@ public class DaoHelper implements AutoCloseable {
         connection.close();
     }
 
-    public void startTransaction() throws DaoException {
+    public void setAutoCommit(boolean autoCommit) throws DaoException {
         try {
-            connection.setAutoCommit(false);
+            connection.setAutoCommit(autoCommit);
         } catch (SQLException e) {
             throw new DaoException("Transaction error", e);
         }
@@ -65,7 +64,6 @@ public class DaoHelper implements AutoCloseable {
     public void endTransaction() throws DaoException {
         try {
             connection.commit();
-            connection.setAutoCommit(true);
         } catch (SQLException e) {
             rollback();
             throw new DaoException("Transaction error", e);

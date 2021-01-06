@@ -17,11 +17,11 @@
          <a href="${pageContext.request.contextPath}/controller?command=main">Conference</a>
      </div>
      <div class="sign-in">
-        <c:if test="${sessionScope.userRole eq 'GUEST'}">
-           <a class="sign-in-btn" href="${pageContext.request.contextPath}/controller?command=signIn">${login}</a>
-        </c:if>
-        <c:if test="${sessionScope.userRole eq 'USER' or sessionScope.userRole eq 'ADMIN'}">
+        <c:if test="${sessionScope.userRole eq 'USER' or sessionScope.userRole eq 'ADMIN'}" var="isUser">
               <a class="sign-in-btn" href="${pageContext.request.contextPath}/controller?command=logout">${logout}</a>
+        </c:if>
+        <c:if test="${isUser eq 'false'}">
+              <a class="sign-in-btn" href="${pageContext.request.contextPath}/controller?command=signIn">${login}</a>
         </c:if>
      </div>
      <div  class="dropdown">

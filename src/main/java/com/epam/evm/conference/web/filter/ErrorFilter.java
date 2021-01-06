@@ -11,7 +11,7 @@ import java.io.IOException;
 public class ErrorFilter implements Filter {
 
     private final static String ERROR_JSP = "/WEB-INF/pages/error.jsp";
-    private final static String ERROR_MESSAGE = "errorMessage";
+    private final static String ERROR_MESSAGE = "userErrorMessage";
     private final static Logger LOGGER = LogManager.getLogger(ErrorFilter.class);
 
     @Override

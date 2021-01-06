@@ -17,19 +17,19 @@ public class RequestContent {
         attributes = new HashMap<>();
     }
 
-    public void setAttribute(String key, Object value) {
-        attributes.put(key, value);
-    }
-
     public Object getAttribute(String key) {
         return attributes.get(key);
+    }
+
+    public void setAttribute(String key, Object value) {
+        attributes.put(key, value);
     }
 
     public Set<String> keySetAttribute() {
         return attributes.keySet();
     }
 
-    public void putSessionAttribute(String key, Object value) {
+    public void setSessionAttribute(String key, Object value) {
         sessionAttributes.put(key, value);
     }
 

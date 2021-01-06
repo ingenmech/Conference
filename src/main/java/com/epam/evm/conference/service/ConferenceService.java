@@ -42,6 +42,7 @@ public class ConferenceService {
     public List<Conference> findAllConferencesWithSections() throws ServiceException {
 
         try (DaoHelper helper = factory.create()) {
+
             ConferenceDao conferenceDao = helper.createConferenceDao();
             SectionDao sectionDao = helper.createSectionDao();
 
@@ -70,9 +71,10 @@ public class ConferenceService {
 
     public void saveConferenceWithSection(Conference conference) throws ServiceException {
 
-        try (DaoHelper helper = factory.create()) {
-
-            helper.startTransaction();
+        DaoHelper helper = null;
+        try {
+            helper = factory.create();
+            helper.setAutoCommit(false);
             ConferenceDao conferenceDao = helper.createConferenceDao();
             Optional<Long> conferenceId = conferenceDao.save(conference);
             if (conferenceId.isEmpty()) {
@@ -89,8 +91,16 @@ public class ConferenceService {
             helper.endTransaction();
 
         } catch (DaoException e) {
-            // rollback in DaoHelper endTransaction method
             throw new ServiceException("Save conference error", e);
+        } finally {
+            if (helper != null) {
+                try {
+                    helper.setAutoCommit(true);
+                    helper.close();
+                } catch (DaoException e) {
+                    throw new ServiceException("Save conference error", e);
+                }
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
 <%@ page isErrorPage="true" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
 <title>Error Page</title>
@@ -11,10 +12,10 @@
     <jsp:include page="../components/header.jsp" />
   </div>
   <div class="errorMessage">
-  <div>
      <h3>${error}</h3>
-     <h4>${errorMessage}</h4>
+     <h4>${userErrorMessage}</h4>
   </div>
+  <div>
      Request from ${pageContext.errorData.requestURI} is failed
   <br/>
      Servlet name: ${pageContext.errorData.servletName}

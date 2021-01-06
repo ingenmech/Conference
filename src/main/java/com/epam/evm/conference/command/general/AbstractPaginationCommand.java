@@ -28,11 +28,12 @@ public abstract class AbstractPaginationCommand<T> implements Command {
     public CommandResult execute(RequestContent content) throws ServiceException {
 
         String pageNumberRow = content.getParameter(PAGE_NUMBER);
+        String direction = content.getParameter(DIRECTION);
+
         int pageNumber = (pageNumberRow != null) ? Integer.parseInt(pageNumberRow) : 0;
-        if (pageNumber < 0) {
+        if (pageNumber < 0 || PREVIOUS.equals(direction) && pageNumber == 1) {
             pageNumber = 0;
         }
-        String direction = content.getParameter(DIRECTION);
         if (PREVIOUS.equals(direction) && pageNumber != 0) {
             pageNumber -= 2;
         }

@@ -8,11 +8,10 @@ import java.io.IOException;
 public class LocaleFilter implements Filter {
 
     private final static String LOCALE = "locale";
-    private final static String DEFAULT_LOCALE = "en";
     private final static String SESSION_LOCALE = "sessionLocale";
 
     @Override
-    public void init(FilterConfig filterConfig){
+    public void init(FilterConfig filterConfig) {
 
     }
 
@@ -23,12 +22,10 @@ public class LocaleFilter implements Filter {
         String locale = request.getParameter(SESSION_LOCALE);
         HttpSession session = request.getSession();
 
-        if(locale != null){
+        if (locale != null) {
             session.setAttribute(LOCALE, locale);
-        } else {
-            session.setAttribute(LOCALE, DEFAULT_LOCALE);
         }
-            filterChain.doFilter(servletRequest, servletResponse);
+        filterChain.doFilter(servletRequest, servletResponse);
 
     }
 

@@ -22,6 +22,7 @@ public class ProxyConnection implements Connection {
     @Override
     public void close(){
         pool.returnConnection(this);
+
     }
 
     @Override

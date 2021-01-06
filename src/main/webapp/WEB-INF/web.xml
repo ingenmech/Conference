@@ -2,14 +2,6 @@
          xmlns="http://xmlns.jcp.org/xml/ns/javaee"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
          http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" version="3.1">
-    <servlet>
-        <servlet-name>main</servlet-name>
-        <servlet-class>com.epam.evm.conference.web.Servlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>main</servlet-name>
-        <url-pattern>/controller</url-pattern>
-    </servlet-mapping>
     <filter>
         <filter-name>encodingFilter</filter-name>
         <filter-class>com.epam.evm.conference.web.filter.EncodingFilter</filter-class>
@@ -21,22 +13,6 @@
     <filter-mapping>
         <filter-name>encodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
-    </filter-mapping>
-    <filter>
-        <filter-name>roleFilter</filter-name>
-        <filter-class>com.epam.evm.conference.web.filter.RoleFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>roleFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
-    <filter>
-        <filter-name>securityFilter</filter-name>
-        <filter-class>com.epam.evm.conference.web.filter.SecurityFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>securityFilter</filter-name>
-        <url-pattern>/controller</url-pattern>
     </filter-mapping>
     <filter>
         <filter-name>sessionLocaleFilter</filter-name>
@@ -54,13 +30,13 @@
         <filter-name>errorFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-<!--    <error-page>-->
-<!--        <exception-type>java.lang.Throwable</exception-type>-->
-<!--        <location>/WEB-INF/pages/error.jsp</location>-->
-<!--    </error-page>-->
-<!--    <error-page>-->
-<!--        <location>/WEB-INF/pages/error.jsp</location>-->
-<!--    </error-page>-->
+    <error-page>
+        <exception-type>java.lang.Throwable</exception-type>
+        <location>/WEB-INF/pages/error.jsp</location>
+    </error-page>
+    <error-page>
+        <location>/WEB-INF/pages/error.jsp</location>
+    </error-page>
     <error-page>
         <error-code>404</error-code>
         <location>/WEB-INF/pages/error.jsp</location>
@@ -68,5 +44,21 @@
     <session-config>
         <session-timeout>30</session-timeout>
     </session-config>
+    <filter>
+        <filter-name>securityFilter</filter-name>
+        <filter-class>com.epam.evm.conference.web.filter.SecurityFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>securityFilter</filter-name>
+        <url-pattern>/controller</url-pattern>
+    </filter-mapping>
+    <servlet>
+        <servlet-name>main</servlet-name>
+        <servlet-class>com.epam.evm.conference.web.Servlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>main</servlet-name>
+        <url-pattern>/controller</url-pattern>
+    </servlet-mapping>
     <display-name>Archetype Created Web Application</display-name>
 </web-app>

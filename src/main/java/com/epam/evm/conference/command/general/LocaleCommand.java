@@ -17,7 +17,7 @@ public class LocaleCommand implements Command {
     @Override
     public CommandResult execute(RequestContent request) {
 
-        request.putSessionAttribute(LOCALE_KEY, locale);
+        request.setSessionAttribute(LOCALE_KEY, locale);
 
         return CommandResult.forward(MAIN_JSP);
     }

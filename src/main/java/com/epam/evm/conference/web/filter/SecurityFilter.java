@@ -33,6 +33,11 @@ public class SecurityFilter implements Filter {
         HttpSession session = request.getSession();
         String role = (String) session.getAttribute(ROLE);
 
+        if (role == null) {
+            session.setAttribute(ROLE, GUEST);
+            role = GUEST;
+        }
+
         if (command.startsWith(ADMIN) && !ADMIN.equalsIgnoreCase(role)
                 || command.startsWith(USER) && !USER.equalsIgnoreCase(role)
                 || command.startsWith(ALL_USERS) && GUEST.equalsIgnoreCase(role)) {

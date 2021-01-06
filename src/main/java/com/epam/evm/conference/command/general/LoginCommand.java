@@ -38,12 +38,12 @@ public class LoginCommand implements Command {
             Long id = user.getId();
             String role = user.getRole();
 
-            content.putSessionAttribute(ID, id);
-            content.putSessionAttribute(LOGIN, login);
-            content.putSessionAttribute(ROLE, role);
+            content.setSessionAttribute(ID, id);
+            content.setSessionAttribute(LOGIN, login);
+            content.setSessionAttribute(ROLE, role);
             return CommandResult.redirect(MAIN_PAGE);
         } else {
-            content.putSessionAttribute(ERROR, ERROR_MESSAGE);
+            content.setSessionAttribute(ERROR, ERROR_MESSAGE);
             return CommandResult.forward(LOGIN_PAGE);
         }
     }
