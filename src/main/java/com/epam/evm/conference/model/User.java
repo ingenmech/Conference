@@ -1,14 +1,15 @@
 package com.epam.evm.conference.model;
 
-public class User extends DatabaseEntity {
+public class User implements Entity {
 
+    private final Long id;
     private final String role;
     private final String login;
     private final String password;
 
 
     public User(Long id, String role, String login, String password) {
-        super(id);
+        this.id = id;
         this.role = role;
         this.login = login;
         this.password = password;
@@ -27,31 +28,26 @@ public class User extends DatabaseEntity {
     }
 
     @Override
+    public Long getId() {
+        return id;
+    }
+
+    @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        if (!super.equals(o)) {
-            return false;
-        }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
         User user = (User) o;
 
-        if (role != null ? !role.equals(user.role) : user.role != null) {
-            return false;
-        }
-        if (login != null ? !login.equals(user.login) : user.login != null) {
-            return false;
-        }
+        if (id != null ? !id.equals(user.id) : user.id != null) return false;
+        if (role != null ? !role.equals(user.role) : user.role != null) return false;
+        if (login != null ? !login.equals(user.login) : user.login != null) return false;
         return password != null ? password.equals(user.password) : user.password == null;
     }
 
     @Override
     public int hashCode() {
-        int result = super.hashCode();
+        int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (role != null ? role.hashCode() : 0);
         result = 31 * result + (login != null ? login.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
@@ -61,9 +57,10 @@ public class User extends DatabaseEntity {
     @Override
     public String toString() {
         return "User{" +
-                "role='" + role + '\'' +
+                "id=" + id +
+                ", role='" + role + '\'' +
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
-                "} " + super.toString();
+                '}';
     }
 }

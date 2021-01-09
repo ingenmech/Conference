@@ -30,7 +30,7 @@ public class MessagePageCommand implements Command {
         content.setAttribute(MESSAGE_LENGTH, LENGTH);
 
         String questionIdRow = content.getParameter(QUESTION_ID);
-        Long questionId = Long.valueOf(questionIdRow);
+        Long questionId = Long.parseLong(questionIdRow);
 
         String questionContent = content.getParameter(QUESTION_CONTENT);
         content.setAttribute(QUESTION_CONTENT, questionContent);

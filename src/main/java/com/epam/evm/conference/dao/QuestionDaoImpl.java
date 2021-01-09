@@ -13,7 +13,6 @@ import java.util.List;
 
 public class QuestionDaoImpl extends AbstractDao<Question> implements QuestionDao {
 
-    private final static String INSERT_QUESTION = "INSERT INTO question(user_id, content) VALUES (?, ?)";
     private final static String SELECT_QUESTION_BY_USER_ID =
             "SELECT question.id, question.user_id, question.content, user.login AS user_login FROM question " +
                     "LEFT JOIN user ON question.user_id = user.id " +
@@ -21,14 +20,13 @@ public class QuestionDaoImpl extends AbstractDao<Question> implements QuestionDa
     private final static String SELECT_ALL_QUESTIONS_WITH_LOGIN =
             "SELECT question.id, question.user_id, question.content, user.login AS user_login FROM question " +
                     "LEFT JOIN user ON question.user_id = user.id ORDER BY id DESC";
-    private final static String UPDATE_QUESTION = "";
     private final static String TABLE = "question";
 
     private final static RowMapper<Question> MAPPER = new QuestionRowMapper();
     private final static FieldExtractor<Question> EXTRACTOR = new QuestionFieldExtractor();
 
     public QuestionDaoImpl(Connection connection) {
-        super(connection, MAPPER, EXTRACTOR, TABLE, INSERT_QUESTION, UPDATE_QUESTION, SELECT_ALL_QUESTIONS_WITH_LOGIN);
+        super(connection, MAPPER, EXTRACTOR, TABLE, SELECT_ALL_QUESTIONS_WITH_LOGIN);
     }
 
     @Override

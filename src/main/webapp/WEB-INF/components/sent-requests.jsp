@@ -32,13 +32,19 @@
          <td>${request.sectionName}</td>
          <td>${request.topic}</td>
          <td>
-             <form>
+             <form method="POST" action="${pageContext.request.contextPath}/controller">
+                <input type="hidden" name="command" value="userRemoveRequest" />
                  <input type="hidden" name="requestId" value=${request.id}>
+                 <input type="hidden" name="userId" value="${request.userId}" >
+                    <input type="hidden" name="sectionId" value="${request.sectionId}" >
+                    <input type="hidden" name="topic" value="${request.topic}" >
                  <div  class="dropdown-action ">
                      <a href="javascript:void(0)" class="dropbtn-action">>>></a>
+                    <c:if test="${ request.status ne 'DEPRECATED'}" >
                      <div class="dropdown-content-action">
-                        <input type="submit"  formmethod="POST" formaction="${pageContext.request.contextPath}/controller?command=userRemoveRequest" value="${removeButton}">
+                        <input type="submit" value="${removeButton}">
                     </div>
+                    </c:if>
                 </div>
             </form>
         </td>

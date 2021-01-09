@@ -7,16 +7,16 @@ import java.util.Map;
 
 public class SectionFieldExtractor implements FieldExtractor<Section> {
 
-    private final static int CONFERENCE_ID = 1;
-    private final static int NAME = 2;
+    private final static String CONFERENCE_ID = "conference_id";
+    private final static String NAME = "name";
 
     @Override
-    public Map<Integer, Object> extract(Section entity) {
+    public Map<String, Object> extract(Section entity) {
 
         String name = entity.getName();
         Long conferenceId = entity.getConferenceId();
 
-        Map<Integer, Object> sectionFields = new HashMap<>();
+        Map<String, Object> sectionFields = new HashMap<>();
         sectionFields.put(CONFERENCE_ID, conferenceId);
         sectionFields.put(NAME, name);
 

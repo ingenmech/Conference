@@ -8,20 +8,20 @@ import java.util.Map;
 
 public class RequestFieldExtractor implements FieldExtractor<Request> {
 
-    private final static int USER_ID = 1;
-    private final static int SECTION_ID = 2;
-    private final static int TOPIC = 3;
-    private final static int STATUS = 4;
+    private final static String USER_ID = "user_id";
+    private final static String SECTION_ID = "section_id";
+    private final static String TOPIC = "topic";
+    private final static String STATUS = "status";
 
     @Override
-    public Map<Integer, Object> extract(Request entity) {
+    public Map<String, Object> extract(Request entity) {
 
         Long userId = entity.getUserId();
         Long sectionId = entity.getSectionId();
         String topic = entity.getTopic();
         RequestStatus status = entity.getStatus();
 
-        Map<Integer, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
         map.put(USER_ID, userId);
         map.put(SECTION_ID, sectionId);
         map.put(TOPIC, topic);

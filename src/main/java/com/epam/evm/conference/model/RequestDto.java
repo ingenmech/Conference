@@ -1,6 +1,6 @@
 package com.epam.evm.conference.model;
 
-public class RequestDto extends DatabaseEntity{
+public class RequestDto {
 
     private final String topic;
     private final RequestStatus status;
@@ -9,9 +9,9 @@ public class RequestDto extends DatabaseEntity{
     private final String sectionName;
     private final String userLogin;
 
-    public RequestDto(Long id, String topic, RequestStatus status,
+    public RequestDto( String topic, RequestStatus status,
                       String conferenceName, String sectionName, String userLogin) {
-        super(id);
+
         this.topic = topic;
         this.status = status;
         this.conferenceName = conferenceName;

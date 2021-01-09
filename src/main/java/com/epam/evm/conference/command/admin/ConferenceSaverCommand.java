@@ -2,18 +2,16 @@ package com.epam.evm.conference.command.admin;
 
 import com.epam.evm.conference.command.Command;
 import com.epam.evm.conference.command.CommandResult;
+import com.epam.evm.conference.exception.FieldValidationException;
 import com.epam.evm.conference.exception.ServiceException;
-import com.epam.evm.conference.model.Conference;
-import com.epam.evm.conference.model.Section;
 import com.epam.evm.conference.service.ConferenceService;
+import com.epam.evm.conference.validator.FieldValidator;
 import com.epam.evm.conference.web.RequestContent;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ConferenceSaverCommand implements Command {
 
@@ -22,38 +20,35 @@ public class ConferenceSaverCommand implements Command {
     private final static String DATE = "date";
     private final static String TIME = "time";
     private final static String CREATE_CONFERENCE_PAGE = "/controller?command=adminCreate";
-    //private final static String MESSAGE = "conferenceCreated";
-    //private final static String MESSAGE_KEY = "message";
 
     private final ConferenceService service;
+    private final FieldValidator validator;
 
-    public ConferenceSaverCommand(ConferenceService service) {
+    public ConferenceSaverCommand(ConferenceService service, FieldValidator validator) {
         this.service = service;
+        this.validator = validator;
     }
 
     @Override
     public CommandResult execute(RequestContent content) throws ServiceException {
 
-        String name = content.getParameter(CONFERENCE);
-
-        String[] sectionsName = content.getParameterValues(SECTION);
-        List<Section> sections = new ArrayList<>();
-        for (String value : sectionsName) {
-            sections.add(new Section(null, null, value));
-        }
-
         String date = content.getParameter(DATE);
+        String time = content.getParameter(TIME);
+//        if (!validator.isValid(date, "^\\d{4}-\\d{1,2}-\\d{1,2}$")
+//                || !validator.isValid(time, "^\\d{1,2}:\\d{1,2}:\\d{1,2}$")) {
+//            throw new FieldValidationException("Field does not match format");
+//        }
+
         DateTimeFormatter dateFormatter = DateTimeFormatter.ISO_LOCAL_DATE;
         LocalDate localDate = LocalDate.parse(date, dateFormatter);
-        String time = content.getParameter(TIME);
         DateTimeFormatter timeFormatter = DateTimeFormatter.ISO_LOCAL_TIME;
         LocalTime localTime = LocalTime.parse(time, timeFormatter);
         LocalDateTime localDateTime = LocalDateTime.of(localDate, localTime);
+        String name = content.getParameter(CONFERENCE);
+        String[] sections = content.getParameterValues(SECTION);
 
-        Conference conference = new Conference(null, name, localDateTime, sections);
-        service.saveConferenceWithSection(conference);
+        service.saveConferenceWithSection(name, localDateTime, sections);
 
-        //content.setAttribute(MESSAGE_KEY, MESSAGE);
         return CommandResult.redirect(CREATE_CONFERENCE_PAGE);
     }
 }

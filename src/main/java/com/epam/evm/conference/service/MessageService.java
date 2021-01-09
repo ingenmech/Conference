@@ -4,17 +4,24 @@ import com.epam.evm.conference.dao.daoInterface.MessageDao;
 import com.epam.evm.conference.dao.helper.DaoHelper;
 import com.epam.evm.conference.dao.helper.DaoHelperFactory;
 import com.epam.evm.conference.exception.DaoException;
+import com.epam.evm.conference.exception.FieldValidationException;
 import com.epam.evm.conference.exception.ServiceException;
 import com.epam.evm.conference.model.Message;
+import com.epam.evm.conference.validator.FieldValidator;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class MessageService {
 
-    private final DaoHelperFactory factory;
+    private final static String CONTENT_REGEX = "^.{1,300}$";
 
-    public MessageService(DaoHelperFactory factory) {
+    private final DaoHelperFactory factory;
+    private final FieldValidator validator;
+
+    public MessageService(DaoHelperFactory factory, FieldValidator validator) {
         this.factory = factory;
+        this.validator = validator;
     }
 
     public List<Message> findMessagesByQuestionId(Long questionId) throws ServiceException {
@@ -29,7 +36,13 @@ public class MessageService {
         }
     }
 
-    public void saveMessage(Message message) throws ServiceException {
+    public void saveMessage(Long questionId, Long userId, LocalDateTime dateTime, String content) throws ServiceException {
+
+        if (!validator.isValid(content, CONTENT_REGEX)){
+            throw new FieldValidationException("Field does not match format");
+        }
+
+        Message message = new Message(null, questionId, userId, dateTime, content);
 
         try (DaoHelper helper = factory.create()) {
 

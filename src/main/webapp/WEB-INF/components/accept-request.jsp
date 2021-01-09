@@ -44,12 +44,9 @@
                 <div  class="dropdown-action ">
                      <a href="javascript:void(0)" class="dropbtn-action">>>></a>
                   <div class="dropdown-content-action">
-                        <c:if test="${ status eq 'CONSIDERING'}" var="isConsidering">
+                    <c:if test="${ status eq 'CONSIDERING'}" var="isConsidering">
                         <input type="submit" formmethod="POST" formaction="${pageContext.request.contextPath}/controller?command=adminAcceptRequest" value="${acceptButton}">
                         <input type="submit" formmethod="POST" formaction="${pageContext.request.contextPath}/controller?command=adminRejectRequest" value="${rejectButton}">
-                    </c:if>
-                    <c:if test="${ isConsidering eq 'false' }">
-                    <input type="submit" formmethod="POST" formaction="${pageContext.request.contextPath}/controller?command=adminRemoveRequest" value="${removeButton}">
                     </c:if>
                   </div>
                 </div>

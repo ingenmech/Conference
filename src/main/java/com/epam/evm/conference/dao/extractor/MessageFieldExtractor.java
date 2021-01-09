@@ -8,21 +8,21 @@ import java.util.Map;
 
 public class MessageFieldExtractor implements FieldExtractor<Message>{
 
-    private final static int QUESTION_ID = 1;
-    private final static int USER_ID = 2;
-    private final static int DATE_TIME = 3;
-    private final static int CONTENT = 4;
+    private final static String QUESTION_ID = "question_id";
+    private final static String USER_ID = "user_id";
+    private final static String DATE_TIME = "date_time";
+    private final static String CONTENT = "content";
 
 
     @Override
-    public Map<Integer, Object> extract(Message entity) {
+    public Map<String, Object> extract(Message entity) {
 
         Long questionId = entity.getQuestionId();
         Long userId = entity.getUserId();
         LocalDateTime dateTime = entity.getDateTime();
         String content = entity.getContent();
 
-        Map<Integer, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
         map.put(QUESTION_ID, questionId);
         map.put(USER_ID, userId);
         map.put(DATE_TIME, dateTime);

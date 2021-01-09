@@ -5,19 +5,30 @@ import com.epam.evm.conference.dao.daoInterface.SectionDao;
 import com.epam.evm.conference.dao.helper.DaoHelper;
 import com.epam.evm.conference.dao.helper.DaoHelperFactory;
 import com.epam.evm.conference.exception.DaoException;
+import com.epam.evm.conference.exception.FieldValidationException;
 import com.epam.evm.conference.exception.ServiceException;
 import com.epam.evm.conference.model.Conference;
 import com.epam.evm.conference.model.Section;
+import com.epam.evm.conference.validator.FieldValidator;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class ConferenceService {
 
-    private final DaoHelperFactory factory;
+    private final static Logger LOGGER = LogManager.getLogger(ConferenceService.class);
+    private final static String REGEX = "^.{1,150}$";
 
-    public ConferenceService(DaoHelperFactory factory) {
+    private final DaoHelperFactory factory;
+    private final FieldValidator validator;
+
+    public ConferenceService(DaoHelperFactory factory, FieldValidator validator) {
         this.factory = factory;
+        this.validator=validator;
     }
 
     public List<Conference> findConferencesForPagination(int limit, int offset) throws ServiceException {
@@ -69,7 +80,13 @@ public class ConferenceService {
         }
     }
 
-    public void saveConferenceWithSection(Conference conference) throws ServiceException {
+    public void saveConferenceWithSection(String name, LocalDateTime localDateTime, String[] sectionNames) throws ServiceException {
+
+        if(!validator.isValid(name, REGEX) || !validator.isValid(sectionNames, REGEX)){
+            throw new FieldValidationException("Field does not match format");
+        }
+
+        Conference conference = buildConference(name, localDateTime, sectionNames);
 
         DaoHelper helper = null;
         try {
@@ -98,9 +115,18 @@ public class ConferenceService {
                     helper.setAutoCommit(true);
                     helper.close();
                 } catch (DaoException e) {
-                    throw new ServiceException("Save conference error", e);
+                    LOGGER.error(e.getMessage(), e);
                 }
             }
         }
+    }
+
+    private Conference buildConference(String name, LocalDateTime localDateTime, String[] sectionNames){
+
+        List<Section> sections = new ArrayList<>();
+        for (String value : sectionNames) {
+            sections.add(new Section(null, null, value));
+        }
+        return new Conference(null, name, localDateTime, sections);
     }
 }

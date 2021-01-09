@@ -6,11 +6,15 @@ import com.epam.evm.conference.dao.helper.DaoHelperFactory;
 import com.epam.evm.conference.exception.DaoException;
 import com.epam.evm.conference.exception.ServiceException;
 import com.epam.evm.conference.model.User;
+import com.epam.evm.conference.validator.FieldValidator;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 
 import java.util.Optional;
+
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.when;
 
 public class UserServiceTest {
 
@@ -23,7 +27,9 @@ public class UserServiceTest {
         UserDao dao = Mockito.mock(UserDao.class);
         Mockito.when(helper.createUserDao()).thenReturn(dao);
         Mockito.when(dao.findUserByLoginAndPassword("admin", "pass")).thenReturn(Optional.of(new User(null, "USER", "user", "pass")));
-        UserService service = new UserService(factory);
+        FieldValidator validator = Mockito.mock(FieldValidator.class);
+        when(validator.isValid(anyString(),anyString())).thenReturn(true);
+        UserService service = new UserService(factory, validator);
         //when
         Optional<User> userOptional = service.login("admin","pass");
         //then

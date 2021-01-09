@@ -7,16 +7,16 @@ import java.util.Map;
 
 public class QuestionFieldExtractor implements FieldExtractor<Question>{
 
-    private final static int USER_ID = 1;
-    private final static int CONTENT = 2;
+    private final static String USER_ID = "user_id";
+    private final static String CONTENT = "content";
 
     @Override
-    public Map<Integer, Object> extract(Question entity) {
+    public Map<String, Object> extract(Question entity) {
 
         Long userId = entity.getUserId();
         String content = entity.getContent();
 
-        Map<Integer, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
         map.put(USER_ID, userId);
         map.put(CONTENT, content);
         return map;

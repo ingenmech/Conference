@@ -4,6 +4,6 @@ import java.util.Map;
 
 public interface FieldExtractor<T> {
 
-    Map<Integer, Object> extract(T entity);
+    Map<String, Object> extract(T entity);
 
 }

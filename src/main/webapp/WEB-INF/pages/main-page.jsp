@@ -12,11 +12,6 @@
     <jsp:include page="../components/menu.jsp"/>
   </div>
   <div class="column-main">
-     <p>Login ${sessionScope.login}</p>
-     <p>Role ${sessionScope.userRole}</p>
-     <p>Locale ${sessionScope.locale}</p>
-     <p>Var ${sessionScope.var}</p>
-     <p>VarTwo ${sessionScope.varTwo}</p>
   </div>
   <div>
     <jsp:include page="../components/footer.jsp" />
