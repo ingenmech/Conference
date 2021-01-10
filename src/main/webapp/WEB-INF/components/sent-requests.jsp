@@ -13,6 +13,7 @@
     <fmt:message bundle="${loc}" key="accept.request.table.user" var="user" />
     <fmt:message bundle="${loc}" key="accept.request.status" var="requestStatus" />
     <fmt:message bundle="${loc}" key="accept.request.remove" var="removeButton" />
+    <c:set var="page" value="userSentRequests" scope="session" />
   <section class="column-main">
       <div class="table">
          <table>
@@ -21,7 +22,7 @@
             <th>${conference}</th>
             <th>${section}</th>
             <th>${topic}</th>
-            <th></th>
+            <th class="col-10"></th>
         </tr>
         <c:forEach var="request" items="${userRequestList}">
         <tr>
@@ -38,14 +39,11 @@
                  <input type="hidden" name="userId" value="${request.userId}" >
                     <input type="hidden" name="sectionId" value="${request.sectionId}" >
                     <input type="hidden" name="topic" value="${request.topic}" >
-                 <div  class="dropdown-action ">
-                     <a href="javascript:void(0)" class="dropbtn-action">>>></a>
                     <c:if test="${ request.status ne 'DEPRECATED'}" >
-                     <div class="dropdown-content-action">
-                        <input type="submit" value="${removeButton}">
+                    <div  class="show-message">
+                       <input type="image" name="submit" border="0" alt="messages" style="width: 30px;" src="${pageContext.request.contextPath}/static/img/times-circle-regular.svg"/>
                     </div>
                     </c:if>
-                </div>
             </form>
         </td>
     </tr>

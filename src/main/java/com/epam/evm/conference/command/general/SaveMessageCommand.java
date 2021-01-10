@@ -5,12 +5,12 @@ import com.epam.evm.conference.command.CommandResult;
 import com.epam.evm.conference.exception.FieldValidationException;
 import com.epam.evm.conference.exception.ServiceException;
 import com.epam.evm.conference.service.MessageService;
-import com.epam.evm.conference.validator.FieldValidator;
+import com.epam.evm.conference.validator.NumberUtils;
 import com.epam.evm.conference.web.RequestContent;
 
 import java.time.LocalDateTime;
 
-public class MessageSaverCommand implements Command {
+public class SaveMessageCommand implements Command {
 
     private final static String USER_ID = "userId";
     private final static String QUESTION_ID = "questionId";
@@ -20,9 +20,9 @@ public class MessageSaverCommand implements Command {
     private final static String REGEXP = "^\\d*$";
 
     private final MessageService service;
-    private final FieldValidator validator;
+    private final NumberUtils validator;
 
-    public MessageSaverCommand(MessageService service, FieldValidator validator) {
+    public SaveMessageCommand(MessageService service, NumberUtils validator) {
         this.service = service;
         this.validator = validator;
     }

@@ -7,7 +7,7 @@ import com.epam.evm.conference.exception.DaoException;
 import com.epam.evm.conference.exception.FieldValidationException;
 import com.epam.evm.conference.exception.ServiceException;
 import com.epam.evm.conference.model.Question;
-import com.epam.evm.conference.validator.FieldValidator;
+import com.epam.evm.conference.validator.NumberUtils;
 
 import java.util.List;
 
@@ -16,9 +16,9 @@ public class QuestionService {
     private final static String CONTENT_REGEX = "^.{1,150}$";
 
     private final DaoHelperFactory factory;
-    private final FieldValidator validator;
+    private final NumberUtils validator;
 
-    public QuestionService(DaoHelperFactory factory, FieldValidator validator) {
+    public QuestionService(DaoHelperFactory factory, NumberUtils validator) {
         this.factory = factory;
         this.validator = validator;
     }

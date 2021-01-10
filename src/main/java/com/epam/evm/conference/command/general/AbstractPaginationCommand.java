@@ -42,6 +42,8 @@ public abstract class AbstractPaginationCommand<T> implements Command {
         if (!list.isEmpty()) {
             content.setAttribute(keyList, list);
             pageNumber++;
+        } else {
+            //TODO
         }
 
         content.setAttribute(PAGE_NUMBER, pageNumber);

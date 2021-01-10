@@ -10,6 +10,7 @@
     <fmt:message bundle="${loc}" key="question.page.question" var="userQuestion" />
     <fmt:message bundle="${loc}" key="message.page.placeholder" var="holder" />
     <fmt:message bundle="${loc}" key="question.page.send" var="send" />
+    <c:set var="page" value="userCreateQuestionPage" scope="session" />
   <section class="column-main">
        <div class="send-request">
   			<div class="container">

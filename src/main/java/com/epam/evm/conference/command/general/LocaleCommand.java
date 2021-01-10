@@ -7,7 +7,9 @@ import com.epam.evm.conference.web.RequestContent;
 public class LocaleCommand implements Command {
 
     private final static String LOCALE_KEY = "locale";
-    private final static String MAIN_JSP = "/WEB-INF/pages/main-page.jsp";
+    private final static String COMMAND = "command=";
+    private final static String COMMAND_PART = "/controller?command=%s";
+    private final static String CONTROLLER_PART = "/controller?%s";
     private final String locale;
 
     public LocaleCommand(String locale) {
@@ -16,9 +18,16 @@ public class LocaleCommand implements Command {
 
     @Override
     public CommandResult execute(RequestContent request) {
-
+        
+        String command =  (String) request.getSessionAttribute("page");
+        String page;
+        if (command.contains(COMMAND)) {
+            page = String.format(CONTROLLER_PART, command);
+        } else {
+            page = String.format(COMMAND_PART, command);
+        }
         request.setSessionAttribute(LOCALE_KEY, locale);
 
-        return CommandResult.forward(MAIN_JSP);
+        return CommandResult.forward(page);
     }
 }

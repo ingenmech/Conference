@@ -4,13 +4,12 @@ import com.epam.evm.conference.command.Command;
 import com.epam.evm.conference.command.CommandResult;
 import com.epam.evm.conference.exception.FieldValidationException;
 import com.epam.evm.conference.exception.ServiceException;
-import com.epam.evm.conference.model.Request;
 import com.epam.evm.conference.model.RequestStatus;
 import com.epam.evm.conference.service.RequestService;
-import com.epam.evm.conference.validator.FieldValidator;
+import com.epam.evm.conference.validator.NumberUtils;
 import com.epam.evm.conference.web.RequestContent;
 
-public class RequestSaverCommand implements Command {
+public class SaveRequestCommand implements Command {
 
     private final static String SECTION_ID = "section";
     private final static String TOPIC = "topic";
@@ -20,9 +19,9 @@ public class RequestSaverCommand implements Command {
     private final static String REGEXP = "^\\d*$";
 
     private final RequestService service;
-    private final FieldValidator validator;
+    private final NumberUtils validator;
 
-    public RequestSaverCommand(RequestService service, FieldValidator validator) {
+    public SaveRequestCommand(RequestService service, NumberUtils validator) {
         this.service = service;
         this.validator = validator;
     }

@@ -14,7 +14,6 @@
 	<fmt:message bundle="${loc}" key="question.user.page.question" var="userQuestion" />
 	<fmt:message bundle="${loc}" key="question.page.questions" var="questions" />
 	<script type="text/javascript" language="JavaScript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script type="text/javascript" language="JavaScript" src="${pageContext.request.contextPath}/static/js/hover-btn.js"></script>
 <section>
 	<div class="column-menu">
 		<div id="buttons">
@@ -23,7 +22,6 @@
 						<a class="button-menu" href="${pageContext.request.contextPath}/controller?command=getConferences">
 						${list}</a>
 					</li>
-					<!-- <li><a class="button-menu" href="#">${archive}</a></li> -->
 				<c:if test="${sessionScope.userRole eq 'ADMIN'}" >
 					<li>
 						<a class="button-menu" href="${pageContext.request.contextPath}/controller?command=adminCreate">${create}</a>

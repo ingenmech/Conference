@@ -19,6 +19,11 @@ ul, li{
 	display: block;
 }
 
+form {
+  margin: 0;
+  margin-block-end: 0;
+}
+
 /**************header******************/
 .header {
 	overflow: hidden;
@@ -173,7 +178,7 @@ ul, li{
 
 .table th, td {
   text-align: left;
-  padding: 8px;
+  padding: 10px 10px;
   border-bottom: 1px solid #ddd;
 }
 
@@ -368,6 +373,18 @@ textarea {
   display: block;
 }
 
+.show-message input[type=image] {
+  display: block;
+  padding: 0px 10px;
+  margin: 0px auto;
+}
+
+.show-message-d input[type=image] {
+  padding: 0px 10px;
+  margin: 0px auto;
+}
+
+
 .container input[type=submit]:hover, .show-message input[type=submit]:hover {
   background-color: #FFDD00;
   color: black;
@@ -378,12 +395,28 @@ textarea {
   width: 15%;
 }
 
+.col-10 {
+  width: 10%;
+}
+
 .col-85 {
   width: 85%;
 }
 
+.col-90 {
+  width: 90%;
+}
+
 .col-70 {
   width: 70%;
+}
+
+.col-75 {
+  width: 75%;
+}
+
+.empty {
+  width: 4%;
 }
 
 /* Clear floats after the columns */

@@ -7,7 +7,7 @@ import com.epam.evm.conference.exception.DaoException;
 import com.epam.evm.conference.exception.FieldValidationException;
 import com.epam.evm.conference.exception.ServiceException;
 import com.epam.evm.conference.model.Message;
-import com.epam.evm.conference.validator.FieldValidator;
+import com.epam.evm.conference.validator.NumberUtils;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -17,9 +17,9 @@ public class MessageService {
     private final static String CONTENT_REGEX = "^.{1,300}$";
 
     private final DaoHelperFactory factory;
-    private final FieldValidator validator;
+    private final NumberUtils validator;
 
-    public MessageService(DaoHelperFactory factory, FieldValidator validator) {
+    public MessageService(DaoHelperFactory factory, NumberUtils validator) {
         this.factory = factory;
         this.validator = validator;
     }

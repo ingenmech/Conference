@@ -1,6 +1,8 @@
 package com.epam.evm.conference.validator;
 
-public class FieldValidator {
+public class NumberUtils {
+
+    private final static String NUMBER_PATTERN = "^\\d*$";
 
     public boolean isValid(String field, String pattern) {
         return field != null && field.matches(pattern);

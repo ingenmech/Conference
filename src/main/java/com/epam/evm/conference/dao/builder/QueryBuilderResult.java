@@ -1,6 +1,7 @@
 package com.epam.evm.conference.dao.builder;
 
 import java.util.Map;
+import java.util.Objects;
 
 public class QueryBuilderResult {
 
@@ -31,10 +32,10 @@ public class QueryBuilderResult {
         }
         QueryBuilderResult that = (QueryBuilderResult) o;
 
-        if (query != null ? !query.equals(that.query) : that.query != null) {
+        if (!Objects.equals(query, that.query)) {
             return false;
         }
-        return fields != null ? fields.equals(that.fields) : that.fields == null;
+        return Objects.equals(fields, that.fields);
     }
 
     @Override

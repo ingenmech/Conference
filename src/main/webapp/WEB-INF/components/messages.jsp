@@ -10,6 +10,7 @@
     <fmt:message bundle="${loc}" key="message.empty.message" var="emptyMessage" />
     <fmt:message bundle="${loc}" key="question.page.send" var="send" />
     <fmt:message bundle="${loc}" key="message.page.placeholder" var="holder" />
+    <c:set var="page" value="allUsersMessagePage" scope="session" />
   <section class="column-main">
       <div class="table">
          <table>

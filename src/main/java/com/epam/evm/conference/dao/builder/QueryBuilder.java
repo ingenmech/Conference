@@ -40,25 +40,4 @@ public class QueryBuilder {
         return new QueryBuilderResult(query, queryMap);
     }
 
-//    public String buildSaveQuery(Map<String, Object> map, String table) {
-//        String questionMark = "?";
-//        String prefix = String.format("INSERT INTO %s(", table);
-//        StringJoiner keyJoiner = new StringJoiner(", ", prefix, ")");
-//        StringJoiner valueJoiner = new StringJoiner(", ", " VALUES (", ")");
-//        for (String key : map.keySet()) {
-//            keyJoiner.add(key);
-//            valueJoiner.add(questionMark);
-//        }
-//        return keyJoiner.toString() + valueJoiner;
-//    }
-//
-//    public String buildUpdateQuery(Map<String, Object> map, String table) {
-//
-//        String prefix = String.format("UPDATE %s SET ", table);
-//        StringJoiner keyJoiner = new StringJoiner(" = ?, ", prefix, "WHERE id = ?");
-//        for (String key : map.keySet()) {
-//            keyJoiner.add(key);
-//        }
-//        return keyJoiner.toString();
-//    }
 }

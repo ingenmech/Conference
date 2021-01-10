@@ -14,6 +14,10 @@
     <fmt:message bundle="${loc}" key="accept.request.accept" var="acceptButton" />
     <fmt:message bundle="${loc}" key="accept.request.reject" var="rejectButton" />
     <fmt:message bundle="${loc}" key="accept.request.remove" var="removeButton" />
+    <c:set var="query" value="${pageContext.request.queryString}"/>
+    <c:if test="${query ne 'command=en' and query ne 'command=ru' and query ne 'command=by'}">
+    <c:set var="page" value="${query}" scope="session" />
+    </c:if>
    <section class="column-main">
        <div class="table">
          <table>
@@ -23,7 +27,7 @@
                <th>${section}</th>
                <th>${topic}</th>
                <th>${user}</th>
-               <th></th>
+               <th class="col-10"></th>
            </tr>
         <c:forEach var="request" items="${requestList}" varStatus="reqStatus">
            <tr>
@@ -41,14 +45,19 @@
                     <input type="hidden" name="sectionId" value="${request.sectionId}" >
                     <input type="hidden" name="topic" value="${request.topic}" >
                     <c:set var="status" value="${request.status}" />
-                <div  class="dropdown-action ">
-                     <a href="javascript:void(0)" class="dropbtn-action">>>></a>
-                  <div class="dropdown-content-action">
-                    <c:if test="${ status eq 'CONSIDERING'}" var="isConsidering">
-                        <input type="submit" formmethod="POST" formaction="${pageContext.request.contextPath}/controller?command=adminAcceptRequest" value="${acceptButton}">
-                        <input type="submit" formmethod="POST" formaction="${pageContext.request.contextPath}/controller?command=adminRejectRequest" value="${rejectButton}">
+                    <c:if test="${ status ne 'DEPRECATED'}" >
+                    <div  class="show-message-d">
+                      <c:if test="${ status ne 'ACCEPTED'}" var="isConsidering">
+                      <input type="image" name="submit" formmethod="POST" formaction="${pageContext.request.contextPath}/controller?command=adminAcceptRequest" border="0" alt="messages" style="width: 30px;" src="${pageContext.request.contextPath}/static/img/check-circle-regular.svg"/>
+                      </c:if>
+                      <c:if test="${ status eq 'ACCEPTED'}" var="isConsidering">
+                      <input type="image" disabled="disabled" style="width: 30px;" src="${pageContext.request.contextPath}/static/img/no-image.svg" />
+                      </c:if>
+                      <c:if test="${ status ne 'REJECTED'}">
+                       <input type="image" name="submit" formmethod="POST" formaction="${pageContext.request.contextPath}/controller?command=adminRejectRequest" border="0" alt="messages" style="width: 30px;" src="${pageContext.request.contextPath}/static/img/times-circle-regular.svg"/>
+                       </c:if>
+                    </div>
                     </c:if>
-                  </div>
                 </div>
               </form>
             </td>

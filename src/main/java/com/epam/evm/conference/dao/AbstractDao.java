@@ -36,7 +36,6 @@ public abstract class AbstractDao<T extends Entity> implements Dao<T> {
 
     @Override
     public void removeById(Long id) throws DaoException {
-
         String query = String.format(DELETE_BY_ID_QUERY, table);
         Map<Integer, Object> fields = new HashMap<>();
         fields.put(1, id);
@@ -45,20 +44,17 @@ public abstract class AbstractDao<T extends Entity> implements Dao<T> {
 
     @Override
     public Optional<T> findBiId(Long id) throws DaoException {
-
         String query = String.format(SELECT_BY_ID_QUERY, table);
         return executeForSingleResult(query, id);
     }
 
     @Override
-    public List<T> getAll() throws DaoException {
-
+    public List<T> findAll() throws DaoException {
         return executeQuery(selectAllQuery);
     }
 
     @Override
     public List<T> findEntityForPagination(int limit, int offset) throws DaoException {
-
         String query = selectAllQuery.concat(" LIMIT ? OFFSET ?");
         return executeQuery(query, limit, offset);
     }
@@ -83,7 +79,6 @@ public abstract class AbstractDao<T extends Entity> implements Dao<T> {
             Integer idKey = queryFields.size() + 1;
             queryFields.put(idKey, id);
         }
-
         return executeUpdate(query, queryFields);
     }
 

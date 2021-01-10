@@ -13,6 +13,8 @@
 		<fmt:message bundle="${loc}" key="request.choose.topic" var="chooseTopic" />
 		<fmt:message bundle="${loc}" key="request.holder.topic" var="holderTopic" />
 		<fmt:message bundle="${loc}" key="request.send.request" var="sendRequest" />
+		<fmt:message bundle="${loc}" key="date.time.format" var="dateTimeFormat" />
+		<c:set var="page" value="userCreateRequest" scope="session" />
 		<script type="text/javascript" language="JavaScript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<script type="text/javascript" language="JavaScript" src="${pageContext.request.contextPath}/static/js/choose-section.js"></script>
 <section class="column-main">
@@ -23,7 +25,7 @@
 			<select id="conference" name="conference">
 				<c:forEach var="conferences" items="${conferenceList}" varStatus="status">
 					<option value="${conferences.id}">
-						<cp:parse-local-date pattern="dd/MM/yyyy HH:mm" dateTime="${conferences.date}" /> - 
+						<cp:parse-local-date pattern="${dateTimeFormat}" dateTime="${conferences.date}" /> - 
   				         <c:out value="${conferences.name}" />
 					</option>
 					<c:if test="${status.count eq 1}">

@@ -6,7 +6,8 @@ import com.epam.evm.conference.command.user.*;
 import com.epam.evm.conference.dao.helper.DaoHelperFactory;
 import com.epam.evm.conference.model.RequestStatus;
 import com.epam.evm.conference.service.*;
-import com.epam.evm.conference.validator.FieldValidator;
+import com.epam.evm.conference.validator.DateUtils;
+import com.epam.evm.conference.validator.NumberUtils;
 
 public class CommandFactory {
 
@@ -34,9 +35,6 @@ public class CommandFactory {
 
     private final static String GO_TO_CREATE_CONFERENCE = "adminCreate";
     private final static String GO_TO_ACCEPT_REQUEST = "adminGoToAcceptRequest";
-    private final static RequestStatus ACCEPTED = RequestStatus.ACCEPTED;
-    private final static RequestStatus REJECTED = RequestStatus.REJECTED;
-    private final static RequestStatus DEPRECATED = RequestStatus.DEPRECATED;
 
     private final static String USER_QUESTIONS_PAGE = "userQuestionsPage";
     private final static String USER_CREATE_QUESTION = "userCreateQuestion";
@@ -47,8 +45,9 @@ public class CommandFactory {
     private final static String GO_TO_SENT_REQUESTS = "userSentRequests";
     private final static String GO_TO_CREATE_QUESTION = "userCreateQuestionPage";
 
-    private final static FieldValidator VALIDATOR = new FieldValidator();
+    private final static NumberUtils VALIDATOR = new NumberUtils();
     private final static DaoHelperFactory DAO_HELPER_FACTORY = new DaoHelperFactory();
+    private final static DateUtils DATE_TIME_UTILS = new DateUtils();
 
     public static Command create(String command) {
 
@@ -58,35 +57,35 @@ public class CommandFactory {
             case GO_TO_MAIN:
                 return new PageForwarderCommand(MAIN_PAGE);
             case GO_TO_CREATE_CONFERENCE:
-                return new ConferenceSaverPageCommand();
+                return new SaveConferencePageCommand();
             case GO_TO_CREATE_REQUEST:
-                return new RequestSaverPageCommand(new ConferenceService(DAO_HELPER_FACTORY, VALIDATOR));
+                return new SaveRequestPageCommand(new ConferenceService(DAO_HELPER_FACTORY, VALIDATOR));
             case GO_TO_ACCEPT_REQUEST:
                 return new AdminRequestsPageCommand(new RequestService(DAO_HELPER_FACTORY, VALIDATOR));
             case GO_TO_SENT_REQUESTS:
                 return new UserRequestsPageCommand(new RequestService(DAO_HELPER_FACTORY, VALIDATOR));
             case GO_TO_CREATE_QUESTION:
-                return new QuestionSaverPageCommand();
+                return new SaveQuestionPageCommand();
             case SHOW_CONFERENCE:
                 return new ConferenceListCommand(new ConferenceService(DAO_HELPER_FACTORY, VALIDATOR));
             case USER_SEND_REQUEST:
-                return new RequestSaverCommand(new RequestService(DAO_HELPER_FACTORY, VALIDATOR), VALIDATOR);
+                return new SaveRequestCommand(new RequestService(DAO_HELPER_FACTORY, VALIDATOR), VALIDATOR);
             case USER_REMOVE_REQUEST:
-                return new RequestStatusCommand(DEPRECATED, SENT_REQUESTS_PAGE_COMMAND, new RequestService(DAO_HELPER_FACTORY, VALIDATOR), VALIDATOR);
+                return new RequestStatusCommand(RequestStatus.DEPRECATED, SENT_REQUESTS_PAGE_COMMAND, new RequestService(DAO_HELPER_FACTORY, VALIDATOR), VALIDATOR);
             case USER_QUESTIONS_PAGE:
                 return new UserQuestionPageCommand(new QuestionService(DAO_HELPER_FACTORY, VALIDATOR));
             case USER_CREATE_QUESTION:
-                return new QuestionSaverCommand(new QuestionService(DAO_HELPER_FACTORY, VALIDATOR), VALIDATOR);
+                return new SaveQuestionCommand(new QuestionService(DAO_HELPER_FACTORY, VALIDATOR), VALIDATOR);
             case ALL_USERS_ADD_MESSAGE:
-                return new MessageSaverCommand(new MessageService(DAO_HELPER_FACTORY, VALIDATOR), VALIDATOR);
+                return new SaveMessageCommand(new MessageService(DAO_HELPER_FACTORY, VALIDATOR), VALIDATOR);
             case ALL_USERS_MESSAGE_PAGE:
                 return new MessagePageCommand(new MessageService(DAO_HELPER_FACTORY, VALIDATOR));
             case ADMIN_SAVE_CONFERENCE:
-                return new ConferenceSaverCommand(new ConferenceService(DAO_HELPER_FACTORY, VALIDATOR), VALIDATOR);
+                return new SaveConferenceCommand(new ConferenceService(DAO_HELPER_FACTORY, VALIDATOR), DATE_TIME_UTILS);
             case ADMIN_ACCEPT_REQUEST:
-                return new RequestStatusCommand(ACCEPTED, ACCEPT_REQUEST_PAGE_COMMAND, new RequestService(DAO_HELPER_FACTORY, VALIDATOR), VALIDATOR);
+                return new RequestStatusCommand(RequestStatus.ACCEPTED, ACCEPT_REQUEST_PAGE_COMMAND, new RequestService(DAO_HELPER_FACTORY, VALIDATOR), VALIDATOR);
             case ADMIN_REJECT_REQUEST:
-                return new RequestStatusCommand(REJECTED, ACCEPT_REQUEST_PAGE_COMMAND, new RequestService(DAO_HELPER_FACTORY, VALIDATOR), VALIDATOR);
+                return new RequestStatusCommand(RequestStatus.REJECTED, ACCEPT_REQUEST_PAGE_COMMAND, new RequestService(DAO_HELPER_FACTORY, VALIDATOR), VALIDATOR);
             case ADMIN_QUESTIONS_PAGE:
                 return new AdminQuestionPageCommand(new QuestionService(DAO_HELPER_FACTORY, VALIDATOR));
             case LOGIN:

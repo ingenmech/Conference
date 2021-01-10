@@ -7,7 +7,7 @@ import com.epam.evm.conference.exception.DaoException;
 import com.epam.evm.conference.exception.FieldValidationException;
 import com.epam.evm.conference.exception.ServiceException;
 import com.epam.evm.conference.model.User;
-import com.epam.evm.conference.validator.FieldValidator;
+import com.epam.evm.conference.validator.NumberUtils;
 
 import java.util.Optional;
 
@@ -16,9 +16,9 @@ public class UserService {
     private final static String REGEX = "^.{1,45}$";
 
     private final DaoHelperFactory daoHelperFactory;
-    private final FieldValidator validator;
+    private final NumberUtils validator;
 
-    public UserService(DaoHelperFactory daoHelperFactory, FieldValidator validator) {
+    public UserService(DaoHelperFactory daoHelperFactory, NumberUtils validator) {
         this.daoHelperFactory = daoHelperFactory;
         this.validator = validator;
     }

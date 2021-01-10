@@ -4,7 +4,7 @@ import com.epam.evm.conference.command.Command;
 import com.epam.evm.conference.command.CommandResult;
 import com.epam.evm.conference.web.RequestContent;
 
-public class ConferenceSaverPageCommand implements Command {
+public class UpdateConferencePageCommand implements Command {
 
     private final static String CRATE_CONFERENCE_PAGE = "/WEB-INF/pages/create-conference-page.jsp";
     private final static int CONFERENCE_LENGTH = 150;
@@ -20,4 +20,5 @@ public class ConferenceSaverPageCommand implements Command {
 
         return CommandResult.forward(CRATE_CONFERENCE_PAGE);
     }
+
 }

@@ -4,10 +4,9 @@ import com.epam.evm.conference.command.Command;
 import com.epam.evm.conference.command.CommandResult;
 import com.epam.evm.conference.exception.FieldValidationException;
 import com.epam.evm.conference.exception.ServiceException;
-import com.epam.evm.conference.model.Request;
 import com.epam.evm.conference.model.RequestStatus;
 import com.epam.evm.conference.service.RequestService;
-import com.epam.evm.conference.validator.FieldValidator;
+import com.epam.evm.conference.validator.NumberUtils;
 import com.epam.evm.conference.web.RequestContent;
 
 public class RequestStatusCommand implements Command {
@@ -21,9 +20,9 @@ public class RequestStatusCommand implements Command {
     private final String page;
     private final RequestStatus status;
     private final RequestService service;
-    private final FieldValidator validator;
+    private final NumberUtils validator;
 
-    public RequestStatusCommand(RequestStatus status,String page, RequestService service, FieldValidator validator) {
+    public RequestStatusCommand(RequestStatus status,String page, RequestService service, NumberUtils validator) {
         this.page = page;
         this.status = status;
         this.service = service;

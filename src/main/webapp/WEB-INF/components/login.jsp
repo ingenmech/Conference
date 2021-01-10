@@ -12,6 +12,7 @@
         <fmt:message bundle="${loc}" key="login.button.login" var="btnLogin" />
         <fmt:message bundle="${loc}" key="login.placeholder.login" var="holderLogin" />
         <fmt:message bundle="${loc}" key="login.placeholder.password" var="holderPassword" />
+        <c:set var="page" value="signIn" scope="session" />
 	<section class="column-main">
 		<div class="form-signin">
 			<div class="error">

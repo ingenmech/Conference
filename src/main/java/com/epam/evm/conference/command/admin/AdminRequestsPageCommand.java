@@ -13,7 +13,7 @@ public class AdminRequestsPageCommand extends AbstractPaginationCommand<Request>
 
     private final static String GO_TO_SENT_REQUESTS = "/WEB-INF/pages/accept-request-page.jsp";
     private final static String REQUEST_LIST = "requestList";
-    private final static int ELEMENTS_NUMBER_ON_PAGE = 6;
+    private final static int ELEMENTS_NUMBER_ON_PAGE = 13;
 
     private final RequestService service;
 

@@ -5,10 +5,10 @@ import com.epam.evm.conference.command.CommandResult;
 import com.epam.evm.conference.exception.FieldValidationException;
 import com.epam.evm.conference.exception.ServiceException;
 import com.epam.evm.conference.service.QuestionService;
-import com.epam.evm.conference.validator.FieldValidator;
+import com.epam.evm.conference.validator.NumberUtils;
 import com.epam.evm.conference.web.RequestContent;
 
-public class QuestionSaverCommand implements Command {
+public class SaveQuestionCommand implements Command {
 
     private final static String USER_QUESTIONS_PAGE = "/controller?command=userQuestionsPage";
     private final static String USER_ID = "userId";
@@ -16,9 +16,9 @@ public class QuestionSaverCommand implements Command {
     private final static String REGEXP = "^\\d*$";
 
     private final QuestionService service;
-    private final FieldValidator validator;
+    private final NumberUtils validator;
 
-    public QuestionSaverCommand(QuestionService service, FieldValidator validator) {
+    public SaveQuestionCommand(QuestionService service, NumberUtils validator) {
         this.service = service;
         this.validator = validator;
     }

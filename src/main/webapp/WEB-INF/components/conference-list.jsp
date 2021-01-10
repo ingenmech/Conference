@@ -11,6 +11,11 @@
   <fmt:message bundle="${loc}" key="accept.request.table.conference" var="conference" />
   <fmt:message bundle="${loc}" key="accept.request.table.section" var="section" />
   <fmt:message bundle="${loc}" key="accept.request.table.date" var="date" />
+  <fmt:message bundle="${loc}" key="date.time.format" var="dateTimeFormat" />
+  <c:set var="query" value="${pageContext.request.queryString}"/>
+  <c:if test="${query ne 'command=en' and query ne 'command=ru' and query ne 'command=by'}">
+  <c:set var="page" value="${query}" scope="session" />
+  </c:if>
  <section class="column-main">
   <div class="table">
     <table>
@@ -22,7 +27,7 @@
       <c:forEach var="conference" items="${conferenceList}" varStatus="confStatus">
         <tr>
           <td>
-            <cp:parse-local-date pattern="dd/MM/yyyy HH:mm" dateTime="${conference.date}" />
+            <cp:parse-local-date pattern="${dateTimeFormat}" dateTime="${conference.date}" />
           </td>
           <td>${conference.name}</td>
           <td>

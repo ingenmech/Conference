@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <c:set var="page" value="accept-request-page.jsp" scope="session"  />
 </head>
 <body>
  <div>

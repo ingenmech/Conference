@@ -9,7 +9,7 @@ import com.epam.evm.conference.exception.FieldValidationException;
 import com.epam.evm.conference.exception.ServiceException;
 import com.epam.evm.conference.model.Conference;
 import com.epam.evm.conference.model.Section;
-import com.epam.evm.conference.validator.FieldValidator;
+import com.epam.evm.conference.validator.NumberUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -24,9 +24,9 @@ public class ConferenceService {
     private final static String REGEX = "^.{1,150}$";
 
     private final DaoHelperFactory factory;
-    private final FieldValidator validator;
+    private final NumberUtils validator;
 
-    public ConferenceService(DaoHelperFactory factory, FieldValidator validator) {
+    public ConferenceService(DaoHelperFactory factory, NumberUtils validator) {
         this.factory = factory;
         this.validator=validator;
     }
@@ -57,8 +57,8 @@ public class ConferenceService {
             ConferenceDao conferenceDao = helper.createConferenceDao();
             SectionDao sectionDao = helper.createSectionDao();
 
-            List<Conference> conferences = conferenceDao.getAll();
-            List<Section> sections = sectionDao.getAll();
+            List<Conference> conferences = conferenceDao.findAll();
+            List<Section> sections = sectionDao.findAll();
             for (Conference conference : conferences) {
                 initConference(conference, sections);
             }
@@ -80,33 +80,26 @@ public class ConferenceService {
         }
     }
 
-    public void saveConferenceWithSection(String name, LocalDateTime localDateTime, String[] sectionNames) throws ServiceException {
+    public void updateConferenceWithSection(Long conferenceId, String name, LocalDateTime dateTime, List<Long> sectionsId,
+                                            String[] sectionNames) throws ServiceException {
 
-        if(!validator.isValid(name, REGEX) || !validator.isValid(sectionNames, REGEX)){
-            throw new FieldValidationException("Field does not match format");
-        }
+        //validators
 
-        Conference conference = buildConference(name, localDateTime, sectionNames);
+        Conference conference = new Conference(conferenceId, name, dateTime);
+        List<Section> sections = createSections(conferenceId, sectionsId, sectionNames);
 
         DaoHelper helper = null;
         try {
             helper = factory.create();
             helper.setAutoCommit(false);
             ConferenceDao conferenceDao = helper.createConferenceDao();
-            Optional<Long> conferenceId = conferenceDao.save(conference);
-            if (conferenceId.isEmpty()) {
-                throw new ServiceException("Conference don't save");
-            }
-            Long id = conferenceId.get();
 
             SectionDao sectionDao = helper.createSectionDao();
-            for (int i = 0; i < conference.sizeSections(); i++) {
-                Section section = conference.getSection(i);
-                section.setConferenceId(id);
+            conferenceDao.save(conference);
+            for (Section section : sections) {
                 sectionDao.save(section);
             }
             helper.endTransaction();
-
         } catch (DaoException e) {
             throw new ServiceException("Save conference error", e);
         } finally {
@@ -121,12 +114,62 @@ public class ConferenceService {
         }
     }
 
-    private Conference buildConference(String name, LocalDateTime localDateTime, String[] sectionNames){
+    private List<Section> createSections(Long conferenceId, List<Long> sectionsId, String[] sectionNames){
+
+        List<Section> sections = new ArrayList<>();
+        for (int i = 0; i < sectionNames.length; i++) {
+            sections.add(new Section(sectionsId.get(i), conferenceId, sectionNames[i]));
+        }
+        return sections;
+    }
+
+    public void saveConferenceWithSection(String name, LocalDateTime dateTime, String[] sectionNames) throws ServiceException {
+
+        if(!validator.isValid(name, REGEX) || !validator.isValid(sectionNames, REGEX)){
+            throw new FieldValidationException("Field does not match format");
+        }
+        Conference conference = new Conference(null, name, dateTime);
+        List<Section> sections = createSections(sectionNames);
+
+        DaoHelper helper = null;
+        try {
+            helper = factory.create();
+            helper.setAutoCommit(false);
+            ConferenceDao conferenceDao = helper.createConferenceDao();
+            Optional<Long> conferenceId = conferenceDao.save(conference);
+            if (conferenceId.isEmpty()) {
+                throw new ServiceException("Conference don't save");
+            }
+            Long id = conferenceId.get();
+
+            SectionDao sectionDao = helper.createSectionDao();
+            for (Section section : sections) {
+                section.setConferenceId(id);
+                sectionDao.save(section);
+            }
+            helper.endTransaction();
+        } catch (DaoException e) {
+            throw new ServiceException("Save conference error", e);
+        } finally {
+            if (helper != null) {
+                try {
+                    helper.setAutoCommit(true);
+                    helper.close();
+                } catch (DaoException e) {
+                    LOGGER.error(e.getMessage(), e);
+                }
+            }
+        }
+    }
+
+    private List<Section> createSections(String[] sectionNames){
 
         List<Section> sections = new ArrayList<>();
         for (String value : sectionNames) {
             sections.add(new Section(null, null, value));
         }
-        return new Conference(null, name, localDateTime, sections);
+        return sections;
     }
+
+
 }
