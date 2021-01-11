@@ -7,18 +7,16 @@ import com.epam.evm.conference.exception.DaoException;
 import com.epam.evm.conference.exception.FieldValidationException;
 import com.epam.evm.conference.exception.ServiceException;
 import com.epam.evm.conference.model.Question;
-import com.epam.evm.conference.validator.NumberUtils;
+import com.epam.evm.conference.validator.FieldUtils;
 
 import java.util.List;
 
 public class QuestionService {
 
-    private final static String CONTENT_REGEX = "^.{1,150}$";
-
     private final DaoHelperFactory factory;
-    private final NumberUtils validator;
+    private final FieldUtils validator;
 
-    public QuestionService(DaoHelperFactory factory, NumberUtils validator) {
+    public QuestionService(DaoHelperFactory factory, FieldUtils validator) {
         this.factory = factory;
         this.validator = validator;
     }
@@ -49,7 +47,7 @@ public class QuestionService {
 
     public void saveQuestion(Long userId, String content) throws ServiceException {
 
-        if (!validator.isValid(content, CONTENT_REGEX)){
+        if (!validator.isValidMediumLength(content)){
             throw new FieldValidationException("Field does not match format");
         }
 

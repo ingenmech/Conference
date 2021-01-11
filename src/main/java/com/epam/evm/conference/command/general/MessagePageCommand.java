@@ -16,18 +16,13 @@ public class MessagePageCommand implements Command {
     private final static String MESSAGES_LIST = "messagesList";
     private final static String QUESTION_CONTENT = "questionContent";
     private final MessageService service;
-    private final static int LENGTH = 300;
-    private final static String MESSAGE_LENGTH = "messageLength";
 
     public MessagePageCommand(MessageService service) {
         this.service = service;
     }
 
-
     @Override
     public CommandResult execute(RequestContent content) throws ServiceException {
-
-        content.setAttribute(MESSAGE_LENGTH, LENGTH);
 
         String questionIdRow = content.getParameter(QUESTION_ID);
         Long questionId = Long.parseLong(questionIdRow);

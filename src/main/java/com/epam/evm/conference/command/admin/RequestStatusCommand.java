@@ -15,18 +15,17 @@ public class RequestStatusCommand implements Command {
     private final static String USER_ID = "userId";
     private final static String SECTION_ID = "sectionId";
     private final static String TOPIC = "topic";
-    private final static String REGEXP = "^\\d*$";
 
     private final String page;
     private final RequestStatus status;
     private final RequestService service;
-    private final NumberUtils validator;
+    private final NumberUtils numberUtils;
 
-    public RequestStatusCommand(RequestStatus status,String page, RequestService service, NumberUtils validator) {
+    public RequestStatusCommand(RequestStatus status,String page, RequestService service, NumberUtils numberUtils) {
         this.page = page;
         this.status = status;
         this.service = service;
-        this.validator = validator;
+        this.numberUtils = numberUtils;
     }
 
     @Override
@@ -35,13 +34,15 @@ public class RequestStatusCommand implements Command {
         String idRow = content.getParameter(REQUEST_ID);
         String userIdRow = content.getParameter(USER_ID);
         String sectionIdRow = content.getParameter(SECTION_ID);
-
-        if(!validator.isValid(idRow, REGEXP)
-                || !validator.isValid(userIdRow, REGEXP)
-                || !validator.isValid(sectionIdRow, REGEXP)){
-            throw new FieldValidationException("Field does not match format");
+        if(!numberUtils.isValidDigit(idRow)){
+            throw new FieldValidationException("Field request id does not match format");
         }
-
+        if(!numberUtils.isValidDigit(userIdRow)){
+            throw new FieldValidationException("Field user id does not match format");
+        }
+        if(!numberUtils.isValidDigit(sectionIdRow)){
+            throw new FieldValidationException("Field section id does not match format");
+        }
         Long id = Long.valueOf(idRow);
         Long userId = Long.valueOf(userIdRow);
         Long sectionId = Long.valueOf(sectionIdRow);

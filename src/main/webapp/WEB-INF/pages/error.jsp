@@ -13,7 +13,7 @@
   </div>
   <div class="errorMessage">
      <h3>${error}</h3>
-     <h4>${userErrorMessage}</h4>
+     <h4>${requestScope.userErrorMessage}</h4>
   </div>
   <div>
      Request from ${pageContext.errorData.requestURI} is failed

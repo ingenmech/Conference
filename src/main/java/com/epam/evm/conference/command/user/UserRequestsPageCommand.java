@@ -25,10 +25,8 @@ public class UserRequestsPageCommand implements Command {
     public CommandResult execute(RequestContent content) throws ServiceException {
 
         Long userId = (Long)content.getSessionAttribute(USER_ID);
-
         List<Request> requests = service.findAllRequestsByUserId(userId);
         content.setAttribute(REQUEST_LIST, requests);
-
         return CommandResult.forward(GO_TO_SENT_REQUESTS);
     }
 }

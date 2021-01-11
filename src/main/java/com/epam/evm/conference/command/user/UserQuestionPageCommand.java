@@ -25,10 +25,8 @@ public class UserQuestionPageCommand implements Command {
     public CommandResult execute(RequestContent content) throws ServiceException {
 
         Long userId = (Long) content.getSessionAttribute(USER_ID);
-
         List<Question> questions =service.findQuestionsByUserId(userId);
         content.setAttribute(USER_QUESTION_LIST, questions);
-
         return CommandResult.forward(ADMIN_QUESTION_PAGE);
     }
 }

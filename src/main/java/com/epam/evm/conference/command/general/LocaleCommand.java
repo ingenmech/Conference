@@ -17,16 +17,16 @@ public class LocaleCommand implements Command {
     }
 
     @Override
-    public CommandResult execute(RequestContent request) {
+    public CommandResult execute(RequestContent content) {
         
-        String command =  (String) request.getSessionAttribute("page");
+        String command =  (String) content.getSessionAttribute("page");
         String page;
         if (command.contains(COMMAND)) {
             page = String.format(CONTROLLER_PART, command);
         } else {
             page = String.format(COMMAND_PART, command);
         }
-        request.setSessionAttribute(LOCALE_KEY, locale);
+        content.setSessionAttribute(LOCALE_KEY, locale);
 
         return CommandResult.forward(page);
     }

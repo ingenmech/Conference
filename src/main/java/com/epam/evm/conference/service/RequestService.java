@@ -8,18 +8,16 @@ import com.epam.evm.conference.exception.FieldValidationException;
 import com.epam.evm.conference.exception.ServiceException;
 import com.epam.evm.conference.model.Request;
 import com.epam.evm.conference.model.RequestStatus;
-import com.epam.evm.conference.validator.NumberUtils;
+import com.epam.evm.conference.validator.FieldUtils;
 
 import java.util.List;
 
 public class RequestService {
 
-    private final static String REGEX = "^.{1,150}$";
-
     private final DaoHelperFactory factory;
-    private final NumberUtils validator;
+    private final FieldUtils validator;
 
-    public RequestService(DaoHelperFactory factory, NumberUtils validator) {
+    public RequestService(DaoHelperFactory factory, FieldUtils validator) {
         this.factory = factory;
         this.validator = validator;
     }
@@ -50,8 +48,8 @@ public class RequestService {
 
     public void saveRequest(Long sectionId, Long userId, String topic, RequestStatus status) throws ServiceException {
 
-        if (!validator.isValid(topic, REGEX)){
-            throw new FieldValidationException("Field does not match format");
+        if (!validator.isValidMediumLength(topic)){
+            throw new FieldValidationException("Field topic does not match format");
         }
 
         Request request = new Request(null, sectionId, userId,  topic, status);
@@ -66,8 +64,8 @@ public class RequestService {
 
     public void updateRequestStatus(Long id, Long sectionId, Long userId, String topic, RequestStatus status) throws ServiceException {
 
-        if (!validator.isValid(topic, REGEX)){
-            throw new FieldValidationException("Field does not match format");
+        if (!validator.isValidMediumLength(topic)){
+            throw new FieldValidationException("Field topic does not match format");
         }
 
         Request request = new Request(id, sectionId, userId, topic, status);

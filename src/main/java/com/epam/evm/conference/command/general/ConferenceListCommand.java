@@ -12,7 +12,7 @@ public class ConferenceListCommand extends AbstractPaginationCommand<Conference>
 
     private final static String LIST_CONFERENCE_PAGE = "WEB-INF/pages/list-conference-page.jsp";
     private final static String CONFERENCE_LIST = "conferenceList";
-    private final static int ELEMENTS_NUMBER_ON_PAGE = 4;
+    private final static int ELEMENTS_NUMBER_ON_PAGE = 7;
 
     private final ConferenceService service;
 

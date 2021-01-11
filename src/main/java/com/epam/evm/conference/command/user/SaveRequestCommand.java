@@ -16,7 +16,6 @@ public class SaveRequestCommand implements Command {
     private final static String USER_ID = "userId";
     private final static RequestStatus DEFAULT_STATUS = RequestStatus.CONSIDERING;
     private final static String GO_TO_SENT_REQUESTS = "/controller?command=userSentRequests";
-    private final static String REGEXP = "^\\d*$";
 
     private final RequestService service;
     private final NumberUtils validator;
@@ -31,10 +30,12 @@ public class SaveRequestCommand implements Command {
 
         String rowSectionId = content.getParameter(SECTION_ID);
         Object rowUserId = content.getSessionAttribute(USER_ID);
-        if(!validator.isValid(rowUserId.toString(), REGEXP) || !validator.isValid(rowSectionId, REGEXP)){
-            throw new FieldValidationException("Field does not match format");
+        if(!validator.isValidDigit(rowUserId.toString())){
+            throw new FieldValidationException("Field user id does not match format");
         }
-
+        if(!validator.isValidDigit(rowSectionId)){
+            throw new FieldValidationException("Field section id does not match format");
+        }
         Long sectionId = Long.valueOf(rowSectionId);
         Long userId = (Long)rowUserId;
         String topicName = content.getParameter(TOPIC);

@@ -19,7 +19,7 @@ public class SaveConferenceCommand implements Command {
     private final static String SECTION = "section";
     private final static String DATE = "date";
     private final static String TIME = "time";
-    private final static String CREATE_CONFERENCE_PAGE = "/controller?command=adminCreate";
+    private final static String CREATE_CONFERENCE_PAGE = "/controller?command=getConferences";
 
     private final ConferenceService service;
     private final DateUtils utils;
@@ -34,10 +34,12 @@ public class SaveConferenceCommand implements Command {
 
         String date = content.getParameter(DATE);
         String time = content.getParameter(TIME);
-        if (!utils.isValidDate(date) || !utils.isValidTime(time)) {
-            throw new FieldValidationException("Field does not match format");
+        if (!utils.isValidDate(date)) {
+            throw new FieldValidationException("Field date does not match format");
         }
-
+        if (!utils.isValidTime(time)) {
+            throw new FieldValidationException("Field time does not match format");
+        }
         DateTimeFormatter dateFormatter = DateTimeFormatter.ISO_LOCAL_DATE;
         LocalDate localDate = LocalDate.parse(date, dateFormatter);
         DateTimeFormatter timeFormatter = DateTimeFormatter.ISO_LOCAL_TIME;

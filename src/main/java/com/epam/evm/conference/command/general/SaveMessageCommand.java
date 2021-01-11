@@ -17,14 +17,13 @@ public class SaveMessageCommand implements Command {
     private final static String CONTENT = "content";
     private final static String QUESTION_CONTENT = "questionContent";
     private final static String ALL_USERS_MESSAGE_PAGE = "/controller?command=allUsersMessagePage";
-    private final static String REGEXP = "^\\d*$";
 
     private final MessageService service;
-    private final NumberUtils validator;
+    private final NumberUtils utils;
 
-    public SaveMessageCommand(MessageService service, NumberUtils validator) {
+    public SaveMessageCommand(MessageService service, NumberUtils utils) {
         this.service = service;
-        this.validator = validator;
+        this.utils = utils;
     }
 
     @Override
@@ -32,10 +31,12 @@ public class SaveMessageCommand implements Command {
 
         Object userIdRow = requestContent.getSessionAttribute(USER_ID);
         String questionIdRow = requestContent.getParameter(QUESTION_ID);
-        if(!validator.isValid(userIdRow.toString(), REGEXP) || !validator.isValid(questionIdRow, REGEXP)){
-            throw new FieldValidationException("Field does not match format");
+        if(!utils.isValidDigit(userIdRow.toString())){
+            throw new FieldValidationException("Field user id does not match format");
         }
-
+        if(!utils.isValidDigit(questionIdRow)){
+            throw new FieldValidationException("Field question id does not match format");
+        }
         Long userId = (Long) requestContent.getSessionAttribute(USER_ID);
         Long questionId = Long.parseLong(questionIdRow);
         String content = requestContent.getParameter(CONTENT);

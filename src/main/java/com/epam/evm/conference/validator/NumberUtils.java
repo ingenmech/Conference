@@ -4,13 +4,16 @@ public class NumberUtils {
 
     private final static String NUMBER_PATTERN = "^\\d*$";
 
-    public boolean isValid(String field, String pattern) {
-        return field != null && field.matches(pattern);
+    public boolean isValidDigit(String field) {
+        return field != null && field.matches(NUMBER_PATTERN);
     }
 
-    public boolean isValid(String[] fields, String pattern) {
-        for (String field : fields){
-            if (field == null || !field.matches(pattern)){
+    public boolean isValidDigit(String[] fields) {
+        if (fields == null) {
+            return false;
+        }
+        for (String field : fields) {
+            if (field == null || !field.matches(NUMBER_PATTERN)) {
                 return false;
             }
         }

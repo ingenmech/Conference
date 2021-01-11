@@ -7,26 +7,27 @@ import com.epam.evm.conference.exception.DaoException;
 import com.epam.evm.conference.exception.FieldValidationException;
 import com.epam.evm.conference.exception.ServiceException;
 import com.epam.evm.conference.model.User;
-import com.epam.evm.conference.validator.NumberUtils;
+import com.epam.evm.conference.validator.FieldUtils;
 
 import java.util.Optional;
 
 public class UserService {
 
-    private final static String REGEX = "^.{1,45}$";
-
     private final DaoHelperFactory daoHelperFactory;
-    private final NumberUtils validator;
+    private final FieldUtils validator;
 
-    public UserService(DaoHelperFactory daoHelperFactory, NumberUtils validator) {
+    public UserService(DaoHelperFactory daoHelperFactory, FieldUtils validator) {
         this.daoHelperFactory = daoHelperFactory;
         this.validator = validator;
     }
 
     public Optional<User> login(String login, String password) throws ServiceException {
 
-        if (!validator.isValid(login, REGEX) || !validator.isValid(password, REGEX)){
-            throw new FieldValidationException("Field does not match format");
+        if (!validator.isValidShortLength(login)) {
+            throw new FieldValidationException("Field login does not match format");
+        }
+        if (!validator.isValidShortLength(password)) {
+            throw new FieldValidationException("Field password does not match format");
         }
 
         try (DaoHelper daoHelper = daoHelperFactory.create()) {

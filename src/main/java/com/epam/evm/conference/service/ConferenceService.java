@@ -9,7 +9,7 @@ import com.epam.evm.conference.exception.FieldValidationException;
 import com.epam.evm.conference.exception.ServiceException;
 import com.epam.evm.conference.model.Conference;
 import com.epam.evm.conference.model.Section;
-import com.epam.evm.conference.validator.NumberUtils;
+import com.epam.evm.conference.validator.FieldUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -21,12 +21,11 @@ import java.util.Optional;
 public class ConferenceService {
 
     private final static Logger LOGGER = LogManager.getLogger(ConferenceService.class);
-    private final static String REGEX = "^.{1,150}$";
 
     private final DaoHelperFactory factory;
-    private final NumberUtils validator;
+    private final FieldUtils validator;
 
-    public ConferenceService(DaoHelperFactory factory, NumberUtils validator) {
+    public ConferenceService(DaoHelperFactory factory, FieldUtils validator) {
         this.factory = factory;
         this.validator=validator;
     }
@@ -47,6 +46,28 @@ public class ConferenceService {
 
         } catch (DaoException e) {
             throw new ServiceException("Find conference by limit error", e);
+        }
+    }
+
+    public Conference findConferencesWithSectionsById(Long id) throws ServiceException {
+
+        try (DaoHelper helper = factory.create()) {
+
+            ConferenceDao conferenceDao = helper.createConferenceDao();
+            SectionDao sectionDao = helper.createSectionDao();
+
+            Optional<Conference> conferenceOptional = conferenceDao.findBiId(id);
+            if(conferenceOptional.isEmpty()){
+                throw new ServiceException("Find conference by id error");
+            }
+            Conference conference = conferenceOptional.get();
+            Long conferenceId = conference.getId();
+            List<Section> sections = sectionDao.findSectionsByConferenceId(conferenceId);
+            initConference(conference, sections);
+            return conference;
+
+        } catch (DaoException e) {
+            throw new ServiceException("Find conference error", e);
         }
     }
 
@@ -82,8 +103,12 @@ public class ConferenceService {
 
     public void updateConferenceWithSection(Long conferenceId, String name, LocalDateTime dateTime, List<Long> sectionsId,
                                             String[] sectionNames) throws ServiceException {
-
-        //validators
+        if(!validator.isValidMediumLength(name)){
+            throw new FieldValidationException("Field conference name does not match format");
+        }
+        if(!validator.isValidMediumLength(sectionNames)){
+            throw new FieldValidationException("Field section names does not match format");
+        }
 
         Conference conference = new Conference(conferenceId, name, dateTime);
         List<Section> sections = createSections(conferenceId, sectionsId, sectionNames);
@@ -125,8 +150,11 @@ public class ConferenceService {
 
     public void saveConferenceWithSection(String name, LocalDateTime dateTime, String[] sectionNames) throws ServiceException {
 
-        if(!validator.isValid(name, REGEX) || !validator.isValid(sectionNames, REGEX)){
-            throw new FieldValidationException("Field does not match format");
+        if(!validator.isValidMediumLength(name)){
+            throw new FieldValidationException("Field conference name does not match format");
+        }
+        if(!validator.isValidMediumLength(sectionNames)){
+            throw new FieldValidationException("Fields section names does not match format");
         }
         Conference conference = new Conference(null, name, dateTime);
         List<Section> sections = createSections(sectionNames);
