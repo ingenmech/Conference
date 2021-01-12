@@ -27,7 +27,7 @@
                 <th>${section}</th>
                 <th>${topic}</th>
                 <th>${user}</th>
-                <th class="col-100px"></th>
+                <th class="col-10"></th>
             </tr>
             <c:forEach var="request" items="${requestList}" varStatus="reqStatus">
                 <tr>

@@ -7,7 +7,7 @@
 </head>
 <body>
   <div>
-    <jsp:forward page="/controller?command=main" />
+    <jsp:forward page="/controller?command=signIn" />
   </div>
 </body>
 </html>

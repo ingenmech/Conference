@@ -12,6 +12,8 @@
 <fmt:message bundle="${loc}" key="accept.request.table.section" var="section"/>
 <fmt:message bundle="${loc}" key="accept.request.table.date" var="date"/>
 <fmt:message bundle="${loc}" key="date.time.format" var="dateTimeFormat"/>
+<fmt:message bundle="${loc}" key="menu.user.send" var="createRequest"/>
+<fmt:message bundle="${loc}" key="menu.user.question" var="question"/>
 <c:set var="query" value="${pageContext.request.queryString}"/>
 <c:if test="${query ne 'command=en' and query ne 'command=ru' and query ne 'command=by'}">
     <c:set var="page" value="${query}" scope="session"/>
@@ -21,28 +23,63 @@
     <div class="table">
         <table>
             <tr>
-                <th class="col-10"></th>
+                <c:if test="${ sessionScope.userRole eq 'ADMIN'}">
+                    <th class="col-10"></th>
+                </c:if>
+                <c:if test="${ sessionScope.userRole eq 'USER'}">
+                    <th class="col-5"></th>
+                    <th class="col-5"></th>
+                </c:if>
                 <th class="col-20">${date}</th>
                 <th class="col-35">${conference}</th>
                 <th class="col-35">${section}</th>
             </tr>
             <c:forEach var="conference" items="${conferenceList}" varStatus="confStatus">
                 <tr>
-                    <td>
-                        <form method="GET" action="${pageContext.request.contextPath}/controller">
-                            <input type="hidden" name="command" value="adminUpdateConferencePage"/>
-                            <input type="hidden" name="conferenceId" value="${conference.id}">
-                            <c:set var="isBefore">
-                                <ctg:is-before-date dateTime="${conference.date}"/>
-                            </c:set>
-                            <c:if test="${ sessionScope.userRole eq 'ADMIN' and isBefore }">
+
+                    <c:set var="isBefore">
+                        <ctg:is-before-date dateTime="${conference.date}"/>
+                    </c:set>
+                    <c:if test="${ not isBefore }">
+                        <td></td>
+                    </c:if>
+                    <c:if test="${ sessionScope.userRole eq 'ADMIN' and isBefore }">
+                        <td>
+                            <form method="GET" action="${pageContext.request.contextPath}/controller">
+                                <input type="hidden" name="command" value="adminUpdateConferencePage"/>
+                                <input type="hidden" name="conferenceId" value="${conference.id}">
                                 <div class="show-message">
-                                    <input type="image" name="submit" border="0" alt="edit" style="width: 25px;"
+                                    <input type="image" name="submit" alt="edit" style="width: 25px;"
                                            src="${pageContext.request.contextPath}/static/img/edit-regular.svg"/>
                                 </div>
-                            </c:if>
-                        </form>
-                    </td>
+                            </form>
+                        </td>
+                    </c:if>
+                    <c:if test="${ sessionScope.userRole eq 'USER' and isBefore }">
+                        <td>
+                            <form method="GET" action="${pageContext.request.contextPath}/controller">
+                                <input type="hidden" name="command" value="userCreateRequest"/>
+                                <input type="hidden" name="conferenceId" value="${conference.id}">
+                                <div class="show-message">
+                                    <input type="image" name="submit" title="${createRequest}" alt="request"
+                                           style="width: 20px;"
+                                           src="${pageContext.request.contextPath}/static/img/file-alt-regular.svg"/>
+                                </div>
+                            </form>
+                        </td>
+                        <td>
+                            <form method="GET" action="${pageContext.request.contextPath}/controller">
+                                <input type="hidden" name="command" value="userCreateQuestionPage"/>
+                                <input type="hidden" name="conferenceId" value="${conference.id}">
+                                <div class="show-message">
+                                    <input type="image" name="submit" alt="question" title="${question}"
+                                           style="width: 25px;"
+                                           src="${pageContext.request.contextPath}/static/img/question-circle-regular.svg"/>
+                                </div>
+                            </form>
+                        </td>
+                    </c:if>
+
                     <td>
                         <cp:parse-local-date pattern="${dateTimeFormat}" dateTime="${conference.date}"/>
                     </td>
@@ -75,9 +112,7 @@
                 </c:if>
             </div>
         </form>
-        <div class="page-number">
-            <li>${pageNumber}</li>
-        </div>
+        <div class="page-number">${pageNumber}</div>
         <form>
             <input type="hidden" name="command" value="getConferences">
             <input type="hidden" name="pageNumber" value=${pageNumber}>

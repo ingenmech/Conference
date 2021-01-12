@@ -9,6 +9,7 @@ import com.epam.evm.conference.validator.NumberUtils;
 import com.epam.evm.conference.web.RequestContent;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 public class SaveMessageCommand implements Command {
 
@@ -40,7 +41,8 @@ public class SaveMessageCommand implements Command {
         Long userId = (Long) requestContent.getSessionAttribute(USER_ID);
         Long questionId = Long.parseLong(questionIdRow);
         String content = requestContent.getParameter(CONTENT);
-        LocalDateTime dateTime = LocalDateTime.now();
+        ZoneId zoneId = ZoneId.systemDefault();
+        LocalDateTime dateTime = LocalDateTime.now(zoneId);
 
         service.saveMessage(questionId, userId, dateTime, content);
 

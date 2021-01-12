@@ -13,7 +13,7 @@ import java.util.List;
 
 public class ConferenceDaoImpl extends AbstractDao<Conference> implements ConferenceDao {
 
-    private final static String SELECT_ALL = "SELECT * FROM conference ORDER BY date";
+    private final static String SELECT_ALL = "SELECT * FROM conference ORDER BY date DESC";
     private final static String TABLE = "conference";
     private final static FieldExtractor<Conference> EXTRACTOR = new ConferenceFieldExtractor();
     private final static RowMapper<Conference> MAPPER = new ConferenceRowMapper();

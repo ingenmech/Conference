@@ -16,6 +16,7 @@ public class CommandFactory {
     private final static String MAIN_PAGE = "/WEB-INF/pages/main-page.jsp";
     private final static String CREATE_QUESTION_PAGE = "/WEB-INF/pages/create-question-page.jsp";
     private final static String CRATE_CONFERENCE_PAGE = "/WEB-INF/pages/create-conference-page.jsp";
+    private final static String CREATE_REQUEST_PAGE = "/WEB-INF/pages/send-request-page.jsp";
 
     private final static String LOCALE_ENG = "en";
     private final static String LOCALE_RU = "ru";
@@ -47,8 +48,10 @@ public class CommandFactory {
     private final static String USER_REMOVE_REQUEST = "userRemoveRequest";
     private final static String SENT_REQUESTS_PAGE_COMMAND = "/controller?command=userSentRequests";
     private final static String GO_TO_CREATE_REQUEST = "userCreateRequest";
-    private final static String GO_TO_SENT_REQUESTS = "userSentRequests";
-    private final static String GO_TO_CREATE_QUESTION = "userCreateQuestionPage";
+    private final static String USER_GO_TO_SENT_REQUESTS = "userSentRequests";
+    private final static String USER_GO_TO_CREATE_QUESTION = "userCreateQuestionPage";
+    private final static String USER_TAKE_CONFERENCE_FOR_REQUEST_PAGE = "userTakeConferenceForRequestPage";
+    private final static String USER_TAKE_CONFERENCE_FOR_QUESTION_PAGE = "userTakeConferenceForQuestionPage";
 
     private final static DaoHelperFactory DAO_HELPER_FACTORY = new DaoHelperFactory();
     private final static NumberUtils NUMBER_UTILS = new NumberUtils();
@@ -64,20 +67,20 @@ public class CommandFactory {
                 return new PageForwarderCommand(MAIN_PAGE);
             case GO_TO_CREATE_CONFERENCE:
                 return new PageForwarderCommand(CRATE_CONFERENCE_PAGE);
-            case GO_TO_CREATE_REQUEST:
-                return new SaveRequestPageCommand(new ConferenceService(DAO_HELPER_FACTORY, FIELD_UTILS));
-            case GO_TO_ACCEPT_REQUEST:
-                return new AdminRequestsPageCommand(new RequestService(DAO_HELPER_FACTORY, FIELD_UTILS));
-            case GO_TO_SENT_REQUESTS:
-                return new UserRequestsPageCommand(new RequestService(DAO_HELPER_FACTORY, FIELD_UTILS));
-            case GO_TO_CREATE_QUESTION:
-                return new PageForwarderCommand(CREATE_QUESTION_PAGE);
             case SHOW_CONFERENCE:
                 return new ConferenceListCommand(new ConferenceService(DAO_HELPER_FACTORY, FIELD_UTILS));
+            case GO_TO_CREATE_REQUEST:
+                return new RequestQuestionPageCommand(CREATE_REQUEST_PAGE, new ConferenceService(DAO_HELPER_FACTORY, FIELD_UTILS));
+            case GO_TO_ACCEPT_REQUEST:
+                return new AdminRequestsPageCommand(new RequestService(DAO_HELPER_FACTORY, FIELD_UTILS));
             case ALL_USERS_ADD_MESSAGE:
                 return new SaveMessageCommand(new MessageService(DAO_HELPER_FACTORY, FIELD_UTILS), NUMBER_UTILS);
             case ALL_USERS_MESSAGE_PAGE:
                 return new MessagePageCommand(new MessageService(DAO_HELPER_FACTORY, FIELD_UTILS));
+            case USER_GO_TO_SENT_REQUESTS:
+                return new UserRequestsPageCommand(new RequestService(DAO_HELPER_FACTORY, FIELD_UTILS));
+            case USER_GO_TO_CREATE_QUESTION:
+                return new RequestQuestionPageCommand(CREATE_QUESTION_PAGE, new ConferenceService(DAO_HELPER_FACTORY, FIELD_UTILS));
             case USER_SEND_REQUEST:
                 return new SaveRequestCommand(new RequestService(DAO_HELPER_FACTORY, FIELD_UTILS), NUMBER_UTILS);
             case USER_REMOVE_REQUEST:

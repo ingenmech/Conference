@@ -84,3 +84,10 @@ INSERT INTO request(USER_ID, SECTION_ID, TOPIC, STATUS) VALUES
 ('2', '10', 'User topic 3', 'CONSIDERING'),
 ('3', '3', 'User topic 4', 'CONSIDERING'),
 ('2', '14', 'User topic 5', 'CONSIDERING');
+
+INSERT INTO question(USER_ID, CONFERENCE_ID, CONTENT) VALUES
+('2', '11', 'User question about WebSecurity conference?'),
+('3', '6', 'User question about Financial conference ?'),
+('2', '10', 'User question about Flower conference?'),
+('3', '3', 'User question about Online conference?'),
+('2', '14', 'User question about Web conference?');

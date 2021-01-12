@@ -15,8 +15,10 @@
     <div class="table">
         <table>
             <tr>
-                <th class="col-15">${userQuestion} -->></th>
-                <th class="col-85">${questionContent}</th>
+                <th class="col-15" style="padding:15px 13px"><img
+                        src="${pageContext.request.contextPath}/static/img/question-circle-regular.svg"
+                        alt="${userQuestion}" style="width: 20px;"></th>
+                <th class="col-85" style="padding:15px 13px">${questionContent}</th>
             </tr>
             <c:if test="${not empty messagesList}" var="isEmpty">
                 <c:forEach var="message" items="${messagesList}">

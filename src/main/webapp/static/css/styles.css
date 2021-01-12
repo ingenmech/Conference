@@ -375,12 +375,12 @@ textarea {
 
 .show-message input[type=image] {
     display: block;
-    padding: 0 10px;
+    padding: 0 5px;
     margin: 0 auto;
 }
 
 .show-message-d input[type=image] {
-    padding: 0 10px;
+    padding: 0 5px;
     margin: 0 auto;
 }
 
@@ -395,12 +395,12 @@ textarea {
     width: 15%;
 }
 
-.col-20 {
-    width: 20%;
+.col-5 {
+    width: 3%;
 }
 
-.col-100px {
-    width: 100px;
+.col-20 {
+    width: 20%;
 }
 
 .col-10 {
@@ -413,6 +413,10 @@ textarea {
 
 .col-90 {
     width: 90%;
+}
+
+.col-60 {
+    width: 60%;
 }
 
 .col-70 {
@@ -436,6 +440,10 @@ textarea {
 
 input:invalid, textarea:invalid {
     border: #FFDD00 solid 1px;
+}
+
+.errorMessage {
+    margin: 50px;
 }
 
 /************* paging ******************/

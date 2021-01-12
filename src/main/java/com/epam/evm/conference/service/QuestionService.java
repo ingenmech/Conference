@@ -45,13 +45,13 @@ public class QuestionService {
         }
     }
 
-    public void saveQuestion(Long userId, String content) throws ServiceException {
+    public void saveQuestion(Long userId, Long conferenceId, String content) throws ServiceException {
 
         if (!validator.isValidMediumLength(content)){
             throw new FieldValidationException("Field does not match format");
         }
 
-        Question question = new Question(null, userId, content);
+        Question question = new Question(null, userId, conferenceId, content);
 
         try (DaoHelper helper = factory.create()) {
 

@@ -20,7 +20,7 @@ public class Servlet extends HttpServlet {
 
     private final static Logger LOGGER = LogManager.getLogger(Servlet.class);
     private final static String COMMAND = "command";
-    private final static String ERROR_MESSAGE = "errorMessage";
+    private final static String ERROR_MESSAGE = "userErrorMessage";
     private final static String ERROR_JSP = "/WEB-INF/pages/error.jsp";
     private final static RequestContentHelper CONTENT_HELPER = new RequestContentHelper();
 

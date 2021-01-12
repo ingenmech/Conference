@@ -16,6 +16,8 @@ public abstract class AbstractPaginationCommand<T> implements Command {
     private final static String ELEMENTS_NUMBER = "elementNumber";
     private final static String DIRECTION = "direction";
     private final static String PREVIOUS = "previous";
+    private final static String MESSAGE = "pageMessage";
+    private final static String EMPTY = "empty";
     private final static String NEXT = "next";
 
     protected AbstractPaginationCommand(String page, String keyList, int elementsLimitNumber) {
@@ -41,10 +43,11 @@ public abstract class AbstractPaginationCommand<T> implements Command {
         List<T> list = createService(content, offset);
         if (!list.isEmpty()) {
             content.setAttribute(keyList, list);
-            pageNumber++;
         } else {
-            //TODO
+            content.setAttribute(MESSAGE, EMPTY);
         }
+        pageNumber++;
+
 
         content.setAttribute(PAGE_NUMBER, pageNumber);
         content.setAttribute(ELEMENTS_NUMBER, elementsLimitNumber);

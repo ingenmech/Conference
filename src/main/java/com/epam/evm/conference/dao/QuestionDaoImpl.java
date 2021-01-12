@@ -14,12 +14,13 @@ import java.util.List;
 public class QuestionDaoImpl extends AbstractDao<Question> implements QuestionDao {
 
     private final static String SELECT_QUESTION_BY_USER_ID =
-            "SELECT question.id, question.user_id, question.content, user.login AS user_login FROM question " +
+            "SELECT question.id, question.user_id, question.conference_id, question.content, user.login AS user_login, conference.name AS conference_name FROM question " +
                     "LEFT JOIN user ON question.user_id = user.id " +
-                    "WHERE user_id = ? ORDER BY id DESC";
+                    "LEFT JOIN conference ON question.conference_id = conference.id WHERE user_id = ? ORDER BY id DESC";
     private final static String SELECT_ALL_QUESTIONS_WITH_LOGIN =
-            "SELECT question.id, question.user_id, question.content, user.login AS user_login FROM question " +
-                    "LEFT JOIN user ON question.user_id = user.id ORDER BY id DESC";
+            "SELECT question.id, question.user_id, question.conference_id, question.content, user.login AS user_login, conference.name AS conference_name FROM question " +
+                    "LEFT JOIN user ON question.user_id = user.id " +
+                    "LEFT JOIN conference ON question.conference_id = conference.id ORDER BY id DESC";
     private final static String TABLE = "question";
 
     private final static RowMapper<Question> MAPPER = new QuestionRowMapper();

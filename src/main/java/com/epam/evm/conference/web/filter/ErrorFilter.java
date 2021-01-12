@@ -6,6 +6,7 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class ErrorFilter implements Filter {
@@ -25,12 +26,13 @@ public class ErrorFilter implements Filter {
         try {
             filterChain.doFilter(servletRequest, servletResponse);
         } catch (Exception e) {
-            LOGGER.error(e.getMessage(), e);
-
             String errorMessage = e.getMessage();
+            LOGGER.error(errorMessage, e);
+
             HttpServletRequest request = (HttpServletRequest) servletRequest;
             HttpServletResponse response = (HttpServletResponse) servletResponse;
-            request.setAttribute(ERROR_MESSAGE, errorMessage);
+            HttpSession session = request.getSession();
+            session.setAttribute(ERROR_MESSAGE, errorMessage);
             request.getRequestDispatcher(ERROR_JSP).forward(request, response);
         }
     }
