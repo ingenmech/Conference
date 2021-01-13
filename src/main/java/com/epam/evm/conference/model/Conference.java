@@ -46,9 +46,8 @@ public class Conference implements Entity {
     }
 
     public List<Section> getSections() {
-        return sections;
+        return new ArrayList<>(sections);
     }
-
 
     @Override
     public Long getId() {

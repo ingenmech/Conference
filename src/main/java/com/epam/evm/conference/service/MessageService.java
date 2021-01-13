@@ -34,13 +34,13 @@ public class MessageService {
         }
     }
 
-    public void saveMessage(Long questionId, Long userId, LocalDateTime dateTime, String content) throws ServiceException {
+    public void saveMessage(Long questionId, Long userId, String content) throws ServiceException {
 
         if (!validator.isValidLongLength(content)){
             throw new FieldValidationException("Field question content does not match format");
         }
 
-        Message message = new Message(null, questionId, userId, dateTime, content);
+        Message message = new Message(null, questionId, userId, content);
 
         try (DaoHelper helper = factory.create()) {
 

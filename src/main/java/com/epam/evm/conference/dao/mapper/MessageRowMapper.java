@@ -13,7 +13,6 @@ public class MessageRowMapper implements RowMapper<Message> {
     private final static String ID = "id";
     private final static String QUESTION_ID = "question_id";
     private final static String USER_ID = "user_id";
-    private final static String DATE_TIME = "date_time";
     private final static String CONTENT = "content";
 
     private final static String USER_LOGIN = "user_login";
@@ -25,11 +24,9 @@ public class MessageRowMapper implements RowMapper<Message> {
             Long id = resultSet.getLong(ID);
             Long questionId = resultSet.getLong(QUESTION_ID);
             Long userId = resultSet.getLong(USER_ID);
-            Timestamp datestamp = resultSet.getTimestamp(DATE_TIME);
-            LocalDateTime dateTime = datestamp.toLocalDateTime();
             String content = resultSet.getString(CONTENT);
             String userLogin = resultSet.getString(USER_LOGIN);
-            return new Message(id, questionId, userId, dateTime, content, userLogin);
+            return new Message(id, questionId, userId, content, userLogin);
         } catch (SQLException e) {
             throw new DaoException("Message RowMapper error", e);
         }

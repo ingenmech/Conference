@@ -14,11 +14,11 @@ import java.util.List;
 public class MessageDaoImpl extends AbstractDao<Message> implements MessageDao {
 
     private final static String SELECT_MESSAGE_BY_QUESTION_ID =
-            "SELECT message.id, message.question_id, message.user_id, message.date_time, user.login AS user_login, message.content FROM message " +
+            "SELECT message.id, message.question_id, message.user_id, user.login AS user_login, message.content FROM message " +
                     "LEFT JOIN user ON message.user_id = user.id " +
-                    "WHERE question_id = ? ORDER BY date_time";
+                    "WHERE question_id = ? ORDER BY id";
     private final static String SELECT_ALL_MESSAGE_WITH_LOGIN =
-            "SELECT message.id, message.question_id, message.user_id, message.date_time, user.login AS user_login, message.content FROM message " +
+            "SELECT message.id, message.question_id, message.user_id, user.login AS user_login, message.content FROM message " +
                     "LEFT JOIN user ON message.user_id = user.id";
     private final static String TABLE = "message";
     private final static RowMapper<Message> MAPPER = new MessageRowMapper();

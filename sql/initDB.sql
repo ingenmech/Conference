@@ -16,11 +16,7 @@ INSERT INTO conference(NAME, DATE) VALUES
 ('Flower Conference', '2021-05-19 10:00:00'),
 ('WebSecurity Conference', '2021-03-21 10:00:00'),
 ('Developer Conference', '2021-04-20 10:00:00'),
-('Auto Conference', '2021-02-02 10:00:00'),
-('Conference', '2021-01-03 10:00:00'),
-('WebFinancial Conference', '2021-06-08 10:00:00'),
-('WebOnline Conference', '2021-07-23 10:00:00'),
-('WebOnlineSecurity Conference', '2021-08-28 10:00:00');
+('Auto Conference', '2021-02-02 10:00:00');
 
 INSERT INTO section(CONFERENCE_ID, NAME) VALUES
 ('1', 'Section 1'),
@@ -64,19 +60,7 @@ INSERT INTO section(CONFERENCE_ID, NAME) VALUES
  ('13', 'Auto section 1'),
  ('13', 'Auto section 2'),
  ('13', 'Auto section 3'),
- ('13', 'Auto section 4'),
- ('14', 'Conference section 1'),
- ('14', 'Conference section 2'),
- ('15', 'WebFinancial section 1'),
- ('15', 'WebFinancial section 2'),
- ('15', 'WebFinancial section 3'),
- ('16', 'WebOnline section 1'),
- ('16', 'WebOnline section 2'),
- ('16', 'WebOnline section 3'),
- ('17', 'WebOnlineSecurity section 1'),
- ('17', 'WebOnlineSecurity section 2'),
- ('17', 'WebOnlineSecurity section 3'),
- ('17', 'WebOnlineSecurity section 4');
+ ('13', 'Auto section 4');
 
 INSERT INTO request(USER_ID, SECTION_ID, TOPIC, STATUS) VALUES
 ('2', '11', 'User topic 1', 'CONSIDERING'),

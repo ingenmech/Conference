@@ -21,6 +21,7 @@ public class UpdateConferenceCommand implements Command {
 
     private final static String CONFERENCE = "conference";
     private final static String SECTION = "section";
+    private final static String STATUS = "status";
     private final static String DATE = "date";
     private final static String TIME = "time";
     private final static String CONFERENCE_ID = "conferenceId";
@@ -64,10 +65,11 @@ public class UpdateConferenceCommand implements Command {
         LocalDateTime dateTime = LocalDateTime.of(localDate, localTime);
         String name = content.getParameter(CONFERENCE);
         String[] sectionNames = content.getParameterValues(SECTION);
+        String[] sectionStatuses = content.getParameterValues(STATUS);
 
         String command = (String) content.getSessionAttribute(PAGE);
         String page = String.format(CONTROLLER_PART, command);
-        service.updateConferenceWithSection(conferenceId, name, dateTime, sectionsId, sectionNames);
+        service.updateConferenceWithSection(conferenceId, name, dateTime, sectionsId, sectionNames, sectionStatuses);
         return CommandResult.redirect(page);
     }
 

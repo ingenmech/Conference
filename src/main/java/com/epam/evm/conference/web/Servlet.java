@@ -54,13 +54,13 @@ public class Servlet extends HttpServlet {
             }
         } catch (ServletException | IOException | ServiceException e) {
             LOGGER.error(e.getMessage(), e);
-            String errorMessage = e.getMessage();
-            request.setAttribute(ERROR_MESSAGE, errorMessage);
-            try {
-                dispatch(ERROR_JSP, request, response);
-            } catch (IOException | ServletException c) {
-                LOGGER.error(c.getMessage(), c);
-            }
+//            String errorMessage = e.getMessage();
+//            request.setAttribute(ERROR_MESSAGE, errorMessage);
+//            try {
+//                dispatch(ERROR_JSP, request, response);
+//            } catch (IOException | ServletException c) {
+//                LOGGER.error(c.getMessage(), c);
+//            }
         }
     }
 

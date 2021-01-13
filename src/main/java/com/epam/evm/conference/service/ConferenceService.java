@@ -9,6 +9,7 @@ import com.epam.evm.conference.exception.FieldValidationException;
 import com.epam.evm.conference.exception.ServiceException;
 import com.epam.evm.conference.model.Conference;
 import com.epam.evm.conference.model.Section;
+import com.epam.evm.conference.model.SectionStatus;
 import com.epam.evm.conference.validator.FieldUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -27,7 +28,7 @@ public class ConferenceService {
 
     public ConferenceService(DaoHelperFactory factory, FieldUtils validator) {
         this.factory = factory;
-        this.validator=validator;
+        this.validator = validator;
     }
 
     public List<Conference> findConferencesForPagination(int limit, int offset) throws ServiceException {
@@ -57,7 +58,7 @@ public class ConferenceService {
             SectionDao sectionDao = helper.createSectionDao();
 
             Optional<Conference> conferenceOptional = conferenceDao.findBiId(id);
-            if(conferenceOptional.isEmpty()){
+            if (conferenceOptional.isEmpty()) {
                 throw new ServiceException("Find conference by id error");
             }
             Conference conference = conferenceOptional.get();
@@ -102,16 +103,18 @@ public class ConferenceService {
     }
 
     public void updateConferenceWithSection(Long conferenceId, String name, LocalDateTime dateTime, List<Long> sectionsId,
-                                            String[] sectionNames) throws ServiceException {
-        if(!validator.isValidMediumLength(name)){
+                                            String[] sectionNames, String[] statuses) throws ServiceException {
+        if (!validator.isValidMediumLength(name)) {
             throw new FieldValidationException("Field conference name does not match format");
         }
-        if(!validator.isValidMediumLength(sectionNames)){
+        if (!validator.isValidMediumLength(sectionNames)) {
             throw new FieldValidationException("Field section names does not match format");
         }
-
+        if (!validator.isValidMediumLength(statuses)) {
+            throw new FieldValidationException("Field statuses does not match format");
+        }
         Conference conference = new Conference(conferenceId, name, dateTime);
-        List<Section> sections = createSections(conferenceId, sectionsId, sectionNames);
+        List<Section> sections = createSections(conferenceId, sectionsId, sectionNames, statuses);
 
         DaoHelper helper = null;
         try {
@@ -139,21 +142,26 @@ public class ConferenceService {
         }
     }
 
-    private List<Section> createSections(Long conferenceId, List<Long> sectionsId, String[] sectionNames){
+    private List<Section> createSections(Long conferenceId, List<Long> sectionsId, String[] sectionNames, String[] statuses) {
 
         List<Section> sections = new ArrayList<>();
         for (int i = 0; i < sectionNames.length; i++) {
-            sections.add(new Section(sectionsId.get(i), conferenceId, sectionNames[i]));
+            Long id = null;
+            if (i < sectionsId.size()) {
+                id = sectionsId.get(i);
+            }
+            SectionStatus status = SectionStatus.valueOf(statuses[i]);
+            sections.add(new Section(id, conferenceId, sectionNames[i], status));
         }
         return sections;
     }
 
     public void saveConferenceWithSection(String name, LocalDateTime dateTime, String[] sectionNames) throws ServiceException {
 
-        if(!validator.isValidMediumLength(name)){
+        if (!validator.isValidMediumLength(name)) {
             throw new FieldValidationException("Field conference name does not match format");
         }
-        if(!validator.isValidMediumLength(sectionNames)){
+        if (!validator.isValidMediumLength(sectionNames)) {
             throw new FieldValidationException("Fields section names does not match format");
         }
         Conference conference = new Conference(null, name, dateTime);
@@ -190,11 +198,11 @@ public class ConferenceService {
         }
     }
 
-    private List<Section> createSections(String[] sectionNames){
+    private List<Section> createSections(String[] sectionNames) {
 
         List<Section> sections = new ArrayList<>();
         for (String value : sectionNames) {
-            sections.add(new Section(null, null, value));
+            sections.add(new Section(null, null, value, null));
         }
         return sections;
     }

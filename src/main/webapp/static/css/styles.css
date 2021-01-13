@@ -218,6 +218,12 @@ form {
     width: 100%;
 }
 
+.section input[type=checkbox], .section-add input[type=checkbox]{
+    margin: 25px 15px;
+    display: inline-block;
+}
+
+
 /****************app request********************/
 
 
@@ -314,7 +320,7 @@ input[type=time], select {
     display: inline-block;
     border: 1px solid #ccc;
     box-sizing: border-box;
-    font-size: medium;
+    font-size: inherit;
 }
 
 .accept input[type=submit], .send-request input[type=submit], .form-signin input[type=submit] {

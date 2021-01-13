@@ -1,30 +1,27 @@
 package com.epam.evm.conference.model;
 
-import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class Message implements Entity {
 
     private final Long id;
     private final Long questionId;
     private final Long userId;
-    private final LocalDateTime dateTime;
     private final String content;
 
     private String userLogin;
 
-    public Message(Long id, Long questionId, Long userId, LocalDateTime dateTime, String content) {
+    public Message(Long id, Long questionId, Long userId, String content) {
         this.id = id;
         this.questionId = questionId;
         this.userId = userId;
-        this.dateTime = dateTime;
         this.content = content;
     }
 
-    public Message(Long id, Long questionId, Long userId, LocalDateTime dateTime, String content, String userLogin) {
+    public Message(Long id, Long questionId, Long userId, String content, String userLogin) {
         this.id = id;
         this.questionId = questionId;
         this.userId = userId;
-        this.dateTime = dateTime;
         this.content = content;
         this.userLogin = userLogin;
     }
@@ -35,10 +32,6 @@ public class Message implements Entity {
 
     public Long getUserId() {
         return userId;
-    }
-
-    public LocalDateTime getDateTime() {
-        return dateTime;
     }
 
     public String getContent() {
@@ -55,42 +48,15 @@ public class Message implements Entity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         Message message = (Message) o;
-
-        if (id != null ? !id.equals(message.id) : message.id != null) {
-            return false;
-        }
-        if (questionId != null ? !questionId.equals(message.questionId) : message.questionId != null) {
-            return false;
-        }
-        if (userId != null ? !userId.equals(message.userId) : message.userId != null) {
-            return false;
-        }
-        if (dateTime != null ? !dateTime.equals(message.dateTime) : message.dateTime != null) {
-            return false;
-        }
-        if (content != null ? !content.equals(message.content) : message.content != null) {
-            return false;
-        }
-        return userLogin != null ? userLogin.equals(message.userLogin) : message.userLogin == null;
+        return Objects.equals(id, message.id) && Objects.equals(questionId, message.questionId) && Objects.equals(userId, message.userId) && Objects.equals(content, message.content) && Objects.equals(userLogin, message.userLogin);
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (questionId != null ? questionId.hashCode() : 0);
-        result = 31 * result + (userId != null ? userId.hashCode() : 0);
-        result = 31 * result + (dateTime != null ? dateTime.hashCode() : 0);
-        result = 31 * result + (content != null ? content.hashCode() : 0);
-        result = 31 * result + (userLogin != null ? userLogin.hashCode() : 0);
-        return result;
+        return Objects.hash(id, questionId, userId, content, userLogin);
     }
 
     @Override
@@ -99,7 +65,6 @@ public class Message implements Entity {
                 "id=" + id +
                 ", questionId=" + questionId +
                 ", userId=" + userId +
-                ", dateTime=" + dateTime +
                 ", content='" + content + '\'' +
                 ", userLogin='" + userLogin + '\'' +
                 '}';

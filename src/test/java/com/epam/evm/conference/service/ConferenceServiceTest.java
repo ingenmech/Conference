@@ -8,6 +8,7 @@ import com.epam.evm.conference.exception.DaoException;
 import com.epam.evm.conference.exception.ServiceException;
 import com.epam.evm.conference.model.Conference;
 import com.epam.evm.conference.model.Section;
+import com.epam.evm.conference.model.SectionStatus;
 import com.epam.evm.conference.validator.FieldUtils;
 import org.junit.Assert;
 import org.junit.Test;
@@ -23,8 +24,8 @@ import static org.mockito.Mockito.*;
 
 public class ConferenceServiceTest {
 
-    private final static Section SECTION = new Section(null, Long.valueOf("1"), "name");
-    private final static Section SECOND_SECTION = new Section(null, Long.valueOf("2"), "name");
+    private final static Section SECTION = new Section(null, Long.valueOf("1"), "name", SectionStatus.ACTUAL);
+    private final static Section SECOND_SECTION = new Section(null, Long.valueOf("2"), "name", SectionStatus.ACTUAL);
     private final static  List<Conference> EXPECTED_CONFERENCES = Arrays.asList(
             new Conference(Long.valueOf("1"), "name", null, Arrays.asList(SECTION, SECTION)),
             new Conference(Long.valueOf("2"), "name", null, Arrays.asList(SECOND_SECTION, SECOND_SECTION)));

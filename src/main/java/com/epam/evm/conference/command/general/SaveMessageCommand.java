@@ -41,10 +41,8 @@ public class SaveMessageCommand implements Command {
         Long userId = (Long) requestContent.getSessionAttribute(USER_ID);
         Long questionId = Long.parseLong(questionIdRow);
         String content = requestContent.getParameter(CONTENT);
-        ZoneId zoneId = ZoneId.systemDefault();
-        LocalDateTime dateTime = LocalDateTime.now(zoneId);
 
-        service.saveMessage(questionId, userId, dateTime, content);
+        service.saveMessage(questionId, userId, content);
 
         String questionContent = requestContent.getParameter(QUESTION_CONTENT);
         requestContent.setAttribute(QUESTION_CONTENT, questionContent);

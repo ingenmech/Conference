@@ -31,24 +31,25 @@
                         <bad:is-before-date dateTime="${conferences.date}"/>
                     </c:set>
                     <c:if test="${ isBefore }">
-                    <c:if test="${ not empty selectedConferenceId and selectedConferenceId eq conferences.id}" var="isSelected">
-                        <option selected="selected" value="${conferences.id}">
-                            <cp:parse-local-date pattern="${dateTimeFormat}" dateTime="${conferences.date}"/> -
-                            <c:out value="${conferences.name}"/>
-                        </option>
-                        <c:set var="confSections" value="${conferences.sections}"/>
-                    </c:if>
-                    <c:if test="${ isSelected eq 'false'}">
-                        <option value="${conferences.id}">
-                            <cp:parse-local-date pattern="${dateTimeFormat}" dateTime="${conferences.date}"/> -
-                            <c:out value="${conferences.name}"/>
-                        </option>
-                    </c:if>
-                    <c:if test="${ empty selectedConference and status.count eq 1}">
-                        <%--                    <c:if test="${status.count eq 1}">--%>
-                        <c:set var="confSections" value="${conferences.sections}"/>
-                        <%--                    </c:if>--%>
-                    </c:if>
+                        <c:if test="${ not empty selectedConferenceId and selectedConferenceId eq conferences.id}"
+                              var="isSelected">
+                            <option selected="selected" value="${conferences.id}">
+                                <cp:parse-local-date pattern="${dateTimeFormat}" dateTime="${conferences.date}"/> -
+                                <c:out value="${conferences.name}"/>
+                            </option>
+                            <c:set var="confSections" value="${conferences.sections}"/>
+                        </c:if>
+                        <c:if test="${ isSelected eq 'false'}">
+                            <option value="${conferences.id}">
+                                <cp:parse-local-date pattern="${dateTimeFormat}" dateTime="${conferences.date}"/> -
+                                <c:out value="${conferences.name}"/>
+                            </option>
+                        </c:if>
+                        <c:if test="${ empty selectedConference and status.count eq 1}">
+                            <%--                    <c:if test="${status.count eq 1}">--%>
+                            <c:set var="confSections" value="${conferences.sections}"/>
+                            <%--                    </c:if>--%>
+                        </c:if>
                     </c:if>
                 </c:forEach>
             </select>
@@ -59,9 +60,11 @@
             <label for="section">${chooseSection}</label>
             <select id="section" name="section">
                 <c:forEach var="section" items="${confSections}">
-                    <option value="${section.id}">
-                        <c:out value="${section.name}"/>
-                    </option>
+                    <c:if test="${ section.status eq 'ACTUAL'}">
+                        <option value="${section.id}">
+                            <c:out value="${section.name}"/>
+                        </option>
+                    </c:if>
                 </c:forEach>
             </select>
             <label for="topic">${chooseTopic}</label>

@@ -14,6 +14,7 @@
 <fmt:message bundle="${loc}" key="date.time.format" var="dateTimeFormat"/>
 <fmt:message bundle="${loc}" key="menu.user.send" var="createRequest"/>
 <fmt:message bundle="${loc}" key="menu.user.question" var="question"/>
+<fmt:message bundle="${loc}" key="section.list.status" var="sectionStatus"/>
 <c:set var="query" value="${pageContext.request.queryString}"/>
 <c:if test="${query ne 'command=en' and query ne 'command=ru' and query ne 'command=by'}">
     <c:set var="page" value="${query}" scope="session"/>
@@ -30,18 +31,30 @@
                     <th class="col-5"></th>
                     <th class="col-5"></th>
                 </c:if>
-                <th class="col-20">${date}</th>
+                <th class="col-15">${date}</th>
                 <th class="col-35">${conference}</th>
                 <th class="col-35">${section}</th>
             </tr>
             <c:forEach var="conference" items="${conferenceList}" varStatus="confStatus">
                 <tr>
-
                     <c:set var="isBefore">
                         <ctg:is-before-date dateTime="${conference.date}"/>
                     </c:set>
-                    <c:if test="${ not isBefore }">
-                        <td></td>
+                    <c:if test="${ not isBefore and sessionScope.userRole eq 'ADMIN'  }">
+                        <td style="text-align: center;">
+                            <img src="${pageContext.request.contextPath}/static/img/times-circle-solid.svg"
+                                 alt="${sectionStatus}" title="${sectionStatus}" style="width: 20px;">
+                        </td>
+                    </c:if>
+                    <c:if test="${ not isBefore and sessionScope.userRole eq 'USER' }">
+                        <td>
+                            <img src="${pageContext.request.contextPath}/static/img/no-image.svg"
+                                 alt="${sectionStatus}" title="${sectionStatus}" style="width: 20px;">
+                        </td>
+                        <td style="text-align: center;">
+                            <img src="${pageContext.request.contextPath}/static/img/times-circle-solid.svg"
+                                 alt="${sectionStatus}" title="${sectionStatus}" style="width: 20px;">
+                        </td>
                     </c:if>
                     <c:if test="${ sessionScope.userRole eq 'ADMIN' and isBefore }">
                         <td>
@@ -86,9 +99,20 @@
                     <td>${conference.name}</td>
                     <td>
                         <c:forEach var="section" items="${conference.sections}" varStatus="status">
-                            <li>
-                                    ${status.count}. ${section.name}
-                            </li>
+
+                            <c:if test="${ section.status eq 'ACTUAL'}">
+                                <li>
+                                        ${status.count}. ${section.name}
+                                </li>
+                            </c:if>
+                            <c:if test="${ section.status eq 'DEPRECATED'}">
+                                <li style="color: dimgray; text-decoration-line: line-through;">
+                                        ${status.count}. ${section.name}
+                                    <img src="${pageContext.request.contextPath}/static/img/times-circle-solid.svg"
+                                         alt="${sectionStatus}" title="${sectionStatus}" style="width: 13px;">
+                                </li>
+                            </c:if>
+
                         </c:forEach>
                     </td>
                 </tr>
