@@ -15,11 +15,13 @@
 <fmt:message bundle="${loc}" key="menu.user.send" var="createRequest"/>
 <fmt:message bundle="${loc}" key="menu.user.question" var="question"/>
 <fmt:message bundle="${loc}" key="section.list.status" var="sectionStatus"/>
+<fmt:message bundle="${loc}" key="paging.list.from" var="from"/>
 <c:set var="query" value="${pageContext.request.queryString}"/>
 <c:if test="${query ne 'command=en' and query ne 'command=ru' and query ne 'command=by'}">
     <c:set var="page" value="${query}" scope="session"/>
 </c:if>
 <c:set var="returnEditPage" value="${page}" scope="session"/>
+<c:set var="pageSize" value="7" scope="request"/>
 <section class="column-main">
     <div class="table">
         <table>
@@ -35,6 +37,7 @@
                 <th class="col-35">${conference}</th>
                 <th class="col-35">${section}</th>
             </tr>
+            <%--@elvariable id="conferenceList" type="java.util.List"--%>
             <c:forEach var="conference" items="${conferenceList}" varStatus="confStatus">
                 <tr>
                     <c:set var="isBefore">
@@ -120,11 +123,20 @@
             </c:forEach>
         </table>
     </div>
+    <div>
+        <c:if test="${pageNumber > totalPage}" var="isExist">
+            <fmt:message bundle="${loc}" key="paging.list.${pageMessage}"/>
+        </c:if>
+    </div>
     <div class="paging">
+        <%--@elvariable id="pageNumber" type="int"--%>
+        <%--@elvariable id="elementNumber" type="int"--%>
+        <%--@elvariable id="totalPage" type="int"--%>
         <form>
             <input type="hidden" name="command" value="getConferences">
             <input type="hidden" name="pageNumber" value=${pageNumber}>
             <input type="hidden" name="direction" value="previous">
+            <input type="hidden" name="totalPage" value="${totalPage}">
             <div class="paging-comp">
                 <c:if test="${pageNumber > 1}">
                     <button type="submit" formmethod="GET" formaction="${pageContext.request.contextPath}/controller"
@@ -136,18 +148,19 @@
                 </c:if>
             </div>
         </form>
-        <div class="page-number">${pageNumber}</div>
+        <div class="page-number">${pageNumber} ${from} ${totalPage}</div>
         <form>
             <input type="hidden" name="command" value="getConferences">
             <input type="hidden" name="pageNumber" value=${pageNumber}>
             <input type="hidden" name="direction" value="next">
+            <input type="hidden" name="totalPage" value="${totalPage}">
             <div class="paging-comp">
-                <c:set var="elemNumber" value="${elementNumber}"/>
-                <c:if test="${elemStatus eq elemNumber}" var="isExist">
+                <c:if test="${pageNumber < totalPage}" var="isExist">
                     <button type="submit" formmethod="GET" formaction="${pageContext.request.contextPath}/controller"
                             class="paging-button">>
                     </button>
                 </c:if>
+
                 <c:if test="${isExist eq 'false'}">
                     <button type="submit" disabled="disabled" class="disable-button">></button>
                 </c:if>

@@ -5,7 +5,6 @@ import org.junit.Test;
 
 public class DateUtilsTest {
 
-
     @Test
     public void testIsValidDateShouldReturnTrueWhenDataIsValid(){
         DateUtils utils = new DateUtils();

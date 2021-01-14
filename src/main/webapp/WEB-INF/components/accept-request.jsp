@@ -14,6 +14,7 @@
 <fmt:message bundle="${loc}" key="accept.request.accept" var="acceptButton"/>
 <fmt:message bundle="${loc}" key="accept.request.reject" var="rejectButton"/>
 <fmt:message bundle="${loc}" key="accept.request.remove" var="removeButton"/>
+<fmt:message bundle="${loc}" key="section.list.status" var="sectionStatus"/>
 <c:set var="query" value="${pageContext.request.queryString}"/>
 <c:if test="${query ne 'command=en' and query ne 'command=ru' and query ne 'command=by'}">
     <c:set var="page" value="${query}" scope="session"/>
@@ -29,13 +30,22 @@
                 <th>${user}</th>
                 <th class="col-10"></th>
             </tr>
+            <%--@elvariable id="requestList" type="java.util.List"--%>
             <c:forEach var="request" items="${requestList}" varStatus="reqStatus">
                 <tr>
                     <td>
                         <fmt:message bundle="${loc}" key="request.status.${request.status}"/>
                     </td>
                     <td>${request.conferenceName}</td>
-                    <td>${request.sectionName}</td>
+                    <c:if test="${ request.sectionStatus ne 'DEPRECATED'}">
+                        <td>${request.sectionName}</td>
+                    </c:if>
+                    <c:if test="${ request.sectionStatus eq 'DEPRECATED'}">
+                        <td style="text-decoration-line: line-through;">${request.sectionName}
+                            <img src="${pageContext.request.contextPath}/static/img/times-circle-solid.svg"
+                                 alt="${sectionStatus}" title="${sectionStatus}" style="width: 13px;">
+                        </td>
+                    </c:if>
                     <td>${request.topic}</td>
                     <td>${request.userLogin}</td>
                     <td>
@@ -50,17 +60,17 @@
                                     <c:if test="${ status ne 'ACCEPTED'}" var="isConsidering">
                                         <input type="image" name="submit" formmethod="POST"
                                                formaction="${pageContext.request.contextPath}/controller?command=adminAcceptRequest"
-                                               border="0" alt="accept" style="width: 30px;"
+                                                alt="accept" style="width: 30px;"
                                                src="${pageContext.request.contextPath}/static/img/check-circle-regular.svg"/>
                                     </c:if>
                                     <c:if test="${ status eq 'ACCEPTED'}" var="isConsidering">
-                                        <input type="image" disabled="disabled" style="width: 30px;"
+                                        <input type="image" disabled="disabled" alt="" style="width: 30px;"
                                                src="${pageContext.request.contextPath}/static/img/no-image.svg"/>
                                     </c:if>
                                     <c:if test="${ status ne 'REJECTED'}">
                                         <input type="image" name="submit" formmethod="POST"
                                                formaction="${pageContext.request.contextPath}/controller?command=adminRejectRequest"
-                                               border="0" alt="reject" style="width: 30px;"
+                                                alt="reject" style="width: 30px;"
                                                src="${pageContext.request.contextPath}/static/img/times-circle-regular.svg"/>
                                     </c:if>
                                 </div>
@@ -73,7 +83,9 @@
         </table>
     </div>
     <div class="paging">
-        <form>
+        <%--@elvariable id="pageNumber" type="int"--%>
+        <%--@elvariable id="elementNumber" type="int"--%>
+            <form>
             <input type="hidden" name="command" value="adminGoToAcceptRequest">
             <input type="hidden" name="pageNumber" value=${pageNumber}>
             <input type="hidden" name="direction" value="previous">

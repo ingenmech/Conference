@@ -13,6 +13,7 @@
 <fmt:message bundle="${loc}" key="accept.request.table.user" var="user"/>
 <fmt:message bundle="${loc}" key="accept.request.status" var="requestStatus"/>
 <fmt:message bundle="${loc}" key="accept.request.remove" var="removeButton"/>
+<fmt:message bundle="${loc}" key="section.list.status" var="sectionStatus"/>
 <c:set var="page" value="userSentRequests" scope="session"/>
 <section class="column-main">
     <div class="table">
@@ -24,29 +25,45 @@
                 <th>${topic}</th>
                 <th class="col-10"></th>
             </tr>
+            <%--@elvariable id="userRequestList" type="java.util.List"--%>
             <c:forEach var="request" items="${userRequestList}">
                 <tr>
-                    <td>
-                        <fmt:message bundle="${loc}" key="request.status.${request.status}"/>
-                    </td>
-                    <td>${request.conferenceName}</td>
-                    <td>${request.sectionName}</td>
-                    <td>${request.topic}</td>
-                    <td>
-                        <form method="POST" action="${pageContext.request.contextPath}/controller">
-                            <input type="hidden" name="command" value="userRemoveRequest"/>
-                            <input type="hidden" name="requestId" value=${request.id}>
-                            <input type="hidden" name="userId" value="${request.userId}">
-                            <input type="hidden" name="sectionId" value="${request.sectionId}">
-                            <input type="hidden" name="topic" value="${request.topic}">
-                            <c:if test="${ request.status ne 'DEPRECATED'}">
-                                <div class="show-message">
-                                    <input type="image" name="submit" border="0" alt="messages" style="width: 30px;"
-                                           src="${pageContext.request.contextPath}/static/img/times-circle-regular.svg"/>
-                                </div>
-                            </c:if>
-                        </form>
-                    </td>
+                    <c:if test="${ request.sectionStatus ne 'DEPRECATED'}">
+                        <td>
+                            <fmt:message bundle="${loc}" key="request.status.${request.status}"/>
+                        </td>
+                        <td>${request.conferenceName}</td>
+                        <td>${request.sectionName}</td>
+                        <td>${request.topic}</td>
+                        <td>
+                            <form method="POST" action="${pageContext.request.contextPath}/controller">
+                                <input type="hidden" name="command" value="userRemoveRequest"/>
+                                <input type="hidden" name="requestId" value=${request.id}>
+                                <input type="hidden" name="userId" value="${request.userId}">
+                                <input type="hidden" name="sectionId" value="${request.sectionId}">
+                                <input type="hidden" name="topic" value="${request.topic}">
+                                <c:if test="${ request.status ne 'DEPRECATED'}">
+                                    <div class="show-message">
+                                        <input type="image" name="submit" alt="messages" style="width: 30px;"
+                                               src="${pageContext.request.contextPath}/static/img/times-circle-regular.svg"/>
+                                    </div>
+                                </c:if>
+                            </form>
+                        </td>
+                    </c:if>
+                    <c:if test="${ request.sectionStatus eq 'DEPRECATED'}">
+                            <td class="deprecated">
+                                <fmt:message bundle="${loc}" key="request.status.${request.status}"/>
+                            </td>
+                            <td class="deprecated">${request.conferenceName}</td>
+                            <td class="deprecated" style="text-decoration-line: line-through;">
+                                    ${request.sectionName}
+                                <img src="${pageContext.request.contextPath}/static/img/times-circle-solid.svg"
+                                     alt="${sectionStatus}" title="${sectionStatus}" style="width: 13px;">
+                            </td class="deprecated">
+                            <td class="deprecated">${request.topic}</td>
+                            <td></td>
+                    </c:if>
                 </tr>
             </c:forEach>
         </table>

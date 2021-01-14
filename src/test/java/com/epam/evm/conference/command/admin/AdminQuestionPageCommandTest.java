@@ -13,20 +13,14 @@ import java.util.List;
 import static org.mockito.ArgumentMatchers.anyInt;
 
 public class AdminQuestionPageCommandTest extends AbstractPaginationCommandTest {
-
-    private final static String EXPECTED_PAGE = "/WEB-INF/pages/questions-page.jsp";
-
-    public AdminQuestionPageCommandTest() {
-        super(EXPECTED_PAGE);
-    }
-
-    @Override
-    protected Command createCommand() throws ServiceException {
-        List<Question> list = Arrays.asList(
-                new Question(null, null, null, null),
-                new Question(null, null, null, null));
-        QuestionService service = Mockito.mock(QuestionService.class);
-        Mockito.when(service.findAllQuestionWithUserLogin(anyInt(), anyInt())).thenReturn(list);
-        return new AdminQuestionPageCommand(service);
-    }
+//
+//    @Override
+//    protected Command createCommand() throws ServiceException {
+//        List<Question> list = Arrays.asList(
+//                new Question(null, null, null, null),
+//                new Question(null, null, null, null));
+//        QuestionService service = Mockito.mock(QuestionService.class);
+//        Mockito.when(service.findAllQuestionWithUserLogin(anyInt(), anyInt())).thenReturn(list);
+//        return new AdminQuestionPageCommand(service);
+//    }
 }

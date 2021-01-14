@@ -31,6 +31,16 @@ public class ConferenceService {
         this.validator = validator;
     }
 
+    public Long countRows() throws ServiceException {
+
+        try (DaoHelper helper = factory.create()) {
+            ConferenceDao conferenceDao = helper.createConferenceDao();
+            return conferenceDao.countRows();
+        } catch (DaoException e) {
+            throw new ServiceException("Count conference error", e);
+        }
+    }
+
     public List<Conference> findConferencesForPagination(int limit, int offset) throws ServiceException {
 
         try (DaoHelper helper = factory.create()) {
@@ -53,11 +63,10 @@ public class ConferenceService {
     public Conference findConferencesWithSectionsById(Long id) throws ServiceException {
 
         try (DaoHelper helper = factory.create()) {
-
             ConferenceDao conferenceDao = helper.createConferenceDao();
             SectionDao sectionDao = helper.createSectionDao();
 
-            Optional<Conference> conferenceOptional = conferenceDao.findBiId(id);
+            Optional<Conference> conferenceOptional = conferenceDao.findById(id);
             if (conferenceOptional.isEmpty()) {
                 throw new ServiceException("Find conference by id error");
             }
@@ -75,7 +84,6 @@ public class ConferenceService {
     public List<Conference> findAllConferencesWithSections() throws ServiceException {
 
         try (DaoHelper helper = factory.create()) {
-
             ConferenceDao conferenceDao = helper.createConferenceDao();
             SectionDao sectionDao = helper.createSectionDao();
 

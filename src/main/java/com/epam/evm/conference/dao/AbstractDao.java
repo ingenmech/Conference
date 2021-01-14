@@ -15,7 +15,8 @@ public abstract class AbstractDao<T extends Entity> implements Dao<T> {
 
     private final static String SELECT_BY_ID_QUERY = "SELECT * FROM %s WHERE id = ?";
     private final static String DELETE_BY_ID_QUERY = "DELETE FROM %s WHERE id = ?";
-    //private final static String SELECT_ROWS_NUMBER = "SELECT COUNT(*) AS rowsNumber FROM %s";
+    private final static String SELECT_ROWS_NUMBER = "SELECT COUNT(*) AS rows_number FROM %s";
+    private final static String ROWS_NUMBER = "rows_number";
     private final static QueryBuilder QUERY_BUILDER = new QueryBuilder();
 
     private final RowMapper<T> mapper;
@@ -43,7 +44,7 @@ public abstract class AbstractDao<T extends Entity> implements Dao<T> {
     }
 
     @Override
-    public Optional<T> findBiId(Long id) throws DaoException {
+    public Optional<T> findById(Long id) throws DaoException {
         String query = String.format(SELECT_BY_ID_QUERY, table);
         return executeForSingleResult(query, id);
     }
@@ -51,6 +52,26 @@ public abstract class AbstractDao<T extends Entity> implements Dao<T> {
     @Override
     public List<T> findAll() throws DaoException {
         return executeQuery(selectAllQuery);
+    }
+
+    @Override
+    public Long countRows() throws DaoException {
+        String query = String.format(SELECT_ROWS_NUMBER, table);
+        return executeQueryCounter(query);
+    }
+
+    private Long executeQueryCounter(String query) throws DaoException {
+
+        try (PreparedStatement statement = createStatement(query)){
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getLong(ROWS_NUMBER);
+            } else {
+                throw new DaoException("Not exist sql table for query");
+            }
+        } catch (SQLException e) {
+            throw new DaoException("Statement query error ", e);
+        }
     }
 
     @Override

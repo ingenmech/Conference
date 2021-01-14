@@ -5,7 +5,6 @@ import org.junit.Test;
 
 public class NumberUtilsTest {
 
-
     @Test
     public void testIsValidDigitShouldReturnTrueWhenDataIsValid(){
         NumberUtils numberUtils = new NumberUtils();

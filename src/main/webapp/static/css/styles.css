@@ -218,7 +218,7 @@ form {
     width: 100%;
 }
 
-.section input[type=checkbox], .section-add input[type=checkbox]{
+.section input[type=checkbox], .section-add input[type=checkbox] {
     margin: 25px 15px;
     display: inline-block;
 }
@@ -333,7 +333,10 @@ input[type=time], select {
     cursor: pointer;
 }
 
-.accept input[type=submit]:hover, .send-request input[type=submit]:hover, .form-signin input[type=submit]:hover, .add-button:hover, .remove-button:hover {
+.accept input[type=submit]:hover,
+.send-request input[type=submit]:hover,
+.form-signin input[type=submit]:hover,
+.add-button:hover, .remove-button:hover {
     background-color: #FFDD00;
     color: black;
 }
@@ -396,6 +399,7 @@ textarea {
     color: black;
 }
 
+/********************************************************/
 
 .col-15 {
     width: 15%;
@@ -437,6 +441,10 @@ textarea {
     width: 4%;
 }
 
+.deprecated {
+    color: #A2A2A2;
+}
+
 /* Clear floats after the columns */
 .row:after {
     content: "";
@@ -460,9 +468,9 @@ input:invalid, textarea:invalid {
 
 
 .paging {
-    display: flex;
+    display: -webkit-box;
     margin: 10px auto;
-    width: 10%;
+    width: 20%;
 }
 
 .paging-button, .disable-button {

@@ -14,19 +14,13 @@ import static org.mockito.ArgumentMatchers.anyInt;
 
 public class AdminRequestsPageCommandTest extends AbstractPaginationCommandTest {
 
-    private final static String EXPECTED_PAGE = "/WEB-INF/pages/accept-request-page.jsp";
-
-    public AdminRequestsPageCommandTest() {
-        super(EXPECTED_PAGE);
-    }
-
-    @Override
-    protected Command createCommand() throws ServiceException {
-        List<Request> list = Arrays.asList(
-                new Request(null, null, null, null, null),
-                new Request(null, null, null, null, null));
-        RequestService service = Mockito.mock(RequestService.class);
-        Mockito.when(service.findAllRequestsWithUsersSectionsConferences(anyInt(),anyInt())).thenReturn(list);
-        return new AdminRequestsPageCommand(service);
-    }
+//    @Override
+//    protected Command createCommand() throws ServiceException {
+//        List<Request> list = Arrays.asList(
+//                new Request(null, null, null, null, null),
+//                new Request(null, null, null, null, null));
+//        RequestService service = Mockito.mock(RequestService.class);
+//        Mockito.when(service.findAllRequestsWithUsersSectionsConferences(anyInt(),anyInt())).thenReturn(list);
+//        return new AdminRequestsPageCommand(service);
+//    }
 }

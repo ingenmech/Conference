@@ -7,10 +7,11 @@ import java.util.Optional;
 
 public interface Dao<T> {
 
-    Optional<T> findBiId(Long id) throws DaoException;
+    Optional<T> findById(Long id) throws DaoException;
     List<T> findAll() throws DaoException;
     Optional<Long> save(T item) throws DaoException;
     void removeById(Long id) throws DaoException;
+    Long countRows() throws DaoException;
     List<T> findEntityForPagination(int limit, int offset) throws DaoException;
 
 }

@@ -12,18 +12,22 @@ public class ConferenceListCommand extends AbstractPaginationCommand<Conference>
 
     private final static String LIST_CONFERENCE_PAGE = "WEB-INF/pages/list-conference-page.jsp";
     private final static String CONFERENCE_LIST = "conferenceList";
-    private final static int ELEMENTS_NUMBER_ON_PAGE = 7;
-
+    private final static int PAGE_SIZE = 7;
     private final ConferenceService service;
 
     public ConferenceListCommand(ConferenceService service) {
-        super(LIST_CONFERENCE_PAGE, CONFERENCE_LIST, ELEMENTS_NUMBER_ON_PAGE);
+        super(LIST_CONFERENCE_PAGE, CONFERENCE_LIST, PAGE_SIZE);
         this.service = service;
     }
 
     @Override
-    public List<Conference> createService(RequestContent content, int offset) throws ServiceException {
-        return service.findConferencesForPagination(ELEMENTS_NUMBER_ON_PAGE, offset);
+    public List<Conference> createService(RequestContent content,int limit, int offset) throws ServiceException {
+        return service.findConferencesForPagination(limit, offset);
+    }
+
+    @Override
+    public Long countRows() throws ServiceException {
+        return service.countRows();
     }
 
 }

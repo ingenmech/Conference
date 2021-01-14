@@ -31,6 +31,7 @@
                     <th class="col-10"></th>
                 </c:if>
             </tr>
+            <%--@elvariable id="questionsList" type="java.util.List"--%>
             <c:if test="${not empty questionsList}">
                 <c:forEach var="question" items="${questionsList}" varStatus="status">
                     <tr>
@@ -46,7 +47,7 @@
                                 <input type="hidden" name="questionContent" value="${question.content}">
                                 <input type="hidden" name="conferenceName" value="${question.conferenceName}">
                                 <div class="show-message">
-                                    <input type="image" name="submit" border="0" alt="messages" style="width: 30px;"
+                                    <input type="image" name="submit" alt="messages" style="width: 30px;"
                                            src="${pageContext.request.contextPath}/static/img/comments-regular.svg"/>
                                 </div>
                             </form>
@@ -55,6 +56,7 @@
                     <c:set var="elemStatus" value="${status.count}"/>
                 </c:forEach>
             </c:if>
+            <%--@elvariable id="isEmpty" type="boolean"--%>
             <c:if test="${isEmpty eq 'false'}">
                 <tr>
                     <td></td>
@@ -65,6 +67,8 @@
     </div>
     <c:if test="${sessionScope.userRole eq 'ADMIN'}">
         <div class="paging">
+                <%--@elvariable id="pageNumber" type="int"--%>
+                <%--@elvariable id="elementNumber" type="int"--%>
             <form>
                 <input type="hidden" name="command" value="adminQuestionsPage">
                 <input type="hidden" name="pageNumber" value=${pageNumber}>

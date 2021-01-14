@@ -9,7 +9,6 @@ import com.epam.evm.conference.exception.ServiceException;
 import com.epam.evm.conference.model.Message;
 import com.epam.evm.conference.validator.FieldUtils;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 public class MessageService {
@@ -25,10 +24,8 @@ public class MessageService {
     public List<Message> findMessagesByQuestionId(Long questionId) throws ServiceException {
 
         try (DaoHelper helper = factory.create()) {
-
             MessageDao messageDao = helper.createMessageDao();
             return messageDao.findMessagesByQuestionId(questionId);
-
         } catch (DaoException e) {
             throw new ServiceException("Find question error", e);
         }
@@ -36,17 +33,14 @@ public class MessageService {
 
     public void saveMessage(Long questionId, Long userId, String content) throws ServiceException {
 
-        if (!validator.isValidLongLength(content)){
+        if (!validator.isValidLongLength(content)) {
             throw new FieldValidationException("Field question content does not match format");
         }
-
         Message message = new Message(null, questionId, userId, content);
 
         try (DaoHelper helper = factory.create()) {
-
             MessageDao messageDao = helper.createMessageDao();
             messageDao.save(message);
-
         } catch (DaoException e) {
             throw new ServiceException("Save message error", e);
         }

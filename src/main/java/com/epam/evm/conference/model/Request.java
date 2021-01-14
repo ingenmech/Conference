@@ -10,6 +10,7 @@ public class Request implements Entity {
 
     private String conferenceName;
     private String sectionName;
+    private SectionStatus sectionStatus;
     private String userLogin;
 
     public Request(Long id, Long sectionId, Long userId, String topic, RequestStatus status) {
@@ -21,7 +22,7 @@ public class Request implements Entity {
     }
 
     public Request(Long id, Long sectionId, Long userId, String topic, RequestStatus status,
-    String conferenceName, String sectionName, String userLogin) {
+    String conferenceName, String sectionName, String userLogin, SectionStatus sectionStatus) {
         this.id = id;
         this.sectionId = sectionId;
         this.userId = userId;
@@ -30,6 +31,7 @@ public class Request implements Entity {
         this.conferenceName = conferenceName;
         this.sectionName = sectionName;
         this.userLogin = userLogin;
+        this.sectionStatus = sectionStatus;
     }
 
     public Long getSectionId() {
@@ -46,6 +48,10 @@ public class Request implements Entity {
 
     public RequestStatus getStatus() {
         return status;
+    }
+
+    public SectionStatus getSectionStatus() {
+        return sectionStatus;
     }
 
     public String getConferenceName() {

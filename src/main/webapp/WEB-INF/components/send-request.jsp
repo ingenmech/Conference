@@ -16,21 +16,21 @@
 <fmt:message bundle="${loc}" key="request.send.request" var="sendRequest"/>
 <fmt:message bundle="${loc}" key="date.time.format" var="dateTimeFormat"/>
 <c:set var="page" value="userCreateRequest" scope="session"/>
-<script type="text/javascript" language="JavaScript"
-        src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script type="text/javascript" language="JavaScript"
-        src="${pageContext.request.contextPath}/static/js/choose-section.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/choose-section.js"></script>
 <section class="column-main">
     <div class="accept">
         <form method="POST" action="${pageContext.request.contextPath}/controller">
             <input type="hidden" name="command" value="userSendRequest"/>
             <label for="conference">${chooseConference}</label>
             <select id="conference" name="conference">
+                <%--@elvariable id="conferenceList" type="java.util.List"--%>
                 <c:forEach var="conferences" items="${conferenceList}" varStatus="status">
                     <c:set var="isBefore">
                         <bad:is-before-date dateTime="${conferences.date}"/>
                     </c:set>
                     <c:if test="${ isBefore }">
+                        <%--@elvariable id="selectedConferenceId" type="java.lang.Long"--%>
                         <c:if test="${ not empty selectedConferenceId and selectedConferenceId eq conferences.id}"
                               var="isSelected">
                             <option selected="selected" value="${conferences.id}">
@@ -45,10 +45,8 @@
                                 <c:out value="${conferences.name}"/>
                             </option>
                         </c:if>
-                        <c:if test="${ empty selectedConference and status.count eq 1}">
-                            <%--                    <c:if test="${status.count eq 1}">--%>
+                        <c:if test="${ empty selectedConferenceId and status.count eq 1}">
                             <c:set var="confSections" value="${conferences.sections}"/>
-                            <%--                    </c:if>--%>
                         </c:if>
                     </c:if>
                 </c:forEach>

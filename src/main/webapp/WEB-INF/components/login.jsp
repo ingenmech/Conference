@@ -16,6 +16,7 @@
 <section class="column-main">
     <div class="form-signin">
         <div class="error">
+            <%--@elvariable id="errorMessage" type="java.lang.String"--%>
             <c:if test="${errorMessage eq 'invalidLogin' }">
                 <h3>${invalidLogin}</h3>
             </c:if>

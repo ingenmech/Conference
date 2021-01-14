@@ -16,10 +16,8 @@
 <fmt:message bundle="${loc}" key="create.section.holder" var="sectionHolder"/>
 <fmt:message bundle="${loc}" key="create.conference.message" var="message"/>
 <c:set var="page" value="adminCreate" scope="session"/>
-<script type="text/javascript" language="JavaScript"
-        src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script type="text/javascript" language="JavaScript"
-        src="${pageContext.request.contextPath}/static/js/add-btn.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/add-btn.js"></script>
 <section class="column-main">
     <div class="accept">
         <form method="POST" action="${pageContext.request.contextPath}/controller">

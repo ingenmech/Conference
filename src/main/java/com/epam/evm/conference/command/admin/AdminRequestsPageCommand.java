@@ -13,18 +13,22 @@ public class AdminRequestsPageCommand extends AbstractPaginationCommand<Request>
 
     private final static String GO_TO_SENT_REQUESTS = "/WEB-INF/pages/accept-request-page.jsp";
     private final static String REQUEST_LIST = "requestList";
-    private final static int ELEMENTS_NUMBER_ON_PAGE = 13;
-
+    private final static int PAGE_SIZE = 7;
     private final RequestService service;
 
     public AdminRequestsPageCommand(RequestService service) {
-        super(GO_TO_SENT_REQUESTS, REQUEST_LIST, ELEMENTS_NUMBER_ON_PAGE);
+        super(GO_TO_SENT_REQUESTS, REQUEST_LIST, PAGE_SIZE);
         this.service = service;
 
     }
 
     @Override
-    public List<Request> createService(RequestContent content, int offset) throws ServiceException {
-        return service.findAllRequestsWithUsersSectionsConferences(ELEMENTS_NUMBER_ON_PAGE, offset);
+    public List<Request> createService(RequestContent content, int limit, int offset) throws ServiceException {
+        return service.findAllRequestsWithUsersSectionsConferences(limit, offset);
+    }
+
+    @Override
+    public Long countRows() throws ServiceException {
+        return service.countRows();
     }
 }

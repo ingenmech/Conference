@@ -22,11 +22,13 @@
                 <input type="hidden" name="command" value="userCreateQuestion"/>
                 <label for="conference">${chooseConference}</label>
                 <select id="conference" name="conferenceId">
+                    <%--@elvariable id="conferenceList" type="java.util.List"--%>
                     <c:forEach var="conferences" items="${conferenceList}" varStatus="status">
                         <c:set var="isBefore">
                             <ctg:is-before-date dateTime="${conferences.date}"/>
                         </c:set>
                         <c:if test="${ isBefore }">
+                            <%--@elvariable id="selectedConferenceId" type="java.lang.Long"--%>
                             <c:if test="${ not empty selectedConferenceId and selectedConferenceId eq conferences.id}" var="isSelected">
                                 <option selected="selected" value="${conferences.id}">
                                     <cp:parse-local-date pattern="${dateTimeFormat}" dateTime="${conferences.date}"/> -

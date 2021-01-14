@@ -13,8 +13,7 @@
 <fmt:message bundle="${loc}" key="menu.user.question" var="question"/>
 <fmt:message bundle="${loc}" key="question.user.page.question" var="userQuestion"/>
 <fmt:message bundle="${loc}" key="question.page.questions" var="questions"/>
-<script type="text/javascript" language="JavaScript"
-        src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <section>
     <div class="column-menu">
         <div id="buttons">

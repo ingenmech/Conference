@@ -16,12 +16,9 @@
 <fmt:message bundle="${loc}" key="create.section.holder" var="sectionHolder"/>
 <fmt:message bundle="${loc}" key="create.conference.message" var="message"/>
 <fmt:message bundle="${loc}" key="accept.request.remove" var="removeButton"/>
-<script type="text/javascript" language="JavaScript"
-        src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script type="text/javascript" language="JavaScript"
-        src="${pageContext.request.contextPath}/static/js/add-btn-checkbox.js"></script>
-<script type="text/javascript" language="JavaScript"
-        src="${pageContext.request.contextPath}/static/js/checkbox-remove-section.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/add-btn-checkbox.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/checkbox-remove-section.js"></script>
 <c:set var="query" value="${pageContext.request.queryString}"/>
 <c:if test="${query ne 'command=en' and query ne 'command=ru' and query ne 'command=by'}">
     <c:set var="page" value="${query}" scope="session"/>

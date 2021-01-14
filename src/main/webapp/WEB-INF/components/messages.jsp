@@ -12,7 +12,9 @@
 <fmt:message bundle="${loc}" key="message.page.placeholder" var="holder"/>
 <c:set var="page" value="allUsersMessagePage" scope="session"/>
 <section class="column-main">
-    <div class="table">
+    <%--@elvariable id="questionContent" type="java.lang.String"--%>
+        <%--@elvariable id="questionId" type="java.lang.Long"--%>
+        <div class="table">
         <table>
             <tr>
                 <th class="col-15" style="padding:15px 13px"><img
@@ -20,6 +22,7 @@
                         alt="${userQuestion}" style="width: 20px;"></th>
                 <th class="col-85" style="padding:15px 13px">${questionContent}</th>
             </tr>
+            <%--@elvariable id="messagesList" type="java.util.List"--%>
             <c:if test="${not empty messagesList}" var="isEmpty">
                 <c:forEach var="message" items="${messagesList}">
                     <tr>

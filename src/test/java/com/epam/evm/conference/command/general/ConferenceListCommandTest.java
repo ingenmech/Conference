@@ -14,20 +14,14 @@ import static org.mockito.ArgumentMatchers.anyInt;
 
 public class ConferenceListCommandTest extends AbstractPaginationCommandTest {
 
-    private final static String EXPECTED_PAGE = "WEB-INF/pages/list-conference-page.jsp";
-
-    public ConferenceListCommandTest() {
-        super(EXPECTED_PAGE);
-    }
-
-    @Override
-    protected Command createCommand() throws ServiceException {
-        List<Conference> conferences = Arrays.asList(
-                new Conference(null, "name", null, null),
-                new Conference(null, "name", null, null));
-        ConferenceService service = Mockito.mock(ConferenceService.class);
-        Mockito.when(service.findConferencesForPagination(anyInt(), anyInt())).thenReturn(conferences);
-        return new ConferenceListCommand(service);
-
-    }
+//    @Override
+//    protected Command createCommand() throws ServiceException {
+//        List<Conference> conferences = Arrays.asList(
+//                new Conference(null, "name", null, null),
+//                new Conference(null, "name", null, null));
+//        ConferenceService service = Mockito.mock(ConferenceService.class);
+//        Mockito.when(service.findConferencesForPagination(anyInt(), anyInt())).thenReturn(conferences);
+//        return new ConferenceListCommand(service);
+//
+//    }
 }

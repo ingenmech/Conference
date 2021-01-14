@@ -13,16 +13,21 @@ public class AdminQuestionPageCommand extends AbstractPaginationCommand<Question
 
     private final static String ADMIN_QUESTION_PAGE = "/WEB-INF/pages/questions-page.jsp";
     private final static String ADMIN_QUESTION_LIST = "questionsList";
-    private final static int ELEMENTS_LIMIT = 5;
+    private final static int PAGE_SIZE = 7;
     private final QuestionService service;
 
     public AdminQuestionPageCommand(QuestionService service) {
-        super(ADMIN_QUESTION_PAGE, ADMIN_QUESTION_LIST, ELEMENTS_LIMIT);
+        super(ADMIN_QUESTION_PAGE, ADMIN_QUESTION_LIST, PAGE_SIZE);
         this.service=service;
     }
 
     @Override
-    public List<Question> createService(RequestContent content, int offset) throws ServiceException {
-        return service.findAllQuestionWithUserLogin(ELEMENTS_LIMIT, offset);
+    public List<Question> createService(RequestContent content, int limit, int offset) throws ServiceException {
+        return service.findAllQuestionWithUserLogin(limit, offset);
+    }
+
+    @Override
+    public Long countRows() throws ServiceException {
+        return service.countRows();
     }
 }
