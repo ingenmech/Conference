@@ -15,7 +15,7 @@ public class LoginCommand implements Command {
     private final static String LOGIN = "login";
     private final static String PASSWORD = "password";
     private final static String ROLE = "userRole";
-    private final static String MAIN_PAGE = "/controller?command=main";
+    private final static String MAIN_PAGE = "/controller?command=getConferences";
     private final static String LOGIN_PAGE = "/WEB-INF/pages/login-page.jsp";
     private final static String ERROR = "errorMessage";
     private final static String ERROR_MESSAGE = "invalidLogin";

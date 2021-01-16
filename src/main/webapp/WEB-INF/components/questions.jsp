@@ -11,6 +11,7 @@
 <fmt:message bundle="${loc}" key="question.page.question" var="userQuestion"/>
 <fmt:message bundle="${loc}" key="message.empty.message" var="emptyMessage"/>
 <fmt:message bundle="${loc}" key="accept.request.table.conference" var="conference"/>
+<fmt:message bundle="${loc}" key="paging.list.from" var="from"/>
 <c:set var="query" value="${pageContext.request.queryString}"/>
 <c:if test="${query ne 'command=en' and query ne 'command=ru' and query ne 'command=by'}">
     <c:set var="page" value="${query}" scope="session"/>
@@ -66,43 +67,57 @@
         </table>
     </div>
     <c:if test="${sessionScope.userRole eq 'ADMIN'}">
-        <div class="paging">
-                <%--@elvariable id="pageNumber" type="int"--%>
-                <%--@elvariable id="elementNumber" type="int"--%>
-            <form>
-                <input type="hidden" name="command" value="adminQuestionsPage">
-                <input type="hidden" name="pageNumber" value=${pageNumber}>
-                <input type="hidden" name="direction" value="previous">
-                <div class="paging-comp">
-                    <c:if test="${pageNumber > 1}">
-                        <button type="submit" formmethod="GET"
-                                formaction="${pageContext.request.contextPath}/controller" class="paging-button"><
-                        </button>
-                    </c:if>
-                    <c:if test="${pageNumber eq 1}">
-                        <button type="submit" disabled="disabled" class="disable-button"><</button>
-                    </c:if>
+        <%--@elvariable id="pageNumber" type="int"--%>
+        <%--@elvariable id="totalPage" type="int"--%>
+        <%--@elvariable id="pageMessage" type="java.lang.String"--%>
+        <%--@elvariable id="from" type="java.lang.String"--%>
+            <c:if test="${pageNumber > totalPage and elemStatus == 0}" var="isExist">
+                <div class="empty-page-message">
+                <fmt:message bundle="${loc}" key="paging.list.${pageMessage}"/>
                 </div>
-            </form>
-            <div class="page-number">
-                <li>${pageNumber}</li>
+            </c:if>
+        <c:if test="${pageNumber <= totalPage or elemStatus > 0}" var="isExist">
+            <div class="paging">
+                    <%--@elvariable id="pageNumber" type="int"--%>
+                    <%--@elvariable id="elementNumber" type="int"--%>
+                    <%--@elvariable id="totalPage" type="int"--%>
+                <form>
+                    <input type="hidden" name="command" value="adminQuestionsPage">
+                    <input type="hidden" name="pageNumber" value=${pageNumber}>
+                    <input type="hidden" name="direction" value="previous">
+                    <input type="hidden" name="totalPage" value="${totalPage}">
+                    <div class="paging-comp">
+                        <c:if test="${pageNumber > 1}">
+                            <button type="submit" formmethod="GET"
+                                    formaction="${pageContext.request.contextPath}/controller"
+                                    class="paging-button"><
+                            </button>
+                        </c:if>
+                        <c:if test="${pageNumber eq 1}">
+                            <button type="submit" disabled="disabled" class="disable-button"><</button>
+                        </c:if>
+                    </div>
+                </form>
+                <div class="page-number">${pageNumber} ${from} ${totalPage}</div>
+                <form>
+                    <input type="hidden" name="command" value="adminQuestionsPage">
+                    <input type="hidden" name="pageNumber" value=${pageNumber}>
+                    <input type="hidden" name="direction" value="next">
+                    <input type="hidden" name="totalPage" value="${totalPage}">
+                    <div class="paging-comp">
+                        <c:if test="${pageNumber < totalPage}" var="isExist">
+                            <button type="submit" formmethod="GET"
+                                    formaction="${pageContext.request.contextPath}/controller"
+                                    class="paging-button">>
+                            </button>
+                        </c:if>
+
+                        <c:if test="${isExist eq 'false'}">
+                            <button type="submit" disabled="disabled" class="disable-button">></button>
+                        </c:if>
+                    </div>
+                </form>
             </div>
-            <form>
-                <input type="hidden" name="command" value="adminQuestionsPage">
-                <input type="hidden" name="pageNumber" value=${pageNumber}>
-                <input type="hidden" name="direction" value="next">
-                <div class="paging-comp">
-                    <c:set var="elemNumber" value="${elementNumber}"/>
-                    <c:if test="${elemStatus eq elemNumber}" var="isExist">
-                        <button type="submit" formmethod="GET"
-                                formaction="${pageContext.request.contextPath}/controller" class="paging-button">>
-                        </button>
-                    </c:if>
-                    <c:if test="${isExist eq 'false'}">
-                        <button type="submit" disabled="disabled" class="disable-button">></button>
-                    </c:if>
-                </div>
-            </form>
-        </div>
+        </c:if>
     </c:if>
 </section>

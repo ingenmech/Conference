@@ -7,6 +7,9 @@ import com.epam.evm.conference.model.SectionStatus;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.Calendar;
 
 public class RequestRowMapper implements RowMapper<Request> {
 
@@ -20,6 +23,7 @@ public class RequestRowMapper implements RowMapper<Request> {
     private final static String CONFERENCE_NAME = "conference_name";
     private final static String USER_LOGIN = "user_login";
     private final static String SECTION_STATUS = "section_status";
+    private final static String CONFERENCE_DATE = "conference_date";
 
 
     @Override
@@ -37,8 +41,11 @@ public class RequestRowMapper implements RowMapper<Request> {
             String userLogin = resultSet.getString(USER_LOGIN);
             String sectionStatusRow = resultSet.getString(SECTION_STATUS);
             SectionStatus sectionStatus = SectionStatus.valueOf(sectionStatusRow);
+            Timestamp date = resultSet.getTimestamp(CONFERENCE_DATE, Calendar.getInstance());
+            LocalDateTime dateTime = date.toLocalDateTime();
 
-            return new Request(id, sectionId, userId, topic, status, conferenceName, sectionName, userLogin, sectionStatus);
+            return new Request(id, sectionId, userId, topic, status, conferenceName,
+                    sectionName, userLogin, sectionStatus, dateTime);
         } catch (SQLException e) {
             throw new DaoException("Error SectionRowMapper", e);
         }

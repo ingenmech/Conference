@@ -302,9 +302,9 @@ form {
 /**************form-sign-in********************/
 
 .form-signin {
-    width: 70%;
+    width: 40%;
     align-items: center;
-    margin: 4px auto auto auto;
+    margin: 50px auto auto auto;
     background-color: #A2A2A2;
     padding: 20px;
 }
@@ -384,19 +384,16 @@ textarea {
 
 .show-message input[type=image] {
     display: block;
-    padding: 0 5px;
     margin: 0 auto;
 }
-
-.show-message-d input[type=image] {
-    padding: 0 5px;
-    margin: 0 auto;
-}
-
 
 .container input[type=submit]:hover, .show-message input[type=submit]:hover {
     background-color: #FFDD00;
     color: black;
+}
+
+.empty-page-message {
+    margin: 300px 50%;
 }
 
 /********************************************************/
@@ -435,6 +432,11 @@ textarea {
 
 .col-75 {
     width: 75%;
+}
+
+.col-100 {
+    width: 100%;
+    height: 600px;
 }
 
 .empty {

@@ -14,15 +14,19 @@ import java.util.List;
 public class RequestDaoImpl extends AbstractDao<Request> implements RequestDao {
 
     private final static String SELECT_ALL_REQUESTS_WITH_JOIN_PARAMS =
-            "SELECT request.id, request.user_id, request.section_id, request.topic, request.status, section.name AS section_name, section.status AS section_status, user.login AS user_login, conference.name AS conference_name FROM (((request " +
+            "SELECT request.id, request.user_id, request.section_id, request.topic, request.status, " +
+                    "section.name AS section_name, section.status AS section_status, user.login AS user_login," +
+                    " conference.name AS conference_name, conference.date AS conference_date FROM (((request " +
                     "LEFT JOIN user ON request.user_id = user.id) " +
                     "LEFT JOIN section ON request.section_id = section.id) " +
                     "LEFT JOIN conference ON section.conference_id = conference.id) ORDER BY id DESC";
     private final static String SELECT_REQUEST_BY_USER_ID =
-            "SELECT request.id, request.user_id, request.section_id, request.topic, request.status, section.name AS section_name, section.status AS section_status, user.login AS user_login, conference.name AS conference_name FROM (((request " +
-            "LEFT JOIN section ON request.section_id = section.id) " +
-            "LEFT JOIN user ON request.user_id = user.id) " +
-            "LEFT JOIN conference ON section.conference_id = conference.id) WHERE user_id = ?";
+            "SELECT request.id, request.user_id, request.section_id, request.topic, request.status, " +
+                    "section.name AS section_name, section.status AS section_status, user.login AS user_login," +
+                    " conference.name AS conference_name, conference.date AS conference_date FROM (((request " +
+                    "LEFT JOIN section ON request.section_id = section.id) " +
+                    "LEFT JOIN user ON request.user_id = user.id) " +
+                    "LEFT JOIN conference ON section.conference_id = conference.id) WHERE user_id = ?";
 
     private final static String TABLE = "request";
     private final static FieldExtractor<Request> EXTRACTOR = new RequestFieldExtractor();

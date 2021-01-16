@@ -32,7 +32,7 @@ public class ConferenceServiceTest {
 
     private final static String CONFERENCE_NAME = "name";
     private final static String[] SECTION_NAMES = {"name", "name"};
-    private final static LocalDateTime DATE_TIME = LocalDateTime.of(2021,01, 03, 12, 00);
+    private final static LocalDateTime DATE_TIME = LocalDateTime.of(2021,1, 3, 12, 0);
     private final static Conference CONFERENCE = new Conference(null, "name", DATE_TIME);
 
 

@@ -3,6 +3,7 @@ package com.epam.evm.conference.model;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Conference implements Entity {
 
@@ -56,24 +57,19 @@ public class Conference implements Entity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Conference that = (Conference) o;
-
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (date != null ? !date.equals(that.date) : that.date != null) return false;
-        return sections != null ? sections.equals(that.sections) : that.sections == null;
+        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(date, that.date) && Objects.equals(sections, that.sections);
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (date != null ? date.hashCode() : 0);
-        result = 31 * result + (sections != null ? sections.hashCode() : 0);
-        return result;
+        return Objects.hash(id, name, date, sections);
     }
 
     @Override

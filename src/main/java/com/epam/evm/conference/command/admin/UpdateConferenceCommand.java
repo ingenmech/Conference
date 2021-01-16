@@ -45,7 +45,10 @@ public class UpdateConferenceCommand implements Command {
         String conferenceIdRow = content.getParameter(CONFERENCE_ID);
         String[] sectionsIdRow = content.getParameterValues(SECTION_ID);
         String date = content.getParameter(DATE);
+        content.setSessionAttribute("var", date);
         String time = content.getParameter(TIME);
+        content.setSessionAttribute("varTwo", time);
+
         if (!dateUtils.isValidDate(date)) {
             throw new FieldValidationException("Field date does not match format");
         }

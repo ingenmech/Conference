@@ -9,9 +9,6 @@
     <jsp:include page="../components/header.jsp"/>
 </div>
 <div>
-    <jsp:include page="../components/menu.jsp"/>
-</div>
-<div>
     <jsp:include page="../components/login.jsp"/>
 </div>
 <div>

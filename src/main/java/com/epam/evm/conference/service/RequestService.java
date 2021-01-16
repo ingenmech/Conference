@@ -9,6 +9,7 @@ import com.epam.evm.conference.exception.ServiceException;
 import com.epam.evm.conference.model.*;
 import com.epam.evm.conference.validator.FieldUtils;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -125,7 +126,9 @@ public class RequestService {
         String sectionName = section.getName();
         SectionStatus sectionStatus = section.getStatus();
         String userLogin = user.getLogin();
-        return new RequestDto(id, sectionId, userId, topic, status, conferenceName, sectionName, sectionStatus, userLogin);
+        LocalDateTime dateTime = conference.getDate();
+        return new RequestDto(id, sectionId, userId, topic, status,
+                conferenceName, sectionName, userLogin, sectionStatus, dateTime);
     }
 
     public void saveRequest(Long sectionId, Long userId, String topic, RequestStatus status) throws ServiceException {

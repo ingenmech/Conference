@@ -18,10 +18,13 @@
     <div class="column-menu">
         <div id="buttons">
             <ul>
-                <li>
-                    <a class="button-menu" href="${pageContext.request.contextPath}/controller?command=getConferences">
-                        ${list}</a>
-                </li>
+                <c:if test="${sessionScope.userRole eq 'USER' or sessionScope.userRole eq 'ADMIN'}">
+                    <li>
+                        <a class="button-menu"
+                           href="${pageContext.request.contextPath}/controller?command=getConferences">
+                                ${list}</a>
+                    </li>
+                </c:if>
                 <c:if test="${sessionScope.userRole eq 'ADMIN'}">
                     <li>
                         <a class="button-menu"

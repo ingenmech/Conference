@@ -58,8 +58,12 @@ public class Question implements Entity{
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Question question = (Question) o;
         return Objects.equals(id, question.id) && Objects.equals(userId, question.userId) && Objects.equals(conferenceId, question.conferenceId) && Objects.equals(content, question.content) && Objects.equals(userLogin, question.userLogin) && Objects.equals(conferenceName, question.conferenceName);
     }

@@ -45,7 +45,7 @@
                     </c:set>
                     <c:if test="${ not isBefore and sessionScope.userRole eq 'ADMIN'  }">
                         <td style="text-align: center;">
-                            <img src="${pageContext.request.contextPath}/static/img/times-circle-solid.svg"
+                            <img src="${pageContext.request.contextPath}/static/img/archive2.svg"
                                  alt="${sectionStatus}" title="${sectionStatus}" style="width: 20px;">
                         </td>
                     </c:if>
@@ -55,7 +55,7 @@
                                  alt="${sectionStatus}" title="${sectionStatus}" style="width: 20px;">
                         </td>
                         <td style="text-align: center;">
-                            <img src="${pageContext.request.contextPath}/static/img/times-circle-solid.svg"
+                            <img src="${pageContext.request.contextPath}/static/img/archive2.svg"
                                  alt="${sectionStatus}" title="${sectionStatus}" style="width: 20px;">
                         </td>
                     </c:if>
@@ -90,19 +90,17 @@
                                 <div class="show-message">
                                     <input type="image" name="submit" alt="question" title="${question}"
                                            style="width: 25px;"
-                                           src="${pageContext.request.contextPath}/static/img/question-circle-regular.svg"/>
+                                           src="${pageContext.request.contextPath}/static/img/info-circle-solid.svg"/>
                                 </div>
                             </form>
                         </td>
                     </c:if>
-
                     <td>
                         <cp:parse-local-date pattern="${dateTimeFormat}" dateTime="${conference.date}"/>
                     </td>
                     <td>${conference.name}</td>
                     <td>
                         <c:forEach var="section" items="${conference.sections}" varStatus="status">
-
                             <c:if test="${ section.status eq 'ACTUAL'}">
                                 <li>
                                         ${status.count}. ${section.name}
@@ -111,11 +109,10 @@
                             <c:if test="${ section.status eq 'DEPRECATED'}">
                                 <li style="color: dimgray; text-decoration-line: line-through;">
                                         ${status.count}. ${section.name}
-                                    <img src="${pageContext.request.contextPath}/static/img/times-circle-solid.svg"
-                                         alt="${sectionStatus}" title="${sectionStatus}" style="width: 13px;">
+                                    <img src="${pageContext.request.contextPath}/static/img/info-circle-solid.svg"
+                                         alt="${sectionStatus}" title="${sectionStatus}" style="width: 14px;">
                                 </li>
                             </c:if>
-
                         </c:forEach>
                     </td>
                 </tr>
@@ -123,48 +120,55 @@
             </c:forEach>
         </table>
     </div>
-    <div>
-        <c:if test="${pageNumber > totalPage}" var="isExist">
+    <%--@elvariable id="pageNumber" type="int"--%>
+    <%--@elvariable id="totalPage" type="int"--%>
+    <%--@elvariable id="pageMessage" type="java.lang.String"--%>
+    <c:if test="${pageNumber > totalPage and elemStatus == 0}" var="isExist">
+        <div class="empty-page-message">
             <fmt:message bundle="${loc}" key="paging.list.${pageMessage}"/>
-        </c:if>
-    </div>
-    <div class="paging">
-        <%--@elvariable id="pageNumber" type="int"--%>
-        <%--@elvariable id="elementNumber" type="int"--%>
-        <%--@elvariable id="totalPage" type="int"--%>
-        <form>
-            <input type="hidden" name="command" value="getConferences">
-            <input type="hidden" name="pageNumber" value=${pageNumber}>
-            <input type="hidden" name="direction" value="previous">
-            <input type="hidden" name="totalPage" value="${totalPage}">
-            <div class="paging-comp">
-                <c:if test="${pageNumber > 1}">
-                    <button type="submit" formmethod="GET" formaction="${pageContext.request.contextPath}/controller"
-                            class="paging-button"><
-                    </button>
-                </c:if>
-                <c:if test="${pageNumber eq 1}">
-                    <button type="submit" disabled="disabled" class="disable-button"><</button>
-                </c:if>
-            </div>
-        </form>
-        <div class="page-number">${pageNumber} ${from} ${totalPage}</div>
-        <form>
-            <input type="hidden" name="command" value="getConferences">
-            <input type="hidden" name="pageNumber" value=${pageNumber}>
-            <input type="hidden" name="direction" value="next">
-            <input type="hidden" name="totalPage" value="${totalPage}">
-            <div class="paging-comp">
-                <c:if test="${pageNumber < totalPage}" var="isExist">
-                    <button type="submit" formmethod="GET" formaction="${pageContext.request.contextPath}/controller"
-                            class="paging-button">>
-                    </button>
-                </c:if>
+        </div>
+    </c:if>
+    <c:if test="${pageNumber <= totalPage and elemStatus > 0}" var="isExist">
+        <div class="paging">
+                <%--@elvariable id="pageNumber" type="int"--%>
+                <%--@elvariable id="elementNumber" type="int"--%>
+                <%--@elvariable id="totalPage" type="int"--%>
+            <form>
+                <input type="hidden" name="command" value="getConferences">
+                <input type="hidden" name="pageNumber" value=${pageNumber}>
+                <input type="hidden" name="direction" value="previous">
+                <input type="hidden" name="totalPage" value="${totalPage}">
+                <div class="paging-comp">
+                    <c:if test="${pageNumber > 1}">
+                        <button type="submit" formmethod="GET"
+                                formaction="${pageContext.request.contextPath}/controller"
+                                class="paging-button"><
+                        </button>
+                    </c:if>
+                    <c:if test="${pageNumber eq 1}">
+                        <button type="submit" disabled="disabled" class="disable-button"><</button>
+                    </c:if>
+                </div>
+            </form>
+            <div class="page-number">${pageNumber} ${from} ${totalPage}</div>
+            <form>
+                <input type="hidden" name="command" value="getConferences">
+                <input type="hidden" name="pageNumber" value=${pageNumber}>
+                <input type="hidden" name="direction" value="next">
+                <input type="hidden" name="totalPage" value="${totalPage}">
+                <div class="paging-comp">
+                    <c:if test="${pageNumber < totalPage}" var="isExist">
+                        <button type="submit" formmethod="GET"
+                                formaction="${pageContext.request.contextPath}/controller"
+                                class="paging-button">>
+                        </button>
+                    </c:if>
 
-                <c:if test="${isExist eq 'false'}">
-                    <button type="submit" disabled="disabled" class="disable-button">></button>
-                </c:if>
-            </div>
-        </form>
-    </div>
+                    <c:if test="${isExist eq 'false'}">
+                        <button type="submit" disabled="disabled" class="disable-button">></button>
+                    </c:if>
+                </div>
+            </form>
+        </div>
+    </c:if>
 </section>

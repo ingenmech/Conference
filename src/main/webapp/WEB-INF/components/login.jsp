@@ -13,7 +13,7 @@
 <fmt:message bundle="${loc}" key="login.placeholder.login" var="holderLogin"/>
 <fmt:message bundle="${loc}" key="login.placeholder.password" var="holderPassword"/>
 <c:set var="page" value="signIn" scope="session"/>
-<section class="column-main">
+<section class="col-100">
     <div class="form-signin">
         <div class="error">
             <%--@elvariable id="errorMessage" type="java.lang.String"--%>

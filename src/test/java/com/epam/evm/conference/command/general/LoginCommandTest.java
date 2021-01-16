@@ -31,14 +31,13 @@ public class LoginCommandTest {
         UserService service = Mockito.mock(UserService.class);
         User user = new User(null, null, "user", "pass");
         Mockito.when(service.login(anyString(), anyString())).thenReturn(Optional.of(user));
-        String expectedPage = "/controller?command=main";
+        String expectedPage = "/controller?command=getConferences";
         Command command = new LoginCommand(service);
         RequestContent content = crateRequestContent();
         //when
         CommandResult result = command.execute(content);
         String actualPage = result.getPage();
         //then
-        Assert.assertTrue(result.isRedirect());
         Assert.assertEquals(expectedPage, actualPage);
     }
 
@@ -54,7 +53,6 @@ public class LoginCommandTest {
         CommandResult result = command.execute(content);
         String actualPage = result.getPage();
         //then
-        Assert.assertFalse(result.isRedirect());
         Assert.assertEquals(expectedPage, actualPage);
     }
 }

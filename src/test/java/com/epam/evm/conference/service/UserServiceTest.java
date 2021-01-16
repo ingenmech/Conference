@@ -48,6 +48,6 @@ public class UserServiceTest {
         Mockito.when(validator.isValidShortLength(anyString())).thenReturn(false);
         UserService service = new UserService(factory, validator);
         //when
-        Optional<User> userOptional = service.login("admin","pass");
+        service.login("admin","pass");
     }
 }

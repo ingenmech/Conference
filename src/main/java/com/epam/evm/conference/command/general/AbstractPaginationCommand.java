@@ -33,8 +33,6 @@ public abstract class AbstractPaginationCommand<T> implements Command {
 
         String pageNumberRow = content.getParameter(PAGE_NUMBER);
         String direction = content.getParameter(DIRECTION);
-       // String pageSizeRow = content.getParameter(PAGE_SIZE);
-       // int pageSize = Integer.parseInt(pageSizeRow);
         int pageNumber = (pageNumberRow != null) ? Integer.parseInt(pageNumberRow) : 0;
         if (pageNumber < 0 || PREVIOUS.equals(direction) && pageNumber == 1) {
             pageNumber = 0;
@@ -47,7 +45,6 @@ public abstract class AbstractPaginationCommand<T> implements Command {
         if (pageNumber == 0 && pageSize != 0) {
             Long rowsSize = countRows();
             totalPage = (int) ((rowsSize + pageSize - 1) / pageSize);
-            //totalPage = (int) Math.ceiling((double) imagesFound.Length / PageSize);
         } else {
             String totalPageRow = content.getParameter(TOTAL_PAGE);
             totalPage = Integer.parseInt(totalPageRow);

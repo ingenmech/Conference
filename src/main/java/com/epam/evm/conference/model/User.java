@@ -1,5 +1,7 @@
 package com.epam.evm.conference.model;
 
+import java.util.Objects;
+
 public class User implements Entity {
 
     private final Long id;
@@ -34,15 +36,23 @@ public class User implements Entity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
+        if (this == o){
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         User user = (User) o;
-
-        if (id != null ? !id.equals(user.id) : user.id != null) return false;
-        if (role != null ? !role.equals(user.role) : user.role != null) return false;
-        if (login != null ? !login.equals(user.login) : user.login != null) return false;
-        return password != null ? password.equals(user.password) : user.password == null;
+        if (!Objects.equals(id, user.id)) {
+            return false;
+        }
+        if (!Objects.equals(role, user.role)) {
+            return false;
+        }
+        if (!Objects.equals(login, user.login)) {
+            return false;
+        }
+        return Objects.equals(password, user.password);
     }
 
     @Override
