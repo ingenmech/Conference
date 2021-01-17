@@ -36,6 +36,7 @@
             </div>
             <div class="section">
                 <label for="section">${sectionName}</label>
+                <%--@elvariable id="conference" type="com.epam.evm.conference.model.Conference"--%>
                 <c:forEach var="section" items="${conference.sections}" varStatus="status">
                     <div>
                         <input id="id-section" type="hidden" name="sectionId" value="${section.id}">
@@ -57,9 +58,11 @@
                 </c:forEach>
             </div>
             <div>
+                <%--@elvariable id="conferenceDate" type="java.time.LocalDate"--%>
                 <label for="date">${confDate}</label>
                 <input id="date" type="date" name="date" value="${conferenceDate}" required>
                 <label for="time">${confTime}</label>
+                <%--@elvariable id="conferenceTime" type="java.time.LocalTime"--%>
                 <input id="time" type="time" name="time" value="${conferenceTime}" required>
                 <input id="sendConf" type="submit" value="${conferenceUpdate}">
             </div>

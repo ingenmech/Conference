@@ -121,17 +121,17 @@ public class ConferenceService {
         if (!validator.isValidMediumLength(statuses)) {
             throw new FieldValidationException("Field statuses does not match format");
         }
-        Conference conference = new Conference(conferenceId, name, dateTime);
-        List<Section> sections = createSections(conferenceId, sectionsId, sectionNames, statuses);
 
         DaoHelper helper = null;
         try {
             helper = factory.create();
             helper.setAutoCommit(false);
             ConferenceDao conferenceDao = helper.createConferenceDao();
-
             SectionDao sectionDao = helper.createSectionDao();
+
+            Conference conference = new Conference(conferenceId, name, dateTime);
             conferenceDao.save(conference);
+            List<Section> sections = createSections(conferenceId, sectionsId, sectionNames, statuses);
             for (Section section : sections) {
                 sectionDao.save(section);
             }
@@ -173,7 +173,6 @@ public class ConferenceService {
             throw new FieldValidationException("Fields section names does not match format");
         }
         Conference conference = new Conference(null, name, dateTime);
-        List<Section> sections = createSections(sectionNames);
 
         DaoHelper helper = null;
         try {
@@ -187,8 +186,8 @@ public class ConferenceService {
             Long id = conferenceId.get();
 
             SectionDao sectionDao = helper.createSectionDao();
+            List<Section> sections = createSections(id, sectionNames);
             for (Section section : sections) {
-                section.setConferenceId(id);
                 sectionDao.save(section);
             }
             helper.endTransaction();
@@ -206,11 +205,11 @@ public class ConferenceService {
         }
     }
 
-    private List<Section> createSections(String[] sectionNames) {
+    private List<Section> createSections(Long conferenceId, String[] sectionNames) {
 
         List<Section> sections = new ArrayList<>();
         for (String value : sectionNames) {
-            sections.add(new Section(null, null, value, null));
+            sections.add(new Section(null, conferenceId, value, SectionStatus.ACTUAL));
         }
         return sections;
     }

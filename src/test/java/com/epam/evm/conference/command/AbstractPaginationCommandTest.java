@@ -30,8 +30,7 @@ public abstract class AbstractPaginationCommandTest<T> {
 
     @Test
     public void testExecuteShouldSetPageNumberWhenOpenFirstPage() throws ServiceException {
-        //when
-
+        //given
         Command command = createCommand();
         Map<String, String[]> requestParams = new HashMap<>();
         requestParams.put(PAGE_NUMBER, new String[]{null});
@@ -52,8 +51,7 @@ public abstract class AbstractPaginationCommandTest<T> {
 
     @Test
     public void testExecuteShouldSetPageNumberWhenPushNextPage() throws ServiceException {
-        //when
-
+        //given
         Map<String, String[]> requestParams = new HashMap<>();
         requestParams.put(PAGE_NUMBER, new String[]{"1"});
         requestParams.put(DIRECTION, new String[]{"next"});
@@ -75,7 +73,7 @@ public abstract class AbstractPaginationCommandTest<T> {
 
     @Test
     public void testExecuteShouldSetPageNumberWhenPushPreviousPage() throws ServiceException {
-        //when
+        //given
         Command command = createCommand();
         Map<String, String[]> requestParams = new HashMap<>();
         requestParams.put(PAGE_NUMBER, new String[]{"2"});
@@ -96,7 +94,7 @@ public abstract class AbstractPaginationCommandTest<T> {
 
     @Test
     public void testExecuteShouldSetPageNumberWhenOpenPreviousPageOnFirst() throws ServiceException {
-        //when
+        //given
         Command command = createCommand();
         Map<String, String[]> requestParams = new HashMap<>();
         requestParams.put(PAGE_NUMBER, new String[]{"1"});
@@ -117,7 +115,7 @@ public abstract class AbstractPaginationCommandTest<T> {
 
     @Test
     public void testExecuteShouldReturnEmptyPageMessageWhenPageNumberLargerThenTotalPage() throws ServiceException {
-        //when
+        //given
         Command command = createCommand();
         Map<String, String[]> requestParams = new HashMap<>();
         requestParams.put(PAGE_NUMBER, new String[]{"1"});
@@ -138,7 +136,7 @@ public abstract class AbstractPaginationCommandTest<T> {
 
     @Test
     public void testExecuteShouldSetPageNumberWhenPageNumberIsNegativeAndDirectionPrevious() throws ServiceException {
-        //when
+        //given
         Command command = createCommand();
         Map<String, String[]> requestParams = new HashMap<>();
         requestParams.put(PAGE_NUMBER, new String[]{"-1"});
@@ -159,7 +157,7 @@ public abstract class AbstractPaginationCommandTest<T> {
 
     @Test
     public void testExecuteShouldSetPageNumberWhenPageNumberIsNegativeAndDirectionNext() throws ServiceException {
-        //when
+        //given
         Command command = createCommand();
         Map<String, String[]> requestParams = new HashMap<>();
         requestParams.put(PAGE_NUMBER, new String[]{"3"});

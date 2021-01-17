@@ -27,7 +27,7 @@ public class LoginCommandTest {
 
     @Test
     public void testExecuteShouldShowMainPageWhenAuthenticated() throws ServiceException {
-        //when
+        //given
         UserService service = Mockito.mock(UserService.class);
         User user = new User(null, null, "user", "pass");
         Mockito.when(service.login(anyString(), anyString())).thenReturn(Optional.of(user));
