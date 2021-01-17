@@ -17,7 +17,10 @@
 <fmt:message bundle="${loc}" key="section.list.status" var="sectionStatus"/>
 <fmt:message bundle="${loc}" key="request.status.message" var="messageForUser"/>
 <fmt:message bundle="${loc}" key="request.status.second.message" var="secondMessageForUser"/>
-<c:set var="page" value="userSentRequests" scope="session"/>
+<c:set var="query" value="${pageContext.request.queryString}"/>
+<c:if test="${query ne 'command=en' and query ne 'command=ru' and query ne 'command=by'}">
+    <c:set var="page" value="${query}" scope="session"/>
+</c:if>
 <section class="column-main">
     <div class="table">
         <table>

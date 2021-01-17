@@ -3,8 +3,6 @@ $(document).ready(function () {
     var addButton = $('.add-button'); //Add button selector
     var wrapper = $('.section'); //Input field wrapper
     var holder = $("#section").attr('placeholder');
-    var topicField = '<div><input id="section" type="text" name="section" value=""/>' +
-        '<button class="remove-button">-</button></div>'; //New input field html
     var x = 1; //Initial field counter is 1
 
     //Once add button is clicked

@@ -31,7 +31,7 @@ public class LoginCommandTest {
         UserService service = Mockito.mock(UserService.class);
         User user = new User(null, null, "user", "pass");
         Mockito.when(service.login(anyString(), anyString())).thenReturn(Optional.of(user));
-        String expectedPage = "/controller?command=getConferences";
+        String expectedPage = "/controller?command=getConferences&pageSize=6";
         Command command = new LoginCommand(service);
         RequestContent content = crateRequestContent();
         //when

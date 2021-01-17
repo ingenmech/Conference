@@ -15,14 +15,14 @@ public class RequestStatusCommand implements Command {
     private final static String USER_ID = "userId";
     private final static String SECTION_ID = "sectionId";
     private final static String TOPIC = "topic";
+    private final static String CONTROLLER_PART = "/controller?%s";
+    private final static String PAGE = "page";
 
-    private final String page;
     private final RequestStatus status;
     private final RequestService service;
     private final NumberUtils numberUtils;
 
-    public RequestStatusCommand(RequestStatus status,String page, RequestService service, NumberUtils numberUtils) {
-        this.page = page;
+    public RequestStatusCommand(RequestStatus status, RequestService service, NumberUtils numberUtils) {
         this.status = status;
         this.service = service;
         this.numberUtils = numberUtils;
@@ -47,8 +47,10 @@ public class RequestStatusCommand implements Command {
         Long userId = Long.valueOf(userIdRow);
         Long sectionId = Long.valueOf(sectionIdRow);
         String topic = content.getParameter(TOPIC);
-
         service.updateRequestStatus(id, sectionId, userId,  topic, status);
+
+        String command =  (String) content.getSessionAttribute(PAGE);
+        String page = String.format(CONTROLLER_PART, command);
         return CommandResult.redirect(page);
     }
 }

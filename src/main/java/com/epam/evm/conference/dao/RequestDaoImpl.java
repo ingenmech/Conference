@@ -26,8 +26,7 @@ public class RequestDaoImpl extends AbstractDao<Request> implements RequestDao {
                     " conference.name AS conference_name, conference.date AS conference_date FROM (((request " +
                     "LEFT JOIN section ON request.section_id = section.id) " +
                     "LEFT JOIN user ON request.user_id = user.id) " +
-                    "LEFT JOIN conference ON section.conference_id = conference.id) WHERE user_id = ?";
-
+                    "LEFT JOIN conference ON section.conference_id = conference.id) WHERE user_id = ? ORDER BY id DESC";
     private final static String TABLE = "request";
     private final static FieldExtractor<Request> EXTRACTOR = new RequestFieldExtractor();
     private final static RowMapper<Request> MAPPER = new RequestRowMapper();

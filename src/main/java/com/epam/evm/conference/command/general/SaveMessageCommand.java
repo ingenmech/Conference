@@ -8,9 +8,6 @@ import com.epam.evm.conference.service.MessageService;
 import com.epam.evm.conference.validator.NumberUtils;
 import com.epam.evm.conference.web.RequestContent;
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-
 public class SaveMessageCommand implements Command {
 
     private final static String USER_ID = "userId";

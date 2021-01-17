@@ -136,6 +136,7 @@
     <c:if test="${pageNumber <= totalPage or elemStatus > 0}" var="isExist">
         <div class="paging">
                 <%--@elvariable id="pageNumber" type="int"--%>
+                <%--@elvariable id="pageSize" type="int"--%>
                 <%--@elvariable id="elementNumber" type="int"--%>
                 <%--@elvariable id="totalPage" type="int"--%>
             <form>
@@ -143,15 +144,15 @@
                 <input type="hidden" name="pageNumber" value=${pageNumber}>
                 <input type="hidden" name="direction" value="previous">
                 <input type="hidden" name="totalPage" value="${totalPage}">
+                <input type="hidden" name="pageSize" value="${pageSize}">
                 <div class="paging-comp">
                     <c:if test="${pageNumber > 1}">
-                        <button type="submit" formmethod="GET"
-                                formaction="${pageContext.request.contextPath}/controller"
-                                class="paging-button"><
-                        </button>
+                        <input type="image" name="submit" alt="next" style="width: 15px;"
+                               src="${pageContext.request.contextPath}/static/img/chevron-left-solid.svg"/>
                     </c:if>
                     <c:if test="${pageNumber eq 1}">
-                        <button type="submit" disabled="disabled" class="disable-button"><</button>
+                        <input disabled="disabled" type="image" name="submit" alt="next" style="width: 15px;"
+                               src="${pageContext.request.contextPath}/static/img/chevron-left-solid.svg"/>
                     </c:if>
                 </div>
             </form>
@@ -161,16 +162,15 @@
                 <input type="hidden" name="pageNumber" value=${pageNumber}>
                 <input type="hidden" name="direction" value="next">
                 <input type="hidden" name="totalPage" value="${totalPage}">
+                <input type="hidden" name="pageSize" value="${pageSize}">
                 <div class="paging-comp">
                     <c:if test="${pageNumber < totalPage}" var="isExist">
-                        <button type="submit" formmethod="GET"
-                                formaction="${pageContext.request.contextPath}/controller"
-                                class="paging-button">>
-                        </button>
+                        <input type="image" name="submit" alt="next" style="width: 15px;"
+                               src="${pageContext.request.contextPath}/static/img/chevron-right-solid.svg"/>
                     </c:if>
-
-                    <c:if test="${isExist eq 'false'}">
-                        <button type="submit" disabled="disabled" class="disable-button">></button>
+                    <c:if test="${ not isExist }">
+                        <input disabled="disabled" type="image" name="submit" alt="next" style="width: 15px;"
+                               src="${pageContext.request.contextPath}/static/img/chevron-right-solid.svg"/>
                     </c:if>
                 </div>
             </form>

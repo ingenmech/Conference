@@ -21,7 +21,7 @@
                 <c:if test="${sessionScope.userRole eq 'USER' or sessionScope.userRole eq 'ADMIN'}">
                     <li>
                         <a class="button-menu"
-                           href="${pageContext.request.contextPath}/controller?command=getConferences">
+                           href="${pageContext.request.contextPath}/controller?command=getConferences&pageSize=6">
                                 ${list}</a>
                     </li>
                 </c:if>
@@ -32,11 +32,11 @@
                     </li>
                     <li>
                         <a class="button-menu"
-                           href="${pageContext.request.contextPath}/controller?command=adminGoToAcceptRequest">${adminRequests}</a>
+                           href="${pageContext.request.contextPath}/controller?command=adminGoToAcceptRequest&pageSize=6">${adminRequests}</a>
                     </li>
                     <li>
                         <a class="button-menu"
-                           href="${pageContext.request.contextPath}/controller?command=adminQuestionsPage">${questions}</a>
+                           href="${pageContext.request.contextPath}/controller?command=adminQuestionsPage&pageSize=6">${questions}</a>
                     </li>
                 </c:if>
                 <c:if test="${sessionScope.userRole eq 'USER'}">
@@ -54,7 +54,7 @@
                     </li>
                     <li>
                         <a class="button-menu"
-                           href="${pageContext.request.contextPath}/controller?command=userQuestionsPage">${userQuestion}</a>
+                           href="${pageContext.request.contextPath}/controller?command=userQuestionsPage&pageSize=6">${userQuestion}</a>
                     </li>
                 </c:if>
             </ul>

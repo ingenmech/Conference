@@ -20,8 +20,6 @@ public class Servlet extends HttpServlet {
 
     private final static Logger LOGGER = LogManager.getLogger(Servlet.class);
     private final static String COMMAND = "command";
-    private final static String ERROR_MESSAGE = "userErrorMessage";
-    private final static String ERROR_JSP = "/WEB-INF/pages/error.jsp";
     private final static RequestContentHelper CONTENT_HELPER = new RequestContentHelper();
 
     @Override
@@ -54,13 +52,6 @@ public class Servlet extends HttpServlet {
             }
         } catch (ServletException | IOException | ServiceException e) {
             LOGGER.error(e.getMessage(), e);
-//            String errorMessage = e.getMessage();
-//            request.setAttribute(ERROR_MESSAGE, errorMessage);
-//            try {
-//                dispatch(ERROR_JSP, request, response);
-//            } catch (IOException | ServletException c) {
-//                LOGGER.error(c.getMessage(), c);
-//            }
         }
     }
 

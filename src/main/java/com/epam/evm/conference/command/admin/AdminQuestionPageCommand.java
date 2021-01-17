@@ -13,11 +13,10 @@ public class AdminQuestionPageCommand extends AbstractPaginationCommand<Question
 
     private final static String ADMIN_QUESTION_PAGE = "/WEB-INF/pages/questions-page.jsp";
     private final static String ADMIN_QUESTION_LIST = "questionsList";
-    private final static int PAGE_SIZE = 7;
     private final QuestionService service;
 
     public AdminQuestionPageCommand(QuestionService service) {
-        super(ADMIN_QUESTION_PAGE, ADMIN_QUESTION_LIST, PAGE_SIZE);
+        super(ADMIN_QUESTION_PAGE, ADMIN_QUESTION_LIST);
         this.service=service;
     }
 

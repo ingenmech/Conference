@@ -37,7 +37,6 @@ public class CommandFactory {
     private final static String ADMIN_QUESTIONS_PAGE = "adminQuestionsPage";
     private final static String ADMIN_UPDATE_CONFERENCE_PAGE = "adminUpdateConferencePage";
     private final static String ADMIN_UPDATE_CONFERENCE = "adminUpdateConference";
-    private final static String ACCEPT_REQUEST_PAGE_COMMAND = "/controller?command=adminGoToAcceptRequest";
 
     private final static String GO_TO_CREATE_CONFERENCE = "adminCreate";
     private final static String GO_TO_ACCEPT_REQUEST = "adminGoToAcceptRequest";
@@ -46,12 +45,9 @@ public class CommandFactory {
     private final static String USER_CREATE_QUESTION = "userCreateQuestion";
     private final static String USER_SEND_REQUEST = "userSendRequest";
     private final static String USER_REMOVE_REQUEST = "userRemoveRequest";
-    private final static String SENT_REQUESTS_PAGE_COMMAND = "/controller?command=userSentRequests";
     private final static String GO_TO_CREATE_REQUEST = "userCreateRequest";
     private final static String USER_GO_TO_SENT_REQUESTS = "userSentRequests";
     private final static String USER_GO_TO_CREATE_QUESTION = "userCreateQuestionPage";
-    private final static String USER_TAKE_CONFERENCE_FOR_REQUEST_PAGE = "userTakeConferenceForRequestPage";
-    private final static String USER_TAKE_CONFERENCE_FOR_QUESTION_PAGE = "userTakeConferenceForQuestionPage";
 
     private final static DaoHelperFactory DAO_HELPER_FACTORY = new DaoHelperFactory();
     private final static NumberUtils NUMBER_UTILS = new NumberUtils();
@@ -84,7 +80,7 @@ public class CommandFactory {
             case USER_SEND_REQUEST:
                 return new SaveRequestCommand(new RequestService(DAO_HELPER_FACTORY, FIELD_UTILS), NUMBER_UTILS);
             case USER_REMOVE_REQUEST:
-                return new RequestStatusCommand(RequestStatus.DEPRECATED, SENT_REQUESTS_PAGE_COMMAND,
+                return new RequestStatusCommand(RequestStatus.DEPRECATED,
                         new RequestService(DAO_HELPER_FACTORY, FIELD_UTILS), NUMBER_UTILS);
             case USER_QUESTIONS_PAGE:
                 return new UserQuestionPageCommand(new QuestionService(DAO_HELPER_FACTORY, FIELD_UTILS));
@@ -93,10 +89,10 @@ public class CommandFactory {
             case ADMIN_SAVE_CONFERENCE:
                 return new SaveConferenceCommand(new ConferenceService(DAO_HELPER_FACTORY, FIELD_UTILS), DATE_UTILS);
             case ADMIN_ACCEPT_REQUEST:
-                return new RequestStatusCommand(RequestStatus.ACCEPTED, ACCEPT_REQUEST_PAGE_COMMAND,
+                return new RequestStatusCommand(RequestStatus.ACCEPTED,
                         new RequestService(DAO_HELPER_FACTORY, FIELD_UTILS), NUMBER_UTILS);
             case ADMIN_REJECT_REQUEST:
-                return new RequestStatusCommand(RequestStatus.REJECTED, ACCEPT_REQUEST_PAGE_COMMAND,
+                return new RequestStatusCommand(RequestStatus.REJECTED,
                         new RequestService(DAO_HELPER_FACTORY, FIELD_UTILS), NUMBER_UTILS);
             case ADMIN_QUESTIONS_PAGE:
                 return new AdminQuestionPageCommand(new QuestionService(DAO_HELPER_FACTORY, FIELD_UTILS));

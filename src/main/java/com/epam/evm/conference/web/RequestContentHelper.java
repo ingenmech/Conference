@@ -9,10 +9,8 @@ import java.util.Map;
 public class RequestContentHelper {
 
     public RequestContent create(HttpServletRequest request){
-
         Map<String, String[]> requestParameters = request.getParameterMap();
         Map<String, Object> sessionAttributes = createSessionAttributes(request);
-
         return new RequestContent(requestParameters, sessionAttributes);
     }
 
@@ -34,7 +32,6 @@ public class RequestContentHelper {
         for (String key : content.keySetAttribute()) {
             request.setAttribute(key, content.getAttribute(key));
         }
-
         HttpSession session = request.getSession();
         if (!content.isSessionInvalidate()) {
             for (String key : content.keySetSessionAttribute()) {

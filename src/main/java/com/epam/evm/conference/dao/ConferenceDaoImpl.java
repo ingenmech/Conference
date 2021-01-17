@@ -5,11 +5,9 @@ import com.epam.evm.conference.dao.extractor.ConferenceFieldExtractor;
 import com.epam.evm.conference.dao.extractor.FieldExtractor;
 import com.epam.evm.conference.dao.mapper.ConferenceRowMapper;
 import com.epam.evm.conference.dao.mapper.RowMapper;
-import com.epam.evm.conference.exception.DaoException;
 import com.epam.evm.conference.model.Conference;
 
 import java.sql.Connection;
-import java.util.List;
 
 public class ConferenceDaoImpl extends AbstractDao<Conference> implements ConferenceDao {
 

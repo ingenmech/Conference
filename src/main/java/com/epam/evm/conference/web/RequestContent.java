@@ -66,21 +66,29 @@ public class RequestContent {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         RequestContent that = (RequestContent) o;
-
-        if (isSessionInvalidate != that.isSessionInvalidate) return false;
-        if (parameters != null ? !parameters.equals(that.parameters) : that.parameters != null) return false;
-        if (attributes != null ? !attributes.equals(that.attributes) : that.attributes != null) return false;
-        return sessionAttributes != null ? sessionAttributes.equals(that.sessionAttributes) : that.sessionAttributes == null;
+        if (isSessionInvalidate != that.isSessionInvalidate) {
+            return false;
+        }
+        if (!Objects.equals(parameters, that.parameters)) {
+            return false;
+        }
+        if (!Objects.equals(attributes, that.attributes)) {
+            return false;
+        }
+        return Objects.equals(sessionAttributes, that.sessionAttributes);
     }
 
     @Override
     public int hashCode() {
         int result = parameters != null ? parameters.hashCode() : 0;
-        result = 31 * result + (attributes != null ? attributes.hashCode() : 0);
+        result = 31 * result + attributes.hashCode();
         result = 31 * result + (sessionAttributes != null ? sessionAttributes.hashCode() : 0);
         result = 31 * result + (isSessionInvalidate ? 1 : 0);
         return result;
