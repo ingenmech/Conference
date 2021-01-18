@@ -15,11 +15,18 @@
 <fmt:message bundle="${loc}" key="create.conference.holder" var="conferenceHolder"/>
 <fmt:message bundle="${loc}" key="create.section.holder" var="sectionHolder"/>
 <fmt:message bundle="${loc}" key="create.conference.message" var="message"/>
+<fmt:message bundle="${loc}" key="create.conference.warning" var="warningSave"/>
 <c:set var="page" value="adminCreate" scope="session"/>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/add-btn.js"></script>
 <section class="column-main">
     <div class="accept">
+        <div class="error">
+            <%--@elvariable id="warningMessage" type="java.lang.String"--%>
+            <c:if test="${warningMessage eq 'failSave' }">
+                <h3>${warningSave}</h3>
+            </c:if>
+        </div>
         <form method="POST" action="${pageContext.request.contextPath}/controller">
             <input type="hidden" name="command" value="adminSaveConference"/>
             <div>

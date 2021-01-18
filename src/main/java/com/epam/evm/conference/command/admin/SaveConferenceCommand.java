@@ -19,7 +19,7 @@ public class SaveConferenceCommand implements Command {
     private final static String SECTION = "section";
     private final static String DATE = "date";
     private final static String TIME = "time";
-    private final static String CREATE_CONFERENCE_PAGE = "/controller?command=getConferences";
+    private final static String CREATE_CONFERENCE_PAGE = "/controller?command=getConferences&pageSize=6";
 
     private final ConferenceService service;
     private final DateUtils utils;
@@ -48,8 +48,12 @@ public class SaveConferenceCommand implements Command {
         String name = content.getParameter(CONFERENCE);
         String[] sections = content.getParameterValues(SECTION);
 
-        service.saveConferenceWithSection(name, localDateTime, sections);
-
+        try {
+            service.saveConferenceWithSection(name, localDateTime, sections);
+        } catch (ServiceException e) {
+            content.setAttribute("warningMessage", "failSave");
+            return CommandResult.forward("/WEB-INF/pages/create-conference-page.jsp");
+        }
         return CommandResult.redirect(CREATE_CONFERENCE_PAGE);
     }
 }

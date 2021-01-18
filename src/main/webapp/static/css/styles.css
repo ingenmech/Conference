@@ -279,7 +279,7 @@ form {
 /****************send request********************/
 
 .send-request, .create-conference, .accept {
-    width: 70%;
+    width: 60%;
     margin: 4px auto auto auto;
     background-color: #A2A2A2;
     padding: 20px;
@@ -341,7 +341,7 @@ input[type=time], select {
 }
 
 .error {
-    color: #FFDD00;
+    color: #ff0000;
     text-align: center;
     margin-bottom: 15px;
 }
@@ -520,6 +520,10 @@ input:invalid, textarea:invalid {
     }
 
     .table {
+        width: 100%;
+    }
+
+    .send-request, .create-conference, .accept {
         width: 100%;
     }
 }

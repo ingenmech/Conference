@@ -16,12 +16,19 @@
 <fmt:message bundle="${loc}" key="menu.user.question" var="question"/>
 <fmt:message bundle="${loc}" key="section.list.status" var="sectionStatus"/>
 <fmt:message bundle="${loc}" key="paging.list.from" var="from"/>
+<fmt:message bundle="${loc}" key="create.conference.warning" var="warningSave"/>
 <c:set var="query" value="${pageContext.request.queryString}"/>
 <c:if test="${query ne 'command=en' and query ne 'command=ru' and query ne 'command=by'}">
     <c:set var="page" value="${query}" scope="session"/>
 </c:if>
 <c:set var="returnEditPage" value="${page}" scope="session"/>
 <section class="column-main">
+    <div class="error">
+        <%--@elvariable id="warningMessage" type="java.lang.String"--%>
+        <c:if test="${warningMessage eq 'failSave' }">
+            <h3>${warningSave}</h3>
+        </c:if>
+    </div>
     <div class="table">
         <table>
             <tr>

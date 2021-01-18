@@ -45,9 +45,7 @@ public class UpdateConferenceCommand implements Command {
         String conferenceIdRow = content.getParameter(CONFERENCE_ID);
         String[] sectionsIdRow = content.getParameterValues(SECTION_ID);
         String date = content.getParameter(DATE);
-        content.setSessionAttribute("var", date);
         String time = content.getParameter(TIME);
-        content.setSessionAttribute("varTwo", time);
 
         if (!dateUtils.isValidDate(date)) {
             throw new FieldValidationException("Field date does not match format");
@@ -72,7 +70,12 @@ public class UpdateConferenceCommand implements Command {
 
         String command = (String) content.getSessionAttribute(PAGE);
         String page = String.format(CONTROLLER_PART, command);
-        service.updateConferenceWithSection(conferenceId, name, dateTime, sectionsId, sectionNames, sectionStatuses);
+        try {
+            service.updateConferenceWithSection(conferenceId, name, dateTime, sectionsId, sectionNames, sectionStatuses);
+        } catch (ServiceException e) {
+            content.setAttribute("warningMessage", "failSave");
+            return CommandResult.forward(page);
+        }
         return CommandResult.redirect(page);
     }
 

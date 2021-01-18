@@ -137,6 +137,12 @@ public class ConferenceService {
             }
             helper.endTransaction();
         } catch (DaoException e) {
+            LOGGER.error(e.getMessage(), e);
+            try {
+                helper.rollback();
+            } catch (DaoException exception) {
+                LOGGER.error(exception.getMessage(), exception);
+            }
             throw new ServiceException("Save conference error", e);
         } finally {
             if (helper != null) {
@@ -172,16 +178,16 @@ public class ConferenceService {
         if (!validator.isValidMediumLength(sectionNames)) {
             throw new FieldValidationException("Fields section names does not match format");
         }
-        Conference conference = new Conference(null, name, dateTime);
 
         DaoHelper helper = null;
         try {
             helper = factory.create();
             helper.setAutoCommit(false);
             ConferenceDao conferenceDao = helper.createConferenceDao();
+            Conference conference = new Conference(null, name, dateTime);
             Optional<Long> conferenceId = conferenceDao.save(conference);
             if (conferenceId.isEmpty()) {
-                throw new ServiceException("Conference don't save");
+                throw new DaoException("Conference don't save");
             }
             Long id = conferenceId.get();
 
@@ -192,6 +198,12 @@ public class ConferenceService {
             }
             helper.endTransaction();
         } catch (DaoException e) {
+            LOGGER.error(e.getMessage(), e);
+            try {
+                helper.rollback();
+            } catch (DaoException exception) {
+                LOGGER.error(exception.getMessage(), exception);
+            }
             throw new ServiceException("Save conference error", e);
         } finally {
             if (helper != null) {
