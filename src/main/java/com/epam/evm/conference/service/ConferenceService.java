@@ -15,6 +15,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -31,32 +32,15 @@ public class ConferenceService {
         this.validator = validator;
     }
 
-    public Long countRows() throws ServiceException {
+    public Long countActualConferences() throws ServiceException {
 
         try (DaoHelper helper = factory.create()) {
             ConferenceDao conferenceDao = helper.createConferenceDao();
-            return conferenceDao.countRows();
+            ZoneId zoneId = ZoneId.systemDefault();
+            LocalDateTime actualDateTime = LocalDateTime.now(zoneId);
+            return conferenceDao.countActualConference(actualDateTime);
         } catch (DaoException e) {
             throw new ServiceException("Count conference error", e);
-        }
-    }
-
-    public List<Conference> findConferencesForPagination(int limit, int offset) throws ServiceException {
-
-        try (DaoHelper helper = factory.create()) {
-            ConferenceDao conferenceDao = helper.createConferenceDao();
-            SectionDao sectionDao = helper.createSectionDao();
-
-            List<Conference> conferences = conferenceDao.findEntityForPagination(limit, offset);
-            for (Conference conference : conferences) {
-                Long conferenceId = conference.getId();
-                List<Section> sections = sectionDao.findSectionsByConferenceId(conferenceId);
-                initConference(conference, sections);
-            }
-            return conferences;
-
-        } catch (DaoException e) {
-            throw new ServiceException("Find conference by limit error", e);
         }
     }
 
@@ -81,14 +65,34 @@ public class ConferenceService {
         }
     }
 
-    public List<Conference> findAllConferencesWithSections() throws ServiceException {
+    public List<Conference> findActualConferencesForPagination(int limit, int offset) throws ServiceException {
 
         try (DaoHelper helper = factory.create()) {
             ConferenceDao conferenceDao = helper.createConferenceDao();
             SectionDao sectionDao = helper.createSectionDao();
+            ZoneId zoneId = ZoneId.systemDefault();
+            LocalDateTime actualDateTime = LocalDateTime.now(zoneId);
+            List<Conference> conferences = conferenceDao.findActualConferencesForPagination(actualDateTime, limit, offset);
+            List<Section> sections = sectionDao.findActualSections();
+            for (Conference conference : conferences) {
+                initConference(conference, sections);
+            }
+            return conferences;
 
-            List<Conference> conferences = conferenceDao.findAll();
-            List<Section> sections = sectionDao.findAll();
+        } catch (DaoException e) {
+            throw new ServiceException("Find conference error", e);
+        }
+    }
+
+    public List<Conference> findActualConferencesWithSections() throws ServiceException {
+
+        try (DaoHelper helper = factory.create()) {
+            ConferenceDao conferenceDao = helper.createConferenceDao();
+            SectionDao sectionDao = helper.createSectionDao();
+            ZoneId zoneId = ZoneId.systemDefault();
+            LocalDateTime actualDateTime = LocalDateTime.now(zoneId);
+            List<Conference> conferences = conferenceDao.findActualConferences(actualDateTime);
+            List<Section> sections = sectionDao.findActualSections();
             for (Conference conference : conferences) {
                 initConference(conference, sections);
             }

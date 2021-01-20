@@ -8,5 +8,6 @@ import java.util.List;
 public interface SectionDao extends Dao<Section> {
 
     List<Section> findSectionsByConferenceId(Long conferenceId) throws DaoException;
+    List<Section> findActualSections() throws DaoException;
 
 }

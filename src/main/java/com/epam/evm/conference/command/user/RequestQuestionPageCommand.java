@@ -30,7 +30,7 @@ public class RequestQuestionPageCommand implements Command {
         if (conferenceIdRow != null) {
             content.setAttribute(SELECTED_CONFERENCE_ID, conferenceIdRow);
         }
-        List<Conference> conferences = service.findAllConferencesWithSections();
+        List<Conference> conferences = service.findActualConferencesWithSections();
         content.setAttribute(LIST_CONFERENCE, conferences);
         return CommandResult.forward(page);
     }

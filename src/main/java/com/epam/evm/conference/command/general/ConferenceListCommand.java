@@ -21,12 +21,12 @@ public class ConferenceListCommand extends AbstractPaginationCommand<Conference>
 
     @Override
     public List<Conference> createService(RequestContent content,int limit, int offset) throws ServiceException {
-        return service.findConferencesForPagination(limit, offset);
+        return service.findActualConferencesForPagination(limit, offset);
     }
 
     @Override
     public Long countRows() throws ServiceException {
-        return service.countRows();
+        return service.countActualConferences();
     }
 
 }

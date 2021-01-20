@@ -26,11 +26,11 @@
     <div class="table">
         <table>
             <tr>
-                <th>${requestStatus}</th>
-                <th>${conference}</th>
-                <th>${section}</th>
-                <th>${topic}</th>
-                <th>${user}</th>
+                <th class="col-20">${requestStatus}</th>
+                <th class="col-20">${conference}</th>
+                <th class="col-20">${section}</th>
+                <th class="col-20">${topic}</th>
+                <th class="col-10">${user}</th>
                 <th class="col-5"></th>
                 <th class="col-5"></th>
             </tr>

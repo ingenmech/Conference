@@ -60,9 +60,9 @@ public abstract class AbstractDao<T extends Entity> implements Dao<T> {
         return executeQueryCounter(query);
     }
 
-    private Long executeQueryCounter(String query) throws DaoException {
+    protected Long executeQueryCounter(String query, Object... params) throws DaoException {
 
-        try (PreparedStatement statement = createStatement(query)){
+        try (PreparedStatement statement = createStatement(query, params)){
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 return resultSet.getLong(ROWS_NUMBER);

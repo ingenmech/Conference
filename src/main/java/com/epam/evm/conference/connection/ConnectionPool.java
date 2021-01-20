@@ -14,7 +14,7 @@ import java.util.concurrent.locks.ReentrantLock;
 public class ConnectionPool {
 
     private final static int POOL_SIZE = 5;
-    private final static AtomicBoolean INSTANCE_FLAG = new AtomicBoolean();
+    private final static AtomicBoolean CREATED = new AtomicBoolean();
     private final static ReentrantLock INSTANCE_LOCK = new ReentrantLock();
     private final static ReentrantLock CONNECTION_LOCK = new ReentrantLock();
     private final static Semaphore SEMAPHORE = new Semaphore(POOL_SIZE, true);
@@ -33,15 +33,15 @@ public class ConnectionPool {
 
     public static ConnectionPool getInstance() {
 
-        if (!INSTANCE_FLAG.get()) {
+        if (!CREATED.get()) {
             INSTANCE_LOCK.lock();
             ConnectionPool local;
             try {
-                if (!INSTANCE_FLAG.get()) {
+                if (!CREATED.get()) {
                     local = new ConnectionPool();
                     local.init();
                     instance = local;
-                    INSTANCE_FLAG.set(true);
+                    CREATED.set(true);
                 }
             } finally {
                 INSTANCE_LOCK.unlock();

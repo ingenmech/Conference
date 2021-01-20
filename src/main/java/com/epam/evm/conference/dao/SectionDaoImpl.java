@@ -14,8 +14,8 @@ import java.util.List;
 public class SectionDaoImpl extends AbstractDao<Section> implements SectionDao {
 
     private final static String SELECT_ALL = "SELECT * FROM section";
-    private final static String SELECT_SECTIONS_BY_CONFERENCE_ID= "SELECT * FROM section WHERE conference_id = ?";
-
+    private final static String SELECT_SECTIONS_BY_CONFERENCE_ID= "SELECT * FROM section WHERE conference_id = ? AND NOT status='DEPRECATED'";
+    private final static String SELECT_ACTUAL_SECTIONS= "SELECT * FROM section WHERE NOT status='DEPRECATED'";
     private final static String TABLE = "section";
     private final static FieldExtractor<Section> EXTRACTOR = new SectionFieldExtractor();
     private final static RowMapper<Section> MAPPER = new SectionRowMapper();
@@ -28,5 +28,10 @@ public class SectionDaoImpl extends AbstractDao<Section> implements SectionDao {
     @Override
     public List<Section> findSectionsByConferenceId(Long conferenceId) throws DaoException {
         return executeQuery(SELECT_SECTIONS_BY_CONFERENCE_ID, conferenceId);
+    }
+
+    @Override
+    public List<Section> findActualSections() throws DaoException {
+        return executeQuery(SELECT_ACTUAL_SECTIONS);
     }
 }

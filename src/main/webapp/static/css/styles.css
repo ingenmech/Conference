@@ -163,7 +163,7 @@ form {
 
 .table {
     margin: 4px auto auto auto;
-    width: 90%;
+    width: 95%;
 }
 
 .table table {
@@ -177,8 +177,9 @@ form {
 
 .table th, td {
     text-align: left;
-    padding: 10px 10px;
+    padding: 10px 2px;
     border-bottom: 1px solid #ddd;
+    word-wrap: break-word;
 }
 
 .table tr:nth-child(even) {
@@ -491,7 +492,7 @@ input:invalid, textarea:invalid {
 }
 
 /************* For mobile device: ************/
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 950px) {
 
     [class*="column-"] {
         width: 100%;
@@ -524,6 +525,15 @@ input:invalid, textarea:invalid {
     }
 
     .send-request, .create-conference, .accept {
-        width: 100%;
+        width: 90%;
+    }
+
+    .table td, th {
+        font-size: 14px;
+    }
+
+    .page-number {
+        margin: 7px 20px;
+        font-size: 10px;
     }
 }

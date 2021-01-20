@@ -87,6 +87,7 @@ public class RequestService {
         }
     }
 
+    //TODO use join instead to fetch with one call
     private List<RequestDto> createRequestsDtoList(List<Request> requests, SectionDao sectionDao,
                                                    ConferenceDao conferenceDao, UserDao userDao) throws DaoException, ServiceException {
         List<RequestDto> requestsDto = new ArrayList<>();
@@ -133,7 +134,7 @@ public class RequestService {
 
     public void saveRequest(Long sectionId, Long userId, String topic, RequestStatus status) throws ServiceException {
 
-        if (!validator.isValidMediumLength(topic)) {
+        if (!FieldUtils.isValidShortLength(topic, FieldUtils.MID_SIZE)) {
             throw new FieldValidationException("Field topic does not match format");
         }
         Request request = new Request(null, sectionId, userId, topic, status);
