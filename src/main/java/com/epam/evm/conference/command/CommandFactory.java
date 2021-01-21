@@ -6,9 +6,7 @@ import com.epam.evm.conference.command.user.*;
 import com.epam.evm.conference.dao.helper.DaoHelperFactory;
 import com.epam.evm.conference.model.RequestStatus;
 import com.epam.evm.conference.service.*;
-import com.epam.evm.conference.validator.DateUtils;
-import com.epam.evm.conference.validator.FieldUtils;
-import com.epam.evm.conference.validator.NumberUtils;
+import com.epam.evm.conference.utils.NumberUtils;
 
 public class CommandFactory {
 
@@ -50,9 +48,6 @@ public class CommandFactory {
     private final static String USER_GO_TO_CREATE_QUESTION = "userCreateQuestionPage";
 
     private final static DaoHelperFactory DAO_HELPER_FACTORY = new DaoHelperFactory();
-    private final static NumberUtils NUMBER_UTILS = new NumberUtils();
-    private final static DateUtils DATE_UTILS = new DateUtils();
-    private final static FieldUtils FIELD_UTILS = new FieldUtils();
 
     public static Command create(String command) {
 
@@ -64,44 +59,43 @@ public class CommandFactory {
             case GO_TO_CREATE_CONFERENCE:
                 return new PageForwarderCommand(CRATE_CONFERENCE_PAGE);
             case SHOW_CONFERENCE:
-                return new ConferenceListCommand(new ConferenceService(DAO_HELPER_FACTORY, FIELD_UTILS));
+                return new ConferenceListCommand(new ConferenceService(DAO_HELPER_FACTORY));
             case GO_TO_CREATE_REQUEST:
-                return new RequestQuestionPageCommand(CREATE_REQUEST_PAGE, new ConferenceService(DAO_HELPER_FACTORY, FIELD_UTILS));
+                return new RequestQuestionPageCommand(CREATE_REQUEST_PAGE, new ConferenceService(DAO_HELPER_FACTORY));
             case GO_TO_ACCEPT_REQUEST:
-                return new AdminRequestsPageCommand(new RequestService(DAO_HELPER_FACTORY, FIELD_UTILS));
+                return new AdminRequestsPageCommand(new RequestService(DAO_HELPER_FACTORY));
             case ALL_USERS_ADD_MESSAGE:
-                return new SaveMessageCommand(new MessageService(DAO_HELPER_FACTORY, FIELD_UTILS), NUMBER_UTILS);
+                return new SaveMessageCommand(new MessageService(DAO_HELPER_FACTORY));
             case ALL_USERS_MESSAGE_PAGE:
-                return new MessagePageCommand(new MessageService(DAO_HELPER_FACTORY, FIELD_UTILS));
+                return new MessagePageCommand(new MessageService(DAO_HELPER_FACTORY));
             case USER_GO_TO_SENT_REQUESTS:
-                return new UserRequestsPageCommand(new RequestService(DAO_HELPER_FACTORY, FIELD_UTILS));
+                return new UserRequestsPageCommand(new RequestService(DAO_HELPER_FACTORY));
             case USER_GO_TO_CREATE_QUESTION:
-                return new RequestQuestionPageCommand(CREATE_QUESTION_PAGE, new ConferenceService(DAO_HELPER_FACTORY, FIELD_UTILS));
+                return new RequestQuestionPageCommand(CREATE_QUESTION_PAGE, new ConferenceService(DAO_HELPER_FACTORY));
             case USER_SEND_REQUEST:
-                return new SaveRequestCommand(new RequestService(DAO_HELPER_FACTORY, FIELD_UTILS), NUMBER_UTILS);
+                return new SaveRequestCommand(new RequestService(DAO_HELPER_FACTORY));
             case USER_REMOVE_REQUEST:
-                return new RequestStatusCommand(RequestStatus.DEPRECATED,
-                        new RequestService(DAO_HELPER_FACTORY, FIELD_UTILS), NUMBER_UTILS);
+                return new RequestStatusCommand(RequestStatus.DEPRECATED, new RequestService(DAO_HELPER_FACTORY));
             case USER_QUESTIONS_PAGE:
-                return new UserQuestionPageCommand(new QuestionService(DAO_HELPER_FACTORY, FIELD_UTILS));
+                return new UserQuestionPageCommand(new QuestionService(DAO_HELPER_FACTORY));
             case USER_CREATE_QUESTION:
-                return new SaveQuestionCommand(new QuestionService(DAO_HELPER_FACTORY, FIELD_UTILS), NUMBER_UTILS);
+                return new SaveQuestionCommand(new QuestionService(DAO_HELPER_FACTORY));
             case ADMIN_SAVE_CONFERENCE:
-                return new SaveConferenceCommand(new ConferenceService(DAO_HELPER_FACTORY, FIELD_UTILS), DATE_UTILS);
+                return new SaveConferenceCommand(new ConferenceService(DAO_HELPER_FACTORY));
             case ADMIN_ACCEPT_REQUEST:
                 return new RequestStatusCommand(RequestStatus.ACCEPTED,
-                        new RequestService(DAO_HELPER_FACTORY, FIELD_UTILS), NUMBER_UTILS);
+                        new RequestService(DAO_HELPER_FACTORY));
             case ADMIN_REJECT_REQUEST:
                 return new RequestStatusCommand(RequestStatus.REJECTED,
-                        new RequestService(DAO_HELPER_FACTORY, FIELD_UTILS), NUMBER_UTILS);
+                        new RequestService(DAO_HELPER_FACTORY));
             case ADMIN_QUESTIONS_PAGE:
-                return new AdminQuestionPageCommand(new QuestionService(DAO_HELPER_FACTORY, FIELD_UTILS));
+                return new AdminQuestionPageCommand(new QuestionService(DAO_HELPER_FACTORY));
             case ADMIN_UPDATE_CONFERENCE_PAGE:
-                return new UpdateConferencePageCommand(new ConferenceService(DAO_HELPER_FACTORY, FIELD_UTILS), NUMBER_UTILS);
+                return new UpdateConferencePageCommand(new ConferenceService(DAO_HELPER_FACTORY));
             case ADMIN_UPDATE_CONFERENCE:
-                return new UpdateConferenceCommand(new ConferenceService(DAO_HELPER_FACTORY, FIELD_UTILS), DATE_UTILS, NUMBER_UTILS);
+                return new UpdateConferenceCommand(new ConferenceService(DAO_HELPER_FACTORY));
             case LOGIN:
-                return new LoginCommand(new UserService(DAO_HELPER_FACTORY, FIELD_UTILS));
+                return new LoginCommand(new UserService(DAO_HELPER_FACTORY));
             case LOGOUT:
                 return new LogoutCommand();
             case LOCALE_ENG:

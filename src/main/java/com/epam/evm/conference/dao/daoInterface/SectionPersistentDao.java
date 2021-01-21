@@ -5,7 +5,7 @@ import com.epam.evm.conference.model.Section;
 
 import java.util.List;
 
-public interface SectionDao extends Dao<Section> {
+public interface SectionPersistentDao extends PersistentDao<Section> {
 
     List<Section> findSectionsByConferenceId(Long conferenceId) throws DaoException;
     List<Section> findActualSections() throws DaoException;

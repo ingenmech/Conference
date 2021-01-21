@@ -1,14 +1,14 @@
-package com.epam.evm.conference.validator;
+package com.epam.evm.conference.utils;
 
 public class NumberUtils {
 
     private final static String NUMBER_PATTERN = "^\\d*$";
 
-    public boolean isValidDigit(String field) {
+    public static boolean isValidDigit(String field) {
         return field != null && field.matches(NUMBER_PATTERN);
     }
 
-    public boolean isValidDigit(String[] fields) {
+    public static boolean isValidDigit(String[] fields) {
         if (fields == null) {
             return false;
         }

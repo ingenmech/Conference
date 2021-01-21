@@ -6,7 +6,7 @@ import com.epam.evm.conference.exception.FieldValidationException;
 import com.epam.evm.conference.exception.ServiceException;
 import com.epam.evm.conference.model.RequestStatus;
 import com.epam.evm.conference.service.RequestService;
-import com.epam.evm.conference.validator.NumberUtils;
+import com.epam.evm.conference.utils.NumberUtils;
 import com.epam.evm.conference.web.RequestContent;
 
 public class RequestStatusCommand implements Command {
@@ -20,12 +20,10 @@ public class RequestStatusCommand implements Command {
 
     private final RequestStatus status;
     private final RequestService service;
-    private final NumberUtils numberUtils;
 
-    public RequestStatusCommand(RequestStatus status, RequestService service, NumberUtils numberUtils) {
+    public RequestStatusCommand(RequestStatus status, RequestService service) {
         this.status = status;
         this.service = service;
-        this.numberUtils = numberUtils;
     }
 
     @Override
@@ -34,13 +32,13 @@ public class RequestStatusCommand implements Command {
         String idRow = content.getParameter(REQUEST_ID);
         String userIdRow = content.getParameter(USER_ID);
         String sectionIdRow = content.getParameter(SECTION_ID);
-        if(!numberUtils.isValidDigit(idRow)){
+        if(!NumberUtils.isValidDigit(idRow)){
             throw new FieldValidationException("Field request id does not match format");
         }
-        if(!numberUtils.isValidDigit(userIdRow)){
+        if(!NumberUtils.isValidDigit(userIdRow)){
             throw new FieldValidationException("Field user id does not match format");
         }
-        if(!numberUtils.isValidDigit(sectionIdRow)){
+        if(!NumberUtils.isValidDigit(sectionIdRow)){
             throw new FieldValidationException("Field section id does not match format");
         }
         Long id = Long.valueOf(idRow);

@@ -5,8 +5,8 @@ import com.epam.evm.conference.command.CommandResult;
 import com.epam.evm.conference.exception.FieldValidationException;
 import com.epam.evm.conference.exception.ServiceException;
 import com.epam.evm.conference.service.ConferenceService;
-import com.epam.evm.conference.validator.DateUtils;
-import com.epam.evm.conference.validator.NumberUtils;
+import com.epam.evm.conference.utils.DateUtils;
+import com.epam.evm.conference.utils.NumberUtils;
 import com.epam.evm.conference.web.RequestContent;
 
 import java.time.LocalDate;
@@ -30,13 +30,9 @@ public class UpdateConferenceCommand implements Command {
     private final static String PAGE = "returnEditPage";
 
     private final ConferenceService service;
-    private final DateUtils dateUtils;
-    private final NumberUtils numberUtils;
 
-    public UpdateConferenceCommand(ConferenceService service, DateUtils dateUtils, NumberUtils numberUtils) {
+    public UpdateConferenceCommand(ConferenceService service) {
         this.service = service;
-        this.dateUtils = dateUtils;
-        this.numberUtils = numberUtils;
     }
 
     @Override
@@ -47,16 +43,16 @@ public class UpdateConferenceCommand implements Command {
         String date = content.getParameter(DATE);
         String time = content.getParameter(TIME);
 
-        if (!dateUtils.isValidDate(date)) {
+        if (!DateUtils.isValidDate(date)) {
             throw new FieldValidationException("Field date does not match format");
         }
-        if (!dateUtils.isValidTime(time)) {
+        if (!DateUtils.isValidTime(time)) {
             throw new FieldValidationException("Field time does not match format");
         }
-        if (!numberUtils.isValidDigit(conferenceIdRow)) {
+        if (!NumberUtils.isValidDigit(conferenceIdRow)) {
             throw new FieldValidationException("Conference id does not digit");
         }
-        if (!numberUtils.isValidDigit(sectionsIdRow)) {
+        if (!NumberUtils.isValidDigit(sectionsIdRow)) {
             throw new FieldValidationException("Section id does not digit");
         }
         Long conferenceId = Long.parseLong(conferenceIdRow);

@@ -6,7 +6,7 @@ import com.epam.evm.conference.exception.FieldValidationException;
 import com.epam.evm.conference.exception.ServiceException;
 import com.epam.evm.conference.model.RequestStatus;
 import com.epam.evm.conference.service.RequestService;
-import com.epam.evm.conference.validator.NumberUtils;
+import com.epam.evm.conference.utils.NumberUtils;
 import com.epam.evm.conference.web.RequestContent;
 
 public class SaveRequestCommand implements Command {
@@ -18,11 +18,9 @@ public class SaveRequestCommand implements Command {
     private final static String GO_TO_SENT_REQUESTS = "/controller?command=userSentRequests";
 
     private final RequestService service;
-    private final NumberUtils validator;
 
-    public SaveRequestCommand(RequestService service, NumberUtils validator) {
+    public SaveRequestCommand(RequestService service) {
         this.service = service;
-        this.validator = validator;
     }
 
     @Override
@@ -30,10 +28,10 @@ public class SaveRequestCommand implements Command {
 
         String rowSectionId = content.getParameter(SECTION_ID);
         Object rowUserId = content.getSessionAttribute(USER_ID);
-        if(!validator.isValidDigit(rowUserId.toString())){
+        if(!NumberUtils.isValidDigit(rowUserId.toString())){
             throw new FieldValidationException("Field user id does not match format");
         }
-        if(!validator.isValidDigit(rowSectionId)){
+        if(!NumberUtils.isValidDigit(rowSectionId)){
             throw new FieldValidationException("Field section id does not match format");
         }
         Long sectionId = Long.valueOf(rowSectionId);

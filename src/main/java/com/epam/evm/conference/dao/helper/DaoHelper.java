@@ -5,39 +5,54 @@ import com.epam.evm.conference.connection.ProxyConnection;
 import com.epam.evm.conference.dao.*;
 import com.epam.evm.conference.dao.daoInterface.*;
 import com.epam.evm.conference.exception.DaoException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.SQLException;
 
 public class DaoHelper implements AutoCloseable {
 
+    private final static Logger LOGGER = LogManager.getLogger(DaoHelper.class);
     private final ProxyConnection connection;
 
     public DaoHelper(ConnectionPool pool) {
         this.connection = pool.getConnection();
     }
 
-    public UserDao createUserDao() {
-        return new UserDaoImpl(connection);
+    public UserPersistentDao createUserPersistentDao() {
+        return new UserPersistentDaoImpl(connection);
     }
 
-    public ConferenceDao createConferenceDao() {
-        return new ConferenceDaoImpl(connection);
+    public ConferencePersistentDao createConferencePersistentDao() {
+        return new ConferencePersistentDaoImpl(connection);
     }
 
-    public SectionDao createSectionDao() {
-        return new SectionDaoImpl(connection);
+    public SectionPersistentDao createSectionPersistentDao() {
+        return new SectionPersistentDaoImpl(connection);
     }
 
-    public RequestDao createTopicDao() {
-        return new RequestDaoImpl(connection);
+    public RequestPersistentDao createRequestPersistentDao() {
+        return new RequestPersistentDaoImpl(connection);
     }
 
-    public MessageDao createMessageDao() {
-        return new MessageDaoImpl(connection);
+    public RequestDtoDao createRequestDtoDao() {
+        return new RequestDtoDaoImpl(connection);
     }
 
-    public QuestionDao createQuestionDao() {
-        return new QuestionDaoImpl(connection);
+    public MessagePersistentDao createMessagePersistentDao() {
+        return new MessagePersistentDaoImpl(connection);
+    }
+
+    public MessageDtoDao createMessageDtoDao() {
+        return new MessageDtoDaoImpl(connection);
+    }
+
+    public QuestionPersistentDao createQuestionPersistentDao() {
+        return new QuestionPersistentDaoImpl(connection);
+    }
+
+    public QuestionDtoDao createQuestionDtoDao() {
+        return new QuestionDtoDaoImpl(connection);
     }
 
     @Override
@@ -47,27 +62,17 @@ public class DaoHelper implements AutoCloseable {
 
     public void startTransaction() throws DaoException {
         try {
-            connection.setAutoCommit(true);
+            connection.setAutoCommit(false);
         } catch (SQLException e) {
             throw new DaoException("Transaction error", e);
         }
     }
 
-    //TODO remove
-    public void setAutoCommit(boolean autoCommit) throws DaoException {
-        try {
-            connection.setAutoCommit(autoCommit);
-        } catch (SQLException e) {
-            throw new DaoException("Transaction error", e);
-        }
-    }
-
-    public void rollback() throws DaoException {
+    public void rollback() {
         try {
             connection.rollback();
         } catch (SQLException e) {
-            //TODO not throw, just log here
-            throw new DaoException("Rollback error", e);
+            LOGGER.error("Rollback error", e);
         }
     }
 
@@ -80,7 +85,7 @@ public class DaoHelper implements AutoCloseable {
             try {
                 connection.setAutoCommit(true);
             } catch (SQLException throwables) {
-                throwables.printStackTrace();
+                LOGGER.error("Rollback error", throwables);
             }
         }
     }

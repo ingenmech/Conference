@@ -4,12 +4,13 @@ import com.epam.evm.conference.command.Command;
 import com.epam.evm.conference.command.general.AbstractPaginationCommand;
 import com.epam.evm.conference.exception.ServiceException;
 import com.epam.evm.conference.model.Request;
+import com.epam.evm.conference.model.RequestDto;
 import com.epam.evm.conference.service.RequestService;
 import com.epam.evm.conference.web.RequestContent;
 
 import java.util.List;
 
-public class AdminRequestsPageCommand extends AbstractPaginationCommand<Request> implements Command {
+public class AdminRequestsPageCommand extends AbstractPaginationCommand<RequestDto> implements Command {
 
     private final static String GO_TO_SENT_REQUESTS = "/WEB-INF/pages/accept-request-page.jsp";
     private final static String REQUEST_LIST = "requestList";
@@ -22,7 +23,7 @@ public class AdminRequestsPageCommand extends AbstractPaginationCommand<Request>
     }
 
     @Override
-    public List<Request> createService(RequestContent content, int limit, int offset) throws ServiceException {
+    public List<RequestDto> createService(RequestContent content, int limit, int offset) throws ServiceException {
         return service.findAllRequestsWithUsersSectionsConferences(limit, offset);
     }
 

@@ -1,7 +1,7 @@
 package com.epam.evm.conference.service;
 
-import com.epam.evm.conference.dao.daoInterface.ConferenceDao;
-import com.epam.evm.conference.dao.daoInterface.SectionDao;
+import com.epam.evm.conference.dao.daoInterface.ConferencePersistentDao;
+import com.epam.evm.conference.dao.daoInterface.SectionPersistentDao;
 import com.epam.evm.conference.dao.helper.DaoHelper;
 import com.epam.evm.conference.dao.helper.DaoHelperFactory;
 import com.epam.evm.conference.exception.DaoException;
@@ -10,7 +10,7 @@ import com.epam.evm.conference.exception.ServiceException;
 import com.epam.evm.conference.model.Conference;
 import com.epam.evm.conference.model.Section;
 import com.epam.evm.conference.model.SectionStatus;
-import com.epam.evm.conference.validator.FieldUtils;
+import com.epam.evm.conference.utils.FieldUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -25,17 +25,15 @@ public class ConferenceService {
     private final static Logger LOGGER = LogManager.getLogger(ConferenceService.class);
 
     private final DaoHelperFactory factory;
-    private final FieldUtils validator;
 
-    public ConferenceService(DaoHelperFactory factory, FieldUtils validator) {
+    public ConferenceService(DaoHelperFactory factory) {
         this.factory = factory;
-        this.validator = validator;
     }
 
     public Long countActualConferences() throws ServiceException {
 
         try (DaoHelper helper = factory.create()) {
-            ConferenceDao conferenceDao = helper.createConferenceDao();
+            ConferencePersistentDao conferenceDao = helper.createConferencePersistentDao();
             ZoneId zoneId = ZoneId.systemDefault();
             LocalDateTime actualDateTime = LocalDateTime.now(zoneId);
             return conferenceDao.countActualConference(actualDateTime);
@@ -47,8 +45,8 @@ public class ConferenceService {
     public Conference findConferencesWithSectionsById(Long id) throws ServiceException {
 
         try (DaoHelper helper = factory.create()) {
-            ConferenceDao conferenceDao = helper.createConferenceDao();
-            SectionDao sectionDao = helper.createSectionDao();
+            ConferencePersistentDao conferenceDao = helper.createConferencePersistentDao();
+            SectionPersistentDao sectionDao = helper.createSectionPersistentDao();
 
             Optional<Conference> conferenceOptional = conferenceDao.findById(id);
             if (conferenceOptional.isEmpty()) {
@@ -68,8 +66,8 @@ public class ConferenceService {
     public List<Conference> findActualConferencesForPagination(int limit, int offset) throws ServiceException {
 
         try (DaoHelper helper = factory.create()) {
-            ConferenceDao conferenceDao = helper.createConferenceDao();
-            SectionDao sectionDao = helper.createSectionDao();
+            ConferencePersistentDao conferenceDao = helper.createConferencePersistentDao();
+            SectionPersistentDao sectionDao = helper.createSectionPersistentDao();
             ZoneId zoneId = ZoneId.systemDefault();
             LocalDateTime actualDateTime = LocalDateTime.now(zoneId);
             List<Conference> conferences = conferenceDao.findActualConferencesForPagination(actualDateTime, limit, offset);
@@ -87,8 +85,8 @@ public class ConferenceService {
     public List<Conference> findActualConferencesWithSections() throws ServiceException {
 
         try (DaoHelper helper = factory.create()) {
-            ConferenceDao conferenceDao = helper.createConferenceDao();
-            SectionDao sectionDao = helper.createSectionDao();
+            ConferencePersistentDao conferenceDao = helper.createConferencePersistentDao();
+            SectionPersistentDao sectionDao = helper.createSectionPersistentDao();
             ZoneId zoneId = ZoneId.systemDefault();
             LocalDateTime actualDateTime = LocalDateTime.now(zoneId);
             List<Conference> conferences = conferenceDao.findActualConferences(actualDateTime);
@@ -116,22 +114,22 @@ public class ConferenceService {
 
     public void updateConferenceWithSection(Long conferenceId, String name, LocalDateTime dateTime, List<Long> sectionsId,
                                             String[] sectionNames, String[] statuses) throws ServiceException {
-        if (!validator.isValidMediumLength(name)) {
+        if (!FieldUtils.isValidLength(name, FieldUtils.MID_SIZE)) {
             throw new FieldValidationException("Field conference name does not match format");
         }
-        if (!validator.isValidMediumLength(sectionNames)) {
+        if (!FieldUtils.isValidArrayElementsLength(sectionNames, FieldUtils.MID_SIZE)) {
             throw new FieldValidationException("Field section names does not match format");
         }
-        if (!validator.isValidMediumLength(statuses)) {
+        if (!FieldUtils.isValidArrayElementsLength(statuses, FieldUtils.SHORT_SIZE)) {
             throw new FieldValidationException("Field statuses does not match format");
         }
 
         DaoHelper helper = null;
         try {
             helper = factory.create();
-            helper.setAutoCommit(false);
-            ConferenceDao conferenceDao = helper.createConferenceDao();
-            SectionDao sectionDao = helper.createSectionDao();
+            helper.startTransaction();
+            ConferencePersistentDao conferenceDao = helper.createConferencePersistentDao();
+            SectionPersistentDao sectionDao = helper.createSectionPersistentDao();
 
             Conference conference = new Conference(conferenceId, name, dateTime);
             conferenceDao.save(conference);
@@ -141,17 +139,12 @@ public class ConferenceService {
             }
             helper.endTransaction();
         } catch (DaoException e) {
-            LOGGER.error(e.getMessage(), e);
-            try {
-                helper.rollback();
-            } catch (DaoException exception) {
-                LOGGER.error(exception.getMessage(), exception);
-            }
+            helper.rollback();
             throw new ServiceException("Save conference error", e);
         } finally {
             if (helper != null) {
                 try {
-                    helper.setAutoCommit(true);
+                    helper.endTransaction();
                     helper.close();
                 } catch (DaoException e) {
                     LOGGER.error(e.getMessage(), e);
@@ -176,18 +169,18 @@ public class ConferenceService {
 
     public void saveConferenceWithSection(String name, LocalDateTime dateTime, String[] sectionNames) throws ServiceException {
 
-        if (!validator.isValidMediumLength(name)) {
+        if (!FieldUtils.isValidLength(name, FieldUtils.MID_SIZE)) {
             throw new FieldValidationException("Field conference name does not match format");
         }
-        if (!validator.isValidMediumLength(sectionNames)) {
+        if (!FieldUtils.isValidArrayElementsLength(sectionNames, FieldUtils.MID_SIZE)) {
             throw new FieldValidationException("Fields section names does not match format");
         }
 
         DaoHelper helper = null;
         try {
             helper = factory.create();
-            helper.setAutoCommit(false);
-            ConferenceDao conferenceDao = helper.createConferenceDao();
+            helper.startTransaction();
+            ConferencePersistentDao conferenceDao = helper.createConferencePersistentDao();
             Conference conference = new Conference(null, name, dateTime);
             Optional<Long> conferenceId = conferenceDao.save(conference);
             if (conferenceId.isEmpty()) {
@@ -195,24 +188,19 @@ public class ConferenceService {
             }
             Long id = conferenceId.get();
 
-            SectionDao sectionDao = helper.createSectionDao();
+            SectionPersistentDao sectionDao = helper.createSectionPersistentDao();
             List<Section> sections = createSections(id, sectionNames);
             for (Section section : sections) {
                 sectionDao.save(section);
             }
             helper.endTransaction();
         } catch (DaoException e) {
-            LOGGER.error(e.getMessage(), e);
-            try {
-                helper.rollback();
-            } catch (DaoException exception) {
-                LOGGER.error(exception.getMessage(), exception);
-            }
+            helper.rollback();
             throw new ServiceException("Save conference error", e);
         } finally {
             if (helper != null) {
                 try {
-                    helper.setAutoCommit(true);
+                    helper.endTransaction();
                     helper.close();
                 } catch (DaoException e) {
                     LOGGER.error(e.getMessage(), e);

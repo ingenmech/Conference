@@ -6,7 +6,7 @@ import com.epam.evm.conference.exception.FieldValidationException;
 import com.epam.evm.conference.exception.ServiceException;
 import com.epam.evm.conference.model.Conference;
 import com.epam.evm.conference.service.ConferenceService;
-import com.epam.evm.conference.validator.NumberUtils;
+import com.epam.evm.conference.utils.NumberUtils;
 import com.epam.evm.conference.web.RequestContent;
 
 import java.time.LocalDate;
@@ -23,18 +23,16 @@ public class UpdateConferencePageCommand implements Command {
     private final static String CONFERENCE_ID = "conferenceId";
 
     private final ConferenceService service;
-    private final NumberUtils numberUtils;
 
-    public UpdateConferencePageCommand(ConferenceService service, NumberUtils numberUtils) {
+    public UpdateConferencePageCommand(ConferenceService service) {
         this.service = service;
-        this.numberUtils = numberUtils;
     }
 
     @Override
     public CommandResult execute(RequestContent content) throws ServiceException {
 
         String conferenceIdRow = content.getParameter(CONFERENCE_ID);
-        if (!numberUtils.isValidDigit(conferenceIdRow)) {
+        if (!NumberUtils.isValidDigit(conferenceIdRow)) {
             throw new FieldValidationException("Field does not match format");
         }
 

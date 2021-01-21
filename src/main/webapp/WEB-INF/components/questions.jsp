@@ -33,7 +33,7 @@
                 </c:if>
             </tr>
             <%--@elvariable id="questionsList" type="java.util.List"--%>
-            <c:if test="${not empty questionsList}">
+            <c:if test="${not empty questionsList}" var="isEmpty">
                 <c:forEach var="question" items="${questionsList}" varStatus="status">
                     <tr>
                         <c:if test="${sessionScope.userRole eq 'ADMIN'}">
@@ -58,7 +58,7 @@
                 </c:forEach>
             </c:if>
             <%--@elvariable id="isEmpty" type="boolean"--%>
-            <c:if test="${isEmpty eq 'false'}">
+            <c:if test="${not isEmpty}">
                 <tr>
                     <td></td>
                     <td>${emptyMessage}</td>

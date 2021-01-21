@@ -1,17 +1,15 @@
 package com.epam.evm.conference.dao;
 
-import com.epam.evm.conference.dao.daoInterface.RequestDao;
-import com.epam.evm.conference.dao.extractor.FieldExtractor;
-import com.epam.evm.conference.dao.extractor.RequestFieldExtractor;
+import com.epam.evm.conference.dao.daoInterface.RequestDtoDao;
+import com.epam.evm.conference.dao.mapper.RequestDtoRowMapper;
 import com.epam.evm.conference.dao.mapper.RowMapper;
-import com.epam.evm.conference.dao.mapper.RequestRowMapper;
 import com.epam.evm.conference.exception.DaoException;
-import com.epam.evm.conference.model.Request;
+import com.epam.evm.conference.model.RequestDto;
 
 import java.sql.Connection;
 import java.util.List;
 
-public class RequestDaoImpl extends AbstractDao<Request> implements RequestDao {
+public class RequestDtoDaoImpl extends AbstractDao<RequestDto> implements RequestDtoDao {
 
     private final static String SELECT_ALL_REQUESTS_WITH_JOIN_PARAMS =
             "SELECT request.id, request.user_id, request.section_id, request.topic, request.status, " +
@@ -28,15 +26,14 @@ public class RequestDaoImpl extends AbstractDao<Request> implements RequestDao {
                     "LEFT JOIN user ON request.user_id = user.id) " +
                     "LEFT JOIN conference ON section.conference_id = conference.id) WHERE user_id = ? ORDER BY id DESC";
     private final static String TABLE = "request";
-    private final static FieldExtractor<Request> EXTRACTOR = new RequestFieldExtractor();
-    private final static RowMapper<Request> MAPPER = new RequestRowMapper();
+    private final static RowMapper<RequestDto> MAPPER = new RequestDtoRowMapper();
 
-    public RequestDaoImpl(Connection connection) {
-        super(connection, MAPPER, EXTRACTOR, TABLE, SELECT_ALL_REQUESTS_WITH_JOIN_PARAMS);
+    public RequestDtoDaoImpl(Connection connection) {
+        super(connection, MAPPER, TABLE, SELECT_ALL_REQUESTS_WITH_JOIN_PARAMS);
     }
 
     @Override
-    public List<Request> findAllRequestsByUserId(Long userId) throws DaoException {
+    public List<RequestDto> findAllRequestsByUserId(Long userId) throws DaoException {
         return executeQuery(SELECT_REQUEST_BY_USER_ID, userId);
     }
 }

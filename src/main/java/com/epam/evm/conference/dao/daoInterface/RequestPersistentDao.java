@@ -5,7 +5,7 @@ import com.epam.evm.conference.model.Request;
 
 import java.util.List;
 
-public interface RequestDao extends Dao<Request>{
+public interface RequestPersistentDao extends PersistentDao<Request>{
 
     List<Request> findAllRequestsByUserId(Long userId) throws DaoException;
     //List<Request> findAllRequestsWithParams() throws DaoException;

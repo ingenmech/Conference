@@ -13,7 +13,7 @@ $(document).ready(function () {
             var topicField = '<div><input id="section" type="text" name="section" placeholder="' + holder + '" required/>' +
                 '<button class="remove-button">-</button>' +
                 '<input class="w3-check" type="hidden" name="status" value="ACTUAL">' +
-                '<img src="/Conference/static/img/no-image.svg" style="width: 74px;"></div>'
+                '<img src="/Conference/static/img/no-image.svg" style="width: 56px;"></div>'
             $(wrapper).append(topicField); //Add field html
         }
     });

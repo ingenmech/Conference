@@ -1,27 +1,5 @@
 package com.epam.evm.conference.service;
 
-import com.epam.evm.conference.dao.daoInterface.ConferenceDao;
-import com.epam.evm.conference.dao.daoInterface.SectionDao;
-import com.epam.evm.conference.dao.helper.DaoHelper;
-import com.epam.evm.conference.dao.helper.DaoHelperFactory;
-import com.epam.evm.conference.exception.DaoException;
-import com.epam.evm.conference.exception.ServiceException;
-import com.epam.evm.conference.model.Conference;
-import com.epam.evm.conference.model.Section;
-import com.epam.evm.conference.model.SectionStatus;
-import com.epam.evm.conference.validator.FieldUtils;
-import org.junit.Assert;
-import org.junit.Test;
-import org.mockito.Mockito;
-
-import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.*;
-
 public class ConferenceServiceTest {
 
 //    private final static Section SECTION = new Section(null, Long.valueOf("1"), "name", SectionStatus.ACTUAL);

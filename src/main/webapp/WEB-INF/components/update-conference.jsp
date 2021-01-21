@@ -47,13 +47,17 @@
                             <button type="button" class="add-button">+</button>
                         </c:if>
                         <c:if test="${ section.status ne 'DEPRECATED'}">
-                            <input class="w3-check" type="checkbox" name="status" value="DEPRECATED">
+                            <input type="checkbox" id="${status.count}" class='chk-btn' name="status" value="DEPRECATED"/>
+                            <label for="${status.count}">
+                                <img src="${pageContext.request.contextPath}/static/img/trash-alt-regular.svg"
+                                     alt="${removeButton}" title="${removeButton}" style="width: 20px;">
+                            </label>
+<%--                            <input class="w3-check" type="checkbox" name="status" value="DEPRECATED">--%>
                         </c:if>
-                        <c:if test="${ section.status eq 'DEPRECATED'}">
-                            <input class="w3-check" type="checkbox" name="status" value="DEPRECATED" checked>
-                        </c:if>
-                        <img src="${pageContext.request.contextPath}/static/img/trash-alt-regular.svg"
-                             alt="${removeButton}" title="${removeButton}" style="width: 20px;">
+<%--                        <c:if test="${ section.status eq 'DEPRECATED'}">--%>
+<%--                            <input class="w3-check" type="checkbox" name="status" value="DEPRECATED" checked>--%>
+<%--                        </c:if>--%>
+
                     </div>
                 </c:forEach>
             </div>

@@ -1,6 +1,6 @@
 package com.epam.evm.conference.dao;
 
-import com.epam.evm.conference.dao.daoInterface.ConferenceDao;
+import com.epam.evm.conference.dao.daoInterface.ConferencePersistentDao;
 import com.epam.evm.conference.dao.extractor.ConferenceFieldExtractor;
 import com.epam.evm.conference.dao.extractor.FieldExtractor;
 import com.epam.evm.conference.dao.mapper.ConferenceRowMapper;
@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-public class ConferenceDaoImpl extends AbstractDao<Conference> implements ConferenceDao {
+public class ConferencePersistentDaoImpl extends AbstractPersistentDao<Conference> implements ConferencePersistentDao {
 
     private final static String SELECT_ALL = "SELECT * FROM conference ORDER BY date DESC";
     private final static String SELECT_ACTUAL_CONFERENCES = "SELECT * FROM conference WHERE date > ? ORDER BY date";
@@ -22,7 +22,7 @@ public class ConferenceDaoImpl extends AbstractDao<Conference> implements Confer
     private final static FieldExtractor<Conference> EXTRACTOR = new ConferenceFieldExtractor();
     private final static RowMapper<Conference> MAPPER = new ConferenceRowMapper();
 
-    public ConferenceDaoImpl(Connection connection) {
+    public ConferencePersistentDaoImpl(Connection connection) {
         super(connection, MAPPER, EXTRACTOR, TABLE, SELECT_ALL);
     }
 

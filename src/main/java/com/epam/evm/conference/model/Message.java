@@ -1,5 +1,6 @@
 package com.epam.evm.conference.model;
 
+
 import java.util.Objects;
 
 public class Message implements Entity {
@@ -9,21 +10,11 @@ public class Message implements Entity {
     private final Long userId;
     private final String content;
 
-    private String userLogin;
-
     public Message(Long id, Long questionId, Long userId, String content) {
         this.id = id;
         this.questionId = questionId;
         this.userId = userId;
         this.content = content;
-    }
-
-    public Message(Long id, Long questionId, Long userId, String content, String userLogin) {
-        this.id = id;
-        this.questionId = questionId;
-        this.userId = userId;
-        this.content = content;
-        this.userLogin = userLogin;
     }
 
     public Long getQuestionId() {
@@ -38,14 +29,6 @@ public class Message implements Entity {
         return content;
     }
 
-    public String getUserLogin() {
-        return userLogin;
-    }
-
-    public void setUserLogin(String userLogin) {
-        this.userLogin = userLogin;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -55,12 +38,12 @@ public class Message implements Entity {
             return false;
         }
         Message message = (Message) o;
-        return Objects.equals(id, message.id) && Objects.equals(questionId, message.questionId) && Objects.equals(userId, message.userId) && Objects.equals(content, message.content) && Objects.equals(userLogin, message.userLogin);
+        return Objects.equals(id, message.id) && Objects.equals(questionId, message.questionId) && Objects.equals(userId, message.userId) && Objects.equals(content, message.content);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, questionId, userId, content, userLogin);
+        return Objects.hash(id, questionId, userId, content);
     }
 
     @Override
@@ -70,7 +53,6 @@ public class Message implements Entity {
                 ", questionId=" + questionId +
                 ", userId=" + userId +
                 ", content='" + content + '\'' +
-                ", userLogin='" + userLogin + '\'' +
                 '}';
     }
 

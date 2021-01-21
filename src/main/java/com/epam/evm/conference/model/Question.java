@@ -9,23 +9,11 @@ public class Question implements Entity{
     private final Long conferenceId;
     private final String content;
 
-    private String userLogin;
-    private String conferenceName;
-
     public Question(Long id, Long userId, Long conferenceId, String content) {
         this.id = id;
         this.userId = userId;
         this.conferenceId = conferenceId;
         this.content = content;
-    }
-
-    public Question(Long id, Long userId, Long conferenceId, String content, String userLogin, String conferenceName) {
-        this.id = id;
-        this.userId = userId;
-        this.conferenceId = conferenceId;
-        this.content = content;
-        this.userLogin = userLogin;
-        this.conferenceName = conferenceName;
     }
 
     public Long getUserId() {
@@ -40,22 +28,6 @@ public class Question implements Entity{
         return conferenceId;
     }
 
-    public String getUserLogin() {
-        return userLogin;
-    }
-
-    public void setUserLogin(String userLogin) {
-        this.userLogin = userLogin;
-    }
-
-    public String getConferenceName() {
-        return conferenceName;
-    }
-
-    public void setConferenceName(String conferenceName) {
-        this.conferenceName = conferenceName;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -65,12 +37,12 @@ public class Question implements Entity{
             return false;
         }
         Question question = (Question) o;
-        return Objects.equals(id, question.id) && Objects.equals(userId, question.userId) && Objects.equals(conferenceId, question.conferenceId) && Objects.equals(content, question.content) && Objects.equals(userLogin, question.userLogin) && Objects.equals(conferenceName, question.conferenceName);
+        return Objects.equals(id, question.id) && Objects.equals(userId, question.userId) && Objects.equals(conferenceId, question.conferenceId) && Objects.equals(content, question.content);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, userId, conferenceId, content, userLogin, conferenceName);
+        return Objects.hash(id, userId, conferenceId, content);
     }
 
     @Override
@@ -80,8 +52,6 @@ public class Question implements Entity{
                 ", userId=" + userId +
                 ", conferenceId=" + conferenceId +
                 ", content='" + content + '\'' +
-                ", userLogin='" + userLogin + '\'' +
-                ", conferenceName='" + conferenceName + '\'' +
                 '}';
     }
 

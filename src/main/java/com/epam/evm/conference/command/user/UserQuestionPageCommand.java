@@ -4,6 +4,7 @@ import com.epam.evm.conference.command.Command;
 import com.epam.evm.conference.command.CommandResult;
 import com.epam.evm.conference.exception.ServiceException;
 import com.epam.evm.conference.model.Question;
+import com.epam.evm.conference.model.QuestionDto;
 import com.epam.evm.conference.service.QuestionService;
 import com.epam.evm.conference.web.RequestContent;
 
@@ -25,7 +26,7 @@ public class UserQuestionPageCommand implements Command {
     public CommandResult execute(RequestContent content) throws ServiceException {
 
         Long userId = (Long) content.getSessionAttribute(USER_ID);
-        List<Question> questions =service.findQuestionsByUserId(userId);
+        List<QuestionDto> questions =service.findQuestionsByUserId(userId);
         content.setAttribute(USER_QUESTION_LIST, questions);
         return CommandResult.forward(ADMIN_QUESTION_PAGE);
     }

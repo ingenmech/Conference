@@ -1,4 +1,4 @@
-package com.epam.evm.conference.validator;
+package com.epam.evm.conference.utils;
 
 import org.junit.Assert;
 import org.junit.Test;

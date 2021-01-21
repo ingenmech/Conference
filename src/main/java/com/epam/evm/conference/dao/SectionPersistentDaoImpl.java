@@ -1,6 +1,6 @@
 package com.epam.evm.conference.dao;
 
-import com.epam.evm.conference.dao.daoInterface.SectionDao;
+import com.epam.evm.conference.dao.daoInterface.SectionPersistentDao;
 import com.epam.evm.conference.dao.extractor.FieldExtractor;
 import com.epam.evm.conference.dao.extractor.SectionFieldExtractor;
 import com.epam.evm.conference.dao.mapper.RowMapper;
@@ -11,7 +11,7 @@ import com.epam.evm.conference.model.Section;
 import java.sql.Connection;
 import java.util.List;
 
-public class SectionDaoImpl extends AbstractDao<Section> implements SectionDao {
+public class SectionPersistentDaoImpl extends AbstractPersistentDao<Section> implements SectionPersistentDao {
 
     private final static String SELECT_ALL = "SELECT * FROM section";
     private final static String SELECT_SECTIONS_BY_CONFERENCE_ID= "SELECT * FROM section WHERE conference_id = ? AND NOT status='DEPRECATED'";
@@ -20,7 +20,7 @@ public class SectionDaoImpl extends AbstractDao<Section> implements SectionDao {
     private final static FieldExtractor<Section> EXTRACTOR = new SectionFieldExtractor();
     private final static RowMapper<Section> MAPPER = new SectionRowMapper();
 
-    public SectionDaoImpl(Connection connection) {
+    public SectionPersistentDaoImpl(Connection connection) {
         super(connection, MAPPER, EXTRACTOR,TABLE, SELECT_ALL);
     }
 

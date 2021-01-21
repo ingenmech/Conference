@@ -3,7 +3,7 @@ package com.epam.evm.conference.command.user;
 import com.epam.evm.conference.command.Command;
 import com.epam.evm.conference.command.CommandResult;
 import com.epam.evm.conference.exception.ServiceException;
-import com.epam.evm.conference.model.Request;
+import com.epam.evm.conference.model.RequestDto;
 import com.epam.evm.conference.service.RequestService;
 import com.epam.evm.conference.web.RequestContent;
 
@@ -25,7 +25,7 @@ public class UserRequestsPageCommand implements Command {
     public CommandResult execute(RequestContent content) throws ServiceException {
 
         Long userId = (Long)content.getSessionAttribute(USER_ID);
-        List<Request> requests = service.findAllRequestsByUserId(userId);
+        List<RequestDto> requests = service.findAllRequestsByUserId(userId);
         content.setAttribute(REQUEST_LIST, requests);
         return CommandResult.forward(GO_TO_SENT_REQUESTS);
     }

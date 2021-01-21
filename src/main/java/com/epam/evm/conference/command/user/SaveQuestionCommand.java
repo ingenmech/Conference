@@ -5,7 +5,7 @@ import com.epam.evm.conference.command.CommandResult;
 import com.epam.evm.conference.exception.FieldValidationException;
 import com.epam.evm.conference.exception.ServiceException;
 import com.epam.evm.conference.service.QuestionService;
-import com.epam.evm.conference.validator.NumberUtils;
+import com.epam.evm.conference.utils.NumberUtils;
 import com.epam.evm.conference.web.RequestContent;
 
 public class SaveQuestionCommand implements Command {
@@ -16,11 +16,9 @@ public class SaveQuestionCommand implements Command {
     private final static String CONTENT = "content";
 
     private final QuestionService service;
-    private final NumberUtils validator;
 
-    public SaveQuestionCommand(QuestionService service, NumberUtils validator) {
+    public SaveQuestionCommand(QuestionService service) {
         this.service = service;
-        this.validator = validator;
     }
 
     @Override
@@ -28,10 +26,10 @@ public class SaveQuestionCommand implements Command {
 
         Object userIdRow = requestContent.getSessionAttribute(USER_ID);
         String conferenceIdRow = requestContent.getParameter(CONFERENCE_ID);
-        if (!validator.isValidDigit(userIdRow.toString())) {
+        if (!NumberUtils.isValidDigit(userIdRow.toString())) {
             throw new FieldValidationException("Field user id does not match format");
         }
-        if (!validator.isValidDigit(conferenceIdRow)) {
+        if (!NumberUtils.isValidDigit(conferenceIdRow)) {
             throw new FieldValidationException("Field conference id does not match format");
         }
         Long conferenceId = Long.parseLong(conferenceIdRow);

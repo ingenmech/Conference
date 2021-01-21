@@ -3,7 +3,7 @@ package com.epam.evm.conference.command.general;
 import com.epam.evm.conference.command.Command;
 import com.epam.evm.conference.command.CommandResult;
 import com.epam.evm.conference.exception.ServiceException;
-import com.epam.evm.conference.model.Message;
+import com.epam.evm.conference.model.MessageDto;
 import com.epam.evm.conference.service.MessageService;
 import com.epam.evm.conference.web.RequestContent;
 
@@ -31,7 +31,7 @@ public class MessagePageCommand implements Command {
         content.setAttribute(QUESTION_CONTENT, questionContent);
         content.setAttribute(QUESTION_ID, questionId);
 
-        List<Message> messages = service.findMessagesByQuestionId(questionId);
+        List<MessageDto> messages = service.findMessagesByQuestionId(questionId);
         content.setAttribute(MESSAGES_LIST, messages);
         return CommandResult.forward(SEND_MASSAGES_PAGE);
     }

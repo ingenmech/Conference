@@ -5,7 +5,7 @@ import com.epam.evm.conference.command.CommandResult;
 import com.epam.evm.conference.exception.FieldValidationException;
 import com.epam.evm.conference.exception.ServiceException;
 import com.epam.evm.conference.service.ConferenceService;
-import com.epam.evm.conference.validator.DateUtils;
+import com.epam.evm.conference.utils.DateUtils;
 import com.epam.evm.conference.web.RequestContent;
 
 import java.time.LocalDate;
@@ -22,11 +22,9 @@ public class SaveConferenceCommand implements Command {
     private final static String CREATE_CONFERENCE_PAGE = "/controller?command=getConferences&pageSize=6";
 
     private final ConferenceService service;
-    private final DateUtils utils;
 
-    public SaveConferenceCommand(ConferenceService service, DateUtils utils) {
+    public SaveConferenceCommand(ConferenceService service) {
         this.service = service;
-        this.utils = utils;
     }
 
     @Override
@@ -34,10 +32,10 @@ public class SaveConferenceCommand implements Command {
 
         String date = content.getParameter(DATE);
         String time = content.getParameter(TIME);
-        if (!utils.isValidDate(date)) {
+        if (!DateUtils.isValidDate(date)) {
             throw new FieldValidationException("Field date does not match format");
         }
-        if (!utils.isValidTime(time)) {
+        if (!DateUtils.isValidTime(time)) {
             throw new FieldValidationException("Field time does not match format");
         }
         DateTimeFormatter dateFormatter = DateTimeFormatter.ISO_LOCAL_DATE;

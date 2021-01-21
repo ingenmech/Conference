@@ -5,7 +5,7 @@ import com.epam.evm.conference.command.CommandResult;
 import com.epam.evm.conference.exception.FieldValidationException;
 import com.epam.evm.conference.exception.ServiceException;
 import com.epam.evm.conference.service.MessageService;
-import com.epam.evm.conference.validator.NumberUtils;
+import com.epam.evm.conference.utils.NumberUtils;
 import com.epam.evm.conference.web.RequestContent;
 
 public class SaveMessageCommand implements Command {
@@ -17,11 +17,9 @@ public class SaveMessageCommand implements Command {
     private final static String ALL_USERS_MESSAGE_PAGE = "/controller?command=allUsersMessagePage";
 
     private final MessageService service;
-    private final NumberUtils utils;
 
-    public SaveMessageCommand(MessageService service, NumberUtils utils) {
+    public SaveMessageCommand(MessageService service) {
         this.service = service;
-        this.utils = utils;
     }
 
     @Override
@@ -29,10 +27,10 @@ public class SaveMessageCommand implements Command {
 
         Object userIdRow = requestContent.getSessionAttribute(USER_ID);
         String questionIdRow = requestContent.getParameter(QUESTION_ID);
-        if(!utils.isValidDigit(userIdRow.toString())){
+        if(!NumberUtils.isValidDigit(userIdRow.toString())){
             throw new FieldValidationException("Field user id does not match format");
         }
-        if(!utils.isValidDigit(questionIdRow)){
+        if(!NumberUtils.isValidDigit(questionIdRow)){
             throw new FieldValidationException("Field question id does not match format");
         }
         Long userId = (Long) requestContent.getSessionAttribute(USER_ID);

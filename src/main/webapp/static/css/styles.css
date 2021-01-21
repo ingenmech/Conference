@@ -218,14 +218,7 @@ form {
     width: 100%;
 }
 
-.section input[type=checkbox], .section-add input[type=checkbox] {
-    margin: 25px 15px;
-    display: inline-block;
-}
-
-
 /****************app request********************/
-
 
 .dropdown-action {
     float: right;
@@ -490,6 +483,27 @@ input:invalid, textarea:invalid {
     background-color: #FFDD00;
     color: black;
 }
+
+/***************checkbox-btn*********************/
+
+input[type="checkbox"] {
+    display: none;
+}
+input.chk-btn + label {
+    margin: 8px 3px;
+    padding: 10px 12px;
+    cursor: pointer;
+    border-radius: 2px;
+}
+input.chk-btn:not(:checked) + label:hover {
+    box-shadow: 0 1px 3px;
+}
+input.chk-btn + label:active,
+input.chk-btn:checked + label {
+    box-shadow: 0 0 3px inset;
+    background: #FFDD00;
+}
+
 
 /************* For mobile device: ************/
 @media only screen and (max-width: 950px) {

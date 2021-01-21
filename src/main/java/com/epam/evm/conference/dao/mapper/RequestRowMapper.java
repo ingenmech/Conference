@@ -19,11 +19,11 @@ public class RequestRowMapper implements RowMapper<Request> {
     private final static String TOPIC = "topic";
     private final static String STATUS = "status";
 
-    private final static String SECTION_NAME = "section_name";
-    private final static String CONFERENCE_NAME = "conference_name";
-    private final static String USER_LOGIN = "user_login";
-    private final static String SECTION_STATUS = "section_status";
-    private final static String CONFERENCE_DATE = "conference_date";
+//    private final static String SECTION_NAME = "section_name";
+//    private final static String CONFERENCE_NAME = "conference_name";
+//    private final static String USER_LOGIN = "user_login";
+//    private final static String SECTION_STATUS = "section_status";
+//    private final static String CONFERENCE_DATE = "conference_date";
 
 
     @Override
@@ -36,16 +36,15 @@ public class RequestRowMapper implements RowMapper<Request> {
             String statusRow = resultSet.getString(STATUS);
             RequestStatus status = RequestStatus.valueOf(statusRow);
 
-            String sectionName = resultSet.getString(SECTION_NAME);
-            String conferenceName = resultSet.getString(CONFERENCE_NAME);
-            String userLogin = resultSet.getString(USER_LOGIN);
-            String sectionStatusRow = resultSet.getString(SECTION_STATUS);
-            SectionStatus sectionStatus = SectionStatus.valueOf(sectionStatusRow);
-            Timestamp date = resultSet.getTimestamp(CONFERENCE_DATE, Calendar.getInstance());
-            LocalDateTime dateTime = date.toLocalDateTime();
+//            String sectionName = resultSet.getString(SECTION_NAME);
+//            String conferenceName = resultSet.getString(CONFERENCE_NAME);
+//            String userLogin = resultSet.getString(USER_LOGIN);
+//            String sectionStatusRow = resultSet.getString(SECTION_STATUS);
+//            SectionStatus sectionStatus = SectionStatus.valueOf(sectionStatusRow);
+//            Timestamp date = resultSet.getTimestamp(CONFERENCE_DATE, Calendar.getInstance());
+//            LocalDateTime dateTime = date.toLocalDateTime();
 
-            return new Request(id, sectionId, userId, topic, status, conferenceName,
-                    sectionName, userLogin, sectionStatus, dateTime);
+            return new Request(id, sectionId, userId, topic, status);
         } catch (SQLException e) {
             throw new DaoException("Error SectionRowMapper", e);
         }
