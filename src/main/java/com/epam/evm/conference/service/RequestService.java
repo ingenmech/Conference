@@ -9,6 +9,8 @@ import com.epam.evm.conference.exception.ServiceException;
 import com.epam.evm.conference.model.*;
 import com.epam.evm.conference.utils.FieldUtils;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 
 public class RequestService {
@@ -19,11 +21,13 @@ public class RequestService {
         this.factory = factory;
     }
 
-    public List<RequestDto> findAllRequestsWithUsersSectionsConferences(int limit, int offset) throws ServiceException {
+    public List<RequestDto> findActualRequestsWithUsersSectionsConferences(int limit, int offset) throws ServiceException {
 
         try (DaoHelper helper = factory.create()) {
             RequestDtoDao requestDao = helper.createRequestDtoDao();
-            return requestDao.findEntityForPagination(limit, offset);
+            ZoneId zoneId = ZoneId.systemDefault();
+            LocalDateTime actualDateTime = LocalDateTime.now(zoneId);
+            return requestDao.findActualRequests(actualDateTime, limit, offset);
         } catch (DaoException e) {
             throw new ServiceException("Find all users requests error", e);
         }

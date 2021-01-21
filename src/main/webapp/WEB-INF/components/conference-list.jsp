@@ -36,8 +36,8 @@
                     <th class="col-10"></th>
                 </c:if>
                 <c:if test="${ sessionScope.userRole eq 'USER'}">
-                    <th class="col-5"></th>
-                    <th class="col-5"></th>
+                    <th class="col-5-5"></th>
+                    <th class="col-5-5"></th>
                 </c:if>
                 <th class="col-15">${date}</th>
                 <th class="col-35">${conference}</th>
@@ -46,26 +46,7 @@
             <%--@elvariable id="conferenceList" type="java.util.List"--%>
             <c:forEach var="conference" items="${conferenceList}" varStatus="confStatus">
                 <tr>
-                    <c:set var="isBefore">
-                        <ctg:is-before-date dateTime="${conference.date}"/>
-                    </c:set>
-                    <c:if test="${ not isBefore and sessionScope.userRole eq 'ADMIN'  }">
-                        <td style="text-align: center;">
-                            <img src="${pageContext.request.contextPath}/static/img/archive2.svg"
-                                 alt="${sectionStatus}" title="${sectionStatus}" style="width: 20px;">
-                        </td>
-                    </c:if>
-                    <c:if test="${ not isBefore and sessionScope.userRole eq 'USER' }">
-                        <td>
-                            <img src="${pageContext.request.contextPath}/static/img/no-image.svg"
-                                 alt="${sectionStatus}" title="${sectionStatus}" style="width: 20px;">
-                        </td>
-                        <td style="text-align: center;">
-                            <img src="${pageContext.request.contextPath}/static/img/archive2.svg"
-                                 alt="${sectionStatus}" title="${sectionStatus}" style="width: 20px;">
-                        </td>
-                    </c:if>
-                    <c:if test="${ sessionScope.userRole eq 'ADMIN' and isBefore }">
+                    <c:if test="${ sessionScope.userRole eq 'ADMIN'}">
                         <td>
                             <form method="GET" action="${pageContext.request.contextPath}/controller">
                                 <input type="hidden" name="command" value="adminUpdateConferencePage"/>
@@ -77,15 +58,15 @@
                             </form>
                         </td>
                     </c:if>
-                    <c:if test="${ sessionScope.userRole eq 'USER' and isBefore }">
+                    <c:if test="${ sessionScope.userRole eq 'USER'}">
                         <td>
                             <form method="GET" action="${pageContext.request.contextPath}/controller">
                                 <input type="hidden" name="command" value="userCreateRequest"/>
                                 <input type="hidden" name="conferenceId" value="${conference.id}">
                                 <div class="show-message">
                                     <input type="image" name="submit" title="${createRequest}" alt="request"
-                                           style="width: 20px;"
-                                           src="${pageContext.request.contextPath}/static/img/file-alt-regular.svg"/>
+                                           style="width: 25px;"
+                                           src="${pageContext.request.contextPath}/static/img/add-file-32.png"/>
                                 </div>
                             </form>
                         </td>
@@ -107,18 +88,9 @@
                     <td>${conference.name}</td>
                     <td>
                         <c:forEach var="section" items="${conference.sections}" varStatus="status">
-                            <c:if test="${ section.status eq 'ACTUAL'}">
-                                <li>
-                                        ${status.count}. ${section.name}
-                                </li>
-                            </c:if>
-                            <c:if test="${ section.status eq 'DEPRECATED'}">
-                                <li style="color: dimgray; text-decoration-line: line-through;">
-                                        ${status.count}. ${section.name}
-                                    <img src="${pageContext.request.contextPath}/static/img/info-circle-solid.svg"
-                                         alt="${sectionStatus}" title="${sectionStatus}" style="width: 14px;">
-                                </li>
-                            </c:if>
+                            <li>
+                                    ${status.count}. ${section.name}
+                            </li>
                         </c:forEach>
                     </td>
                 </tr>

@@ -399,6 +399,10 @@ textarea {
     width: 3%;
 }
 
+.col-5-5 {
+    width: 5%;
+}
+
 .col-20 {
     width: 20%;
 }

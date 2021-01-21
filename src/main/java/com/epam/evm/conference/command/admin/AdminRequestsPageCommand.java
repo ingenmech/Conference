@@ -3,7 +3,6 @@ package com.epam.evm.conference.command.admin;
 import com.epam.evm.conference.command.Command;
 import com.epam.evm.conference.command.general.AbstractPaginationCommand;
 import com.epam.evm.conference.exception.ServiceException;
-import com.epam.evm.conference.model.Request;
 import com.epam.evm.conference.model.RequestDto;
 import com.epam.evm.conference.service.RequestService;
 import com.epam.evm.conference.web.RequestContent;
@@ -24,7 +23,7 @@ public class AdminRequestsPageCommand extends AbstractPaginationCommand<RequestD
 
     @Override
     public List<RequestDto> createService(RequestContent content, int limit, int offset) throws ServiceException {
-        return service.findAllRequestsWithUsersSectionsConferences(limit, offset);
+        return service.findActualRequestsWithUsersSectionsConferences(limit, offset);
     }
 
     @Override

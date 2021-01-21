@@ -36,11 +36,8 @@
             </tr>
             <%--@elvariable id="requestList" type="java.util.List"--%>
             <c:forEach var="request" items="${requestList}" varStatus="reqStatus">
-                <c:set var="isBefore">
-                    <ctg:is-before-date dateTime="${request.conferenceDate}"/>
-                </c:set>
                 <tr>
-                    <c:if test="${ request.sectionStatus ne 'DEPRECATED' and isBefore }" var="isActual">
+                    <c:if test="${ request.sectionStatus ne 'DEPRECATED' }" var="isActual">
                         <td>
                             <fmt:message bundle="${loc}" key="request.status.${request.status}"/>
                         </td>
@@ -91,29 +88,17 @@
                         </td>
                     </c:if>
                     <c:if test="${ not isActual }">
-                        <c:if test="${ isBefore }">
-                            <td class="deprecated">
-                                    ${sectionStatus}
-                                <img src="${pageContext.request.contextPath}/static/img/info-circle-solid.svg"
-                                     alt="${sectionStatus}" title="${secondMessageForUser}" style="width: 14px;">
-                            </td>
-                        </c:if>
-                        <c:if test="${ not isBefore }">
-                            <td class="deprecated">
-                                <fmt:message bundle="${loc}" key="request.status.${request.status}"/>
-                            </td>
-                        </c:if>
+                        <td class="deprecated">
+                                ${sectionStatus}
+                            <img src="${pageContext.request.contextPath}/static/img/info-circle-solid.svg"
+                                 alt="${sectionStatus}" title="${secondMessageForUser}" style="width: 14px;">
+                        </td>
                         <td class="deprecated">${request.conferenceName}</td>
-                        <c:if test="${ isBefore }">
-                            <td class="deprecated" style="text-decoration-line: line-through;">
-                                    ${request.sectionName}
-                                <img src="${pageContext.request.contextPath}/static/img/info-circle-solid.svg"
-                                     alt="${sectionStatus}" title="${sectionStatus}" style="width: 14px;">
-                            </td>
-                        </c:if>
-                        <c:if test="${ not isBefore }">
-                            <td class="deprecated">${request.sectionName}</td>
-                        </c:if>
+                        <td class="deprecated" style="text-decoration-line: line-through;">
+                                ${request.sectionName}
+                            <img src="${pageContext.request.contextPath}/static/img/info-circle-solid.svg"
+                                 alt="${sectionStatus}" title="${sectionStatus}" style="width: 14px;">
+                        </td>
                         <td class="deprecated">${request.topic}</td>
                         <td class="deprecated">${request.userLogin}</td>
                         <td></td>

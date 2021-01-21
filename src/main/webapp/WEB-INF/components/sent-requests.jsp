@@ -60,7 +60,7 @@
                                 <input type="hidden" name="userId" value="${request.userId}">
                                 <input type="hidden" name="sectionId" value="${request.sectionId}">
                                 <input type="hidden" name="topic" value="${request.topic}">
-                                <c:if test="${ request.status ne 'DEPRECATED'}">
+                                <c:if test="${ request.status ne 'DEPRECATED' and request.status ne 'REJECTED'}">
                                     <div class="show-message">
                                         <input type="image" name="submit" alt="messages" style="width: 30px;"
                                                src="${pageContext.request.contextPath}/static/img/times-circle-regular.svg"/>
