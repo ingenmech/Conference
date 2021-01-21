@@ -3,7 +3,6 @@ package com.epam.evm.conference.command.user;
 import com.epam.evm.conference.command.Command;
 import com.epam.evm.conference.command.CommandResult;
 import com.epam.evm.conference.exception.ServiceException;
-import com.epam.evm.conference.model.Question;
 import com.epam.evm.conference.model.QuestionDto;
 import com.epam.evm.conference.service.QuestionService;
 import com.epam.evm.conference.web.RequestContent;
