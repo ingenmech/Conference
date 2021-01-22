@@ -2,7 +2,6 @@ package com.epam.evm.conference.dao.extractor;
 
 import com.epam.evm.conference.model.Message;
 
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 

@@ -26,7 +26,7 @@
     <div class="table">
         <table>
             <tr>
-                <th class="col-20">${requestStatus}</th>
+                <th class="col-10">${requestStatus}</th>
                 <th class="col-20">${conference}</th>
                 <th class="col-20">${section}</th>
                 <th class="col-20">${topic}</th>

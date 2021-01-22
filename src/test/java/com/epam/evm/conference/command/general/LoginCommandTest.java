@@ -18,41 +18,41 @@ import static org.mockito.ArgumentMatchers.anyString;
 
 public class LoginCommandTest {
 
-//    private static RequestContent crateRequestContent(){
-//        Map<String, String[]> requestParams = new HashMap<>();
-//        requestParams.put("login", new String[]{"user"});
-//        requestParams.put("password", new String[]{"pass"});
-//        return new RequestContent(requestParams, new HashMap<>());
-//    }
-//
-//    @Test
-//    public void testExecuteShouldShowMainPageWhenAuthenticated() throws ServiceException {
-//        //given
-//        UserService service = Mockito.mock(UserService.class);
-//        User user = new User(null, null, "user", "pass");
-//        Mockito.when(service.login(anyString(), anyString())).thenReturn(Optional.of(user));
-//        String expectedPage = "/controller?command=getConferences&pageSize=6";
-//        Command command = new LoginCommand(service);
-//        RequestContent content = crateRequestContent();
-//        //when
-//        CommandResult result = command.execute(content);
-//        String actualPage = result.getPage();
-//        //then
-//        Assert.assertEquals(expectedPage, actualPage);
-//    }
-//
-//    @Test
-//    public void testExecuteShouldShowMainPageWhenInvalidAuthenticated() throws ServiceException {
-//        //given
-//        UserService service = Mockito.mock(UserService.class);
-//        Mockito.when(service.login(anyString(), anyString())).thenReturn(Optional.empty());
-//        String expectedPage = "/WEB-INF/pages/login-page.jsp";
-//        Command command = new LoginCommand(service);
-//        RequestContent content = crateRequestContent();
-//        //when
-//        CommandResult result = command.execute(content);
-//        String actualPage = result.getPage();
-//        //then
-//        Assert.assertEquals(expectedPage, actualPage);
-//    }
+    private static RequestContent crateRequestContent(){
+        Map<String, String[]> requestParams = new HashMap<>();
+        requestParams.put("login", new String[]{"user"});
+        requestParams.put("password", new String[]{"pass"});
+        return new RequestContent(requestParams, new HashMap<>());
+    }
+
+    @Test
+    public void testExecuteShouldShowMainPageWhenAuthenticated() throws ServiceException {
+        //given
+        UserService service = Mockito.mock(UserService.class);
+        User user = new User(null, null, "user", "pass");
+        Mockito.when(service.login(anyString(), anyString())).thenReturn(Optional.of(user));
+        String expectedPage = "/controller?command=getConferences&pageSize=6";
+        Command command = new LoginCommand(service);
+        RequestContent content = crateRequestContent();
+        //when
+        CommandResult result = command.execute(content);
+        String actualPage = result.getPage();
+        //then
+        Assert.assertEquals(expectedPage, actualPage);
+    }
+
+    @Test
+    public void testExecuteShouldShowMainPageWhenInvalidAuthenticated() throws ServiceException {
+        //given
+        UserService service = Mockito.mock(UserService.class);
+        Mockito.when(service.login(anyString(), anyString())).thenReturn(Optional.empty());
+        String expectedPage = "/WEB-INF/pages/login-page.jsp";
+        Command command = new LoginCommand(service);
+        RequestContent content = crateRequestContent();
+        //when
+        CommandResult result = command.execute(content);
+        String actualPage = result.getPage();
+        //then
+        Assert.assertEquals(expectedPage, actualPage);
+    }
 }
