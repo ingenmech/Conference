@@ -29,7 +29,7 @@
                 <th>${conference}</th>
                 <th>${section}</th>
                 <th>${topic}</th>
-                <th class="col-10"></th>
+                <th class="col-5-5"></th>
             </tr>
             <%--@elvariable id="userRequestList" type="java.util.List"--%>
             <c:forEach var="request" items="${userRequestList}">

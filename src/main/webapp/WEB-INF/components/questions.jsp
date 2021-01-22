@@ -21,15 +21,15 @@
         <table>
             <tr>
                 <c:if test="${sessionScope.userRole eq 'ADMIN'}">
-                    <th class="col-10">${user}</th>
+                    <th class="col-20">${user}</th>
                     <th class="col-20">${conference}</th>
                     <th class="col-60">${userQuestion}</th>
-                    <th class="col-10"></th>
+                    <th class="col-5-5"></th>
                 </c:if>
                 <c:if test="${sessionScope.userRole eq 'USER'}">
                     <th class="col-20">${conference}</th>
                     <th class="col-70">${userQuestion}</th>
-                    <th class="col-10"></th>
+                    <th class="col-5-5"></th>
                 </c:if>
             </tr>
             <%--@elvariable id="questionsList" type="java.util.List"--%>
